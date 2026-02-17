@@ -1,0 +1,707 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Student Registration Form"
+  description="Student registration form for Auburn Montessori School - The Children's House."
+  heroTitle="Student Registration Form"
+  heroLead="Fill out the form below, then send it to the school (no backend - it opens your email client)."
+>
+  <div class="section-band">
+    <div class="container-page">
+      <div class="callout callout-info">
+        <div class="callout-title">How to submit</div>
+        <div class="callout-body">
+          When you click <strong>Send via email</strong>, this page will open your email app with a summary of your answers addressed to
+          <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a>. You can also use <strong>Copy summary</strong> or
+          <strong>Print / Save as PDF</strong>.
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-6 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          <form id="registration-form" class="card card-body space-y-6">
+            <div>
+              <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Program highlights</h2>
+              <div class="mt-3 grid gap-3 sm:grid-cols-3">
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Inclusive</div>
+                  <p class="mt-1 text-xs" style="color: var(--color-neutral-600);">
+                    Welcomes families with diverse demographics. Childcare subsidy accepted when applicable.
+                  </p>
+                </div>
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">5 Star Rated</div>
+                  <p class="mt-1 text-xs" style="color: var(--color-neutral-600);">
+                    Rated through Alabama Quality STARS Quality Rating Improvement System.
+                  </p>
+                </div>
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">MACTE Site</div>
+                  <p class="mt-1 text-xs" style="color: var(--color-neutral-600);">
+                    Montessori Accreditation Council for Teacher Education (MACTE) teacher training site.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <fieldset class="space-y-2">
+                <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Expected year of enrollment <span aria-hidden="true">*</span>
+                </legend>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="enrollmentYear" value="August 2026" required />
+                  August 2026
+                </label>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="enrollmentYear" value="August 2027" required />
+                  August 2027
+                </label>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="enrollmentYear" value="August 2028" required />
+                  August 2028
+                </label>
+              </fieldset>
+
+              <fieldset class="space-y-2">
+                <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Program length <span aria-hidden="true">*</span>
+                </legend>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="programLength" value="Part Time: Pre-K 7:15am - 12:00pm" required />
+                  Part Time: Pre-K 7:15am - 12:00pm
+                </label>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="programLength" value="Full Time: Pre-K 7:15am - 5:15pm" required />
+                  Full Time: Pre-K 7:15am - 5:15pm
+                </label>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="programLength" value="K-3rd Grade: 8:00am - 5:30pm" required />
+                  K-3rd Grade: 8:00am - 5:30pm
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <fieldset class="space-y-2" id="meal-plan-part-time">
+                <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Meal plan (Part Time) <span aria-hidden="true">*</span>
+                </legend>
+                <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="mealPlan" value="Part Time - Full meal payment plan: $850/year (due 7-15-26)" required />
+                  <span>Full meal payment plan option: $900/year for $850/year. Due 7-15-26.</span>
+                </label>
+                <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="mealPlan" value="Part Time - Partial meal payment plan: $900/year ($450 due 7-15-26, $450 due 1-15-27)" required />
+                  <span>Partial meal payment plan option: $900/year. $450 due 7-15-26 and $450 due 1-15-27.</span>
+                </label>
+              </fieldset>
+
+              <fieldset class="space-y-2 hidden" id="meal-plan-full-time">
+                <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Meal plan (Full Time / K-3rd) <span aria-hidden="true">*</span>
+                </legend>
+                <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="mealPlanFull" value="Full Time/K-3rd - Full meal payment plan: $1,500/year (due 7-15-26)" />
+                  <span>Full meal payment plan option: $1,600/year for $1,500/year. Due 7-15-26.</span>
+                </label>
+                <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="mealPlanFull" value="Full Time/K-3rd - Partial meal payment plan: $1,600/year ($800 due 7-15-26, $800 due 1-15-27)" />
+                  <span>Partial meal payment plan option: $1,600/year. $800 due 7-15-26 and $800 due 1-15-27.</span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div>
+              <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Fees, tuition, and schedule (acknowledgement)</h2>
+              <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
+                Please review the fee schedule below. The school can confirm the most current fees and due dates.
+              </p>
+
+              <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Part Time Pre-K</div>
+                  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-700);">
+                    <li>Annual enrollment fee: $550 (due at time of acceptance)</li>
+                    <li>Meals/snacks prepared by Greens and Beans</li>
+                    <li>7:15am - 12:00pm; $1/min late fee after 12:00pm</li>
+                    <li>Monthly tuition: $650 (due 1st of the month)</li>
+                  </ul>
+                </div>
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Full Time Pre-K</div>
+                  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-700);">
+                    <li>Annual enrollment fee: $600 (due at time of acceptance)</li>
+                    <li>Meals/snacks prepared by Greens and Beans</li>
+                    <li>7:15am - 5:15pm; $1/min late fee after 5:15pm</li>
+                    <li>Monthly tuition: $875 (due 1st of the month)</li>
+                  </ul>
+                </div>
+                <div class="card card-body" style="padding: var(--space-4);">
+                  <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">K - 3rd Grade</div>
+                  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-700);">
+                    <li>Annual enrollment fee: $700 (due at time of acceptance)</li>
+                    <li>Meals/snacks prepared by Greens and Beans</li>
+                    <li>8:00am - 5:30pm; $1/min late fee after 5:30pm</li>
+                    <li>Monthly tuition: $975 (due 1st of the month)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <fieldset class="space-y-2">
+              <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                Registration fee payment option <span aria-hidden="true">*</span>
+              </legend>
+              <p class="text-xs" style="color: var(--color-neutral-500);">
+                A registration fee of $50 is required to complete the registration process. Registration fee is non-refundable.
+              </p>
+              <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                <input type="radio" name="paymentOption" value="Venmo @Charlene-Kam" required />
+                Venmo @Charlene-Kam
+              </label>
+              <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                <input type="radio" name="paymentOption" value="Mail check to The Children's House, 231 E. Drake Ave., Auburn, AL 36830" required />
+                Mail check to The Children's House, 231 E. Drake Ave., Auburn, AL 36830
+              </label>
+              <label class="flex items-start gap-2 text-sm" style="color: var(--color-neutral-700);">
+                <input type="radio" name="paymentOption" value="Credit card on Brightwheel app once accepted into program" required />
+                Credit card on Brightwheel app once accepted into program
+              </label>
+            </fieldset>
+
+            <hr class="divider" />
+
+            <div>
+              <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Student information</h2>
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div>
+                  <label for="child-full-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Child's full name <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="child-full-name" name="childFullName" type="text" required autocomplete="name" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="child-preferred-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Child's preferred name (optional)
+                  </label>
+                  <input id="child-preferred-name" name="childPreferredName" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+
+                <div>
+                  <label for="child-gender" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Gender <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="child-gender" name="childGender" type="text" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="child-dob" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Date of birth <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="child-dob" name="childDob" type="date" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+
+                <div>
+                  <label for="child-age" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Current age <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="child-age" name="childAge" type="text" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="child-home-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Home phone <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="child-home-phone" name="childHomePhone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Address <span aria-hidden="true">*</span>
+                </div>
+                <div class="mt-2 grid gap-4 md:grid-cols-2">
+                  <div class="md:col-span-2">
+                    <label for="child-address-street" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Street address
+                    </label>
+                    <input id="child-address-street" name="childAddressStreet" type="text" required autocomplete="street-address" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="child-address-city" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      City
+                    </label>
+                    <input id="child-address-city" name="childAddressCity" type="text" required autocomplete="address-level2" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="child-address-state" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      State
+                    </label>
+                    <input id="child-address-state" name="childAddressState" type="text" required autocomplete="address-level1" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="AL" />
+                  </div>
+                  <div>
+                    <label for="child-address-zip" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      ZIP / Postal code
+                    </label>
+                    <input id="child-address-zip" name="childAddressZip" type="text" required autocomplete="postal-code" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div>
+              <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Parent / guardian information</h2>
+              <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
+                If a section does not apply, leave it blank.
+              </p>
+
+              <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <div>
+                  <label for="mother-first" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Mother/guardian first name <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="mother-first" name="motherFirst" type="text" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="mother-middle" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Middle (optional)
+                  </label>
+                  <input id="mother-middle" name="motherMiddle" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="mother-last" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Last name <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="mother-last" name="motherLast" type="text" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+              </div>
+
+              <fieldset class="mt-4 space-y-2">
+                <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                  Mother/guardian address
+                </legend>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="motherSameAddress" value="Yes" checked />
+                  Same address as child
+                </label>
+                <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                  <input type="radio" name="motherSameAddress" value="No" />
+                  Different address
+                </label>
+
+                <div class="mt-3 grid gap-4 md:grid-cols-2 hidden" id="mother-address-fields">
+                  <div class="md:col-span-2">
+                    <label for="mother-address-street" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Street address
+                    </label>
+                    <input id="mother-address-street" name="motherAddressStreet" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="mother-address-city" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      City
+                    </label>
+                    <input id="mother-address-city" name="motherAddressCity" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="mother-address-state" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      State
+                    </label>
+                    <input id="mother-address-state" name="motherAddressState" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="AL" />
+                  </div>
+                  <div>
+                    <label for="mother-address-zip" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      ZIP / Postal code
+                    </label>
+                    <input id="mother-address-zip" name="motherAddressZip" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div>
+                  <label for="mother-employer" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Mother/guardian employer (optional)
+                  </label>
+                  <input id="mother-employer" name="motherEmployer" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="mother-work-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Work phone (optional)
+                  </label>
+                  <input id="mother-work-phone" name="motherWorkPhone" type="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="mother-mobile" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Mobile phone <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="mother-mobile" name="motherMobile" type="tel" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+                <div>
+                  <label for="mother-email" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                    Email <span aria-hidden="true">*</span>
+                  </label>
+                  <input id="mother-email" name="motherEmail" type="email" required autocomplete="email" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <h3 class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Father/guardian (optional)</h3>
+                <div class="mt-2 grid gap-4 md:grid-cols-3">
+                  <div>
+                    <label for="father-first" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">First</label>
+                    <input id="father-first" name="fatherFirst" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="father-middle" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Middle</label>
+                    <input id="father-middle" name="fatherMiddle" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="father-last" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Last</label>
+                    <input id="father-last" name="fatherLast" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                </div>
+
+                <fieldset class="mt-4 space-y-2">
+                  <legend class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">
+                    Father/guardian address
+                  </legend>
+                  <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                    <input type="radio" name="fatherSameAddress" value="Yes" checked />
+                    Same address as child
+                  </label>
+                  <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
+                    <input type="radio" name="fatherSameAddress" value="No" />
+                    Different address
+                  </label>
+
+                  <div class="mt-3 grid gap-4 md:grid-cols-2 hidden" id="father-address-fields">
+                    <div class="md:col-span-2">
+                      <label for="father-address-street" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                        Street address
+                      </label>
+                      <input id="father-address-street" name="fatherAddressStreet" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                    </div>
+                    <div>
+                      <label for="father-address-city" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                        City
+                      </label>
+                      <input id="father-address-city" name="fatherAddressCity" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                    </div>
+                    <div>
+                      <label for="father-address-state" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                        State
+                      </label>
+                      <input id="father-address-state" name="fatherAddressState" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="AL" />
+                    </div>
+                    <div>
+                      <label for="father-address-zip" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                        ZIP / Postal code
+                      </label>
+                      <input id="father-address-zip" name="fatherAddressZip" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="mt-4 grid gap-4 md:grid-cols-2">
+                  <div>
+                    <label for="father-employer" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Employer (optional)
+                    </label>
+                    <input id="father-employer" name="fatherEmployer" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="father-work-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Work phone (optional)
+                    </label>
+                    <input id="father-work-phone" name="fatherWorkPhone" type="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="father-mobile" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Mobile phone (optional)
+                    </label>
+                    <input id="father-mobile" name="fatherMobile" type="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                  <div>
+                    <label for="father-email" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                      Email (optional)
+                    </label>
+                    <input id="father-email" name="fatherEmail" type="email" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="grid gap-4 md:grid-cols-2">
+              <div>
+                <label for="heard-from" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                  I learned about Auburn Montessori School - The Children's House from: <span aria-hidden="true">*</span>
+                </label>
+                <select id="heard-from" name="heardFrom" required class="mt-1 w-full rounded-lg border bg-white px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);">
+                  <option value="">Select one</option>
+                  <option value="a family member">a family member</option>
+                  <option value="a friend">a friend</option>
+                  <option value="a friend whose child attended">a friend whose child attended</option>
+                  <option value="the internet">the internet</option>
+                  <option value="other">other</option>
+                </select>
+              </div>
+              <div>
+                <label for="heard-other" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">
+                  If OTHER, please specify (optional)
+                </label>
+                <input id="heard-other" name="heardOther" type="text" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+              </div>
+            </div>
+
+            <div>
+              <label for="special-notes" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Special notes (optional)</label>
+              <textarea id="special-notes" name="specialNotes" rows={4} class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Any additional details or questions"></textarea>
+            </div>
+
+            <div class="honeypot-field" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+              <label for="reg-website">Leave blank</label>
+              <input type="text" id="reg-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <button type="button" class="btn btn-outline btn-icon" id="copy-summary-btn">
+                <Icon name="document" size={18} /> Copy summary
+              </button>
+              <button type="button" class="btn btn-outline btn-icon" id="print-form-btn">
+                <Icon name="document" size={18} /> Print / Save as PDF
+              </button>
+              <button type="submit" class="btn btn-primary btn-icon">
+                <Icon name="mail" size={18} /> Send via email
+              </button>
+            </div>
+
+            <p id="registration-feedback" class="text-xs hidden" style="color: var(--color-neutral-600);"></p>
+          </form>
+        </div>
+
+        <aside class="space-y-5">
+          <div class="card card-body">
+            <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Need help?</h2>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">
+              Call or text <a class="font-semibold" href={`tel:${site.phone}`}>{site.phone}</a> or email
+              <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+          </div>
+
+          <div class="card card-body">
+            <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Brightwheel</h2>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">
+              Some registration steps and payment options may use Brightwheel (third-party service).
+            </p>
+            <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-outline btn-sm btn-icon mt-3" ariaLabel="Open Brightwheel registration (opens in Brightwheel)">
+              Open Brightwheel
+            </ExternalLink>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script define:vars={{ siteEmail: site.email }}>
+  const form = document.getElementById('registration-form');
+  const feedback = document.getElementById('registration-feedback');
+  const copyBtn = document.getElementById('copy-summary-btn');
+  const printBtn = document.getElementById('print-form-btn');
+
+  function setFeedback(msg) {
+    if (!feedback) return;
+    feedback.textContent = msg;
+    feedback.classList.remove('hidden');
+  }
+
+  function getCheckedValue(name) {
+    const el = form?.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  }
+
+  function getValue(name) {
+    const el = form?.querySelector(`[name="${name}"]`);
+    if (!el) return '';
+    return (el.value || '').toString().trim();
+  }
+
+  function joinParts(parts) {
+    return parts.map((p) => (p || '').trim()).filter(Boolean).join(' ');
+  }
+
+  function address(prefix) {
+    const street = getValue(`${prefix}AddressStreet`);
+    const city = getValue(`${prefix}AddressCity`);
+    const state = getValue(`${prefix}AddressState`);
+    const zip = getValue(`${prefix}AddressZip`);
+    const line1 = street;
+    const line2 = [city, state, zip].filter(Boolean).join(', ').replace(', ,', ',');
+    return [line1, line2].filter(Boolean).join('\n');
+  }
+
+  function buildSummary() {
+    const enrollmentYear = getCheckedValue('enrollmentYear');
+    const programLength = getCheckedValue('programLength');
+
+    // Meal plan radios are split (part time vs full time).
+    const mealPlanPart = getCheckedValue('mealPlan');
+    const mealPlanFull = getCheckedValue('mealPlanFull');
+    const mealPlan = mealPlanPart || mealPlanFull;
+
+    const motherName = joinParts([getValue('motherFirst'), getValue('motherMiddle'), getValue('motherLast')]);
+    const fatherName = joinParts([getValue('fatherFirst'), getValue('fatherMiddle'), getValue('fatherLast')]);
+
+    const childAddress = address('child');
+
+    const motherSame = getCheckedValue('motherSameAddress') || 'Yes';
+    const motherAddress = motherSame === 'No' ? address('mother') : '(same as child)';
+
+    const fatherSame = getCheckedValue('fatherSameAddress') || 'Yes';
+    const fatherAddress = fatherSame === 'No' ? address('father') : '(same as child)';
+
+    const BLANK = {}; // sentinel for intentional section separators (must survive filter)
+    const lines = [
+      `Student Registration Form - ${new Date().toLocaleDateString()}`,
+      BLANK,
+      'PROGRAM SELECTION',
+      `Expected enrollment year: ${enrollmentYear}`,
+      `Program length: ${programLength}`,
+      `Meal plan: ${mealPlan}`,
+      `Registration fee payment option: ${getCheckedValue('paymentOption')}`,
+      BLANK,
+      'STUDENT',
+      `Child full name: ${getValue('childFullName')}`,
+      `Preferred name: ${getValue('childPreferredName')}`,
+      `Gender: ${getValue('childGender')}`,
+      `Date of birth: ${getValue('childDob')}`,
+      `Current age: ${getValue('childAge')}`,
+      `Home phone: ${getValue('childHomePhone')}`,
+      'Address:',
+      childAddress || '',
+      BLANK,
+      'PARENT / GUARDIAN',
+      `Mother/guardian: ${motherName}`,
+      `Mother employer: ${getValue('motherEmployer')}`,
+      `Mother work phone: ${getValue('motherWorkPhone')}`,
+      `Mother mobile phone: ${getValue('motherMobile')}`,
+      `Mother email: ${getValue('motherEmail')}`,
+      `Mother address: ${motherAddress}`,
+      BLANK,
+      fatherName ? `Father/guardian: ${fatherName}` : 'Father/guardian: (not provided)',
+      fatherName ? `Father employer: ${getValue('fatherEmployer')}` : '',
+      fatherName ? `Father work phone: ${getValue('fatherWorkPhone')}` : '',
+      fatherName ? `Father mobile phone: ${getValue('fatherMobile')}` : '',
+      fatherName ? `Father email: ${getValue('fatherEmail')}` : '',
+      fatherName ? `Father address: ${fatherAddress}` : '',
+      BLANK,
+      'DISCOVERY',
+      `Learned about the school from: ${getValue('heardFrom')}`,
+      `If other, specify: ${getValue('heardOther')}`,
+      BLANK,
+      'SPECIAL NOTES',
+      getValue('specialNotes'),
+    ]
+      .filter((l) => l !== '')
+      .map((l) => (l === BLANK ? '' : l));
+
+    return lines.join('\n');
+  }
+
+  function syncMealPlan() {
+    const program = getCheckedValue('programLength');
+    const part = document.getElementById('meal-plan-part-time');
+    const full = document.getElementById('meal-plan-full-time');
+    if (!part || !full) return;
+
+    // If program isn't selected yet, keep Part Time visible by default.
+    const isPartTime = !program || program.toLowerCase().includes('part time');
+
+    if (isPartTime) {
+      part.classList.remove('hidden');
+      full.classList.add('hidden');
+      // Clear full-time selection so it doesn't appear in summary
+      full.querySelectorAll('input[type="radio"]').forEach((i) => (i.checked = false));
+      // Ensure required is enforced on visible group only
+      part.querySelectorAll('input[type="radio"]').forEach((i) => (i.required = true));
+      full.querySelectorAll('input[type="radio"]').forEach((i) => (i.required = false));
+    } else {
+      part.classList.add('hidden');
+      full.classList.remove('hidden');
+      part.querySelectorAll('input[type="radio"]').forEach((i) => (i.checked = false));
+      part.querySelectorAll('input[type="radio"]').forEach((i) => (i.required = false));
+      full.querySelectorAll('input[type="radio"]').forEach((i) => (i.required = true));
+    }
+  }
+
+  function syncAddressVisibility(which) {
+    const same = getCheckedValue(`${which}SameAddress`) || 'Yes';
+    const container = document.getElementById(`${which}-address-fields`);
+    if (!container) return;
+    if (same === 'No') container.classList.remove('hidden');
+    else container.classList.add('hidden');
+  }
+
+  if (form) {
+    form.addEventListener('change', (e) => {
+      const target = e.target;
+      if (!target) return;
+      if (target.name === 'programLength') syncMealPlan();
+      if (target.name === 'motherSameAddress') syncAddressVisibility('mother');
+      if (target.name === 'fatherSameAddress') syncAddressVisibility('father');
+    });
+
+    // Initialize visibility on load
+    syncMealPlan();
+    syncAddressVisibility('mother');
+    syncAddressVisibility('father');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const honeypot = form.querySelector('input[name="website"]');
+      if (honeypot && (honeypot.value || '').trim() !== '') return;
+
+      const summary = buildSummary();
+      const childName = getValue('childFullName') || 'Student';
+      const subject = encodeURIComponent(`Student registration form - ${childName}`);
+
+      // Attempt to copy (best effort), then open email.
+      try {
+        await navigator.clipboard.writeText(summary);
+        setFeedback('Summary copied to clipboard. Your email app will open next.');
+      } catch (_) {
+        setFeedback('Opening your email app. If the message is too long, use the Copy summary button.');
+      }
+
+      const body = encodeURIComponent(summary);
+      const mailto = `mailto:${siteEmail}?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+    });
+  }
+
+  if (copyBtn && form) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(buildSummary());
+        setFeedback('Summary copied to clipboard.');
+      } catch (_) {
+        setFeedback('Could not copy automatically. Please select and copy manually after printing.');
+      }
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => window.print());
+  }
+</script>
+

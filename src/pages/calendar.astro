@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import calendar from '../data/calendar.json';
-import ExternalLink from '../components/ExternalLink.astro';
 
 const hasPdf = calendar.pdfPath && calendar.pdfPath.length > 0;
 const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
@@ -36,7 +35,8 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     <div class="container-page grid gap-8 lg:grid-cols-3">
       {/* PDF embed */}
       <div class="lg:col-span-2">
-        <div>
+        {hasPdf ? (
+          <div>
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="section-heading">Full Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
@@ -80,14 +80,6 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
       {/* Online Calendar + Quick actions */}
       <div class="space-y-5">
         <div class="card card-body">
-          <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Online Calendar</h3>
-          <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">View the live events calendar on the school website.</p>
-          <ExternalLink href={calendar.externalCalendarUrl} opensIn="Hubbli" class="btn btn-outline btn-sm btn-icon mt-3">
-            View Events
-          </ExternalLink>
-        </div>
-
-        <div class="card card-body">
           <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Questions?</h3>
           <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">Confirm dates and closures with the school office.</p>
           <a class="btn btn-ghost btn-sm mt-3" href="/contact">Contact Us</a>
@@ -99,9 +91,11 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
 
 <script>
   (function () {
-    const iframe = document.getElementById('calendar-pdf-iframe');
-    const fallback = document.getElementById('calendar-pdf-fallback');
-    if (!iframe || !fallback) return;
+    const maybeIframe = document.getElementById('calendar-pdf-iframe');
+    const maybeFallback = document.getElementById('calendar-pdf-fallback');
+    if (!(maybeIframe instanceof HTMLIFrameElement) || !(maybeFallback instanceof HTMLElement)) return;
+    const iframe = maybeIframe;
+    const fallback = maybeFallback;
 
     function showFallback() {
       iframe.classList.add('hidden');

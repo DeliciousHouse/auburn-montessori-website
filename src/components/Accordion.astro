@@ -4,14 +4,15 @@ type Props = {
   defaultOpen?: boolean;
   class?: string;
   triggerClass?: string;
+  style?: string;
 };
 
-const { id, defaultOpen = false, class: className = '', triggerClass = '' } = Astro.props;
+const { id, defaultOpen = false, class: className = '', triggerClass = '', style } = Astro.props as Props;
 const triggerId = id;
 const panelId = `${id}-panel`;
 ---
 
-<div class:list={['accordion-item', className]}>
+<div class:list={['accordion-item', className]} style={style ?? undefined}>
   <button
     type="button"
     class:list={['accordion-trigger', triggerClass]}

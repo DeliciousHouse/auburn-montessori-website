@@ -8,6 +8,7 @@
       "preferredName": "Charlene",
       "pronouns": "she/her",
       "hours": "7:45 am - 1:00 pm / 6:00 pm when needed",
+      "photo": { "src": "/images/educators/charlene-kam.webp", "alt": "Charlene Kam" },
       "education": [
         "B.A. Chemistry (minor in Biology and Secondary Education), University of Miami (1993)",
         "MBA (1996)",
@@ -39,6 +40,7 @@
       "name": "Rahma Ziyad",
       "role": "Educator",
       "since": "Joined March 2020",
+      "photo": { "src": "/images/educators/rahma-ziyad.webp", "alt": "Rahma Ziyad" },
       "education": [
         "B.S. Psychology (2020)",
         "Early Childhood Education degree (2024)"
@@ -57,6 +59,7 @@
       "name": "Asma Javed",
       "role": "Educator",
       "since": "Joined March 2020",
+      "photo": { "src": "/images/educators/asma-javed.webp", "alt": "Asma Javed" },
       "credentialsAndTraining": [
         "CDA",
         "Alabama Early Learning Guidelines (AELG)",
@@ -71,6 +74,7 @@
       "name": "Sam Price",
       "role": "Educator",
       "since": "Educator since 3-1-2015",
+      "photo": { "src": "/images/educators/sam-price.webp", "alt": "Sam Price" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -89,6 +93,7 @@
       "role": "Educator",
       "since": "Joined 8-1-2022",
       "pronouns": "she/her",
+      "photo": { "src": "/images/educators/sarah-cox.webp", "alt": "Sarah Cox" },
       "education": [
         "Associate Degree in Child Development, Southern Union (May 2022)"
       ]
@@ -97,6 +102,7 @@
       "name": "Patrick Tousley",
       "role": "Educator",
       "since": "Joined August 2024",
+      "photo": { "src": "/images/educators/patrick-tousley.webp", "alt": "Patrick Tousley" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -112,6 +118,7 @@
       "name": "Emma Stevenson",
       "role": "Assistant Director",
       "pronouns": "she/her",
+      "photo": { "src": "/images/educators/emma-stevenson.webp", "alt": "Emma Stevenson" },
       "credentialsAndTraining": [
         "Completed 200hr yoga training"
       ]

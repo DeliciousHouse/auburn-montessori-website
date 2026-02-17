@@ -21,6 +21,14 @@ const pageNavLinks = [
   ...(guides.length > 0 ? [{ id: 'lead-guides', label: 'Lead Guides' }] : []),
   ...(support.length > 0 ? [{ id: 'assistants-support', label: 'Assistants & Support' }] : []),
 ];
+
+const getInitials = (name: string) =>
+  (name || '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => (p[0] ?? '').toUpperCase())
+    .join('');
 ---
 
 <Layout
@@ -45,53 +53,80 @@ const pageNavLinks = [
           <div class="mt-4 grid gap-5">
             {leadership.map((e, idx) => (
               <article class="card card-body">
-                <div class="flex flex-wrap items-center gap-3">
-                  <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
-                  <span class="badge badge-brand">{e.role}</span>
-                  {e.since ? <span class="badge">{e.since}</span> : null}
-                </div>
-
-                {(e.preferredName || e.pronouns || e.hours) && (
-                  <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs" style="color: var(--color-neutral-500);">
-                    {e.preferredName && <span>Goes by {e.preferredName}</span>}
-                    {e.pronouns && <span>{e.pronouns}</span>}
-                    {e.hours && <span>{e.hours}</span>}
-                  </div>
-                )}
-
-                {e.bio?.length ? (
-                  <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
-                ) : null}
-
-                <div class="mt-4 grid gap-3 md:grid-cols-2">
-                  {e.education?.length ? (
-                    <Accordion id={`leadership-${idx}-education`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
-                      <span slot="title">Education ({e.education.length})</span>
-                      <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
-                    </Accordion>
-                  ) : null}
-
-                  {e.credentialsAndTraining?.length ? (
-                    <Accordion id={`leadership-${idx}-credentials`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
-                      <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
-                      <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
-                    </Accordion>
-                  ) : null}
-                </div>
-
-                {e.links?.length ? (
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    {e.links.map((l) =>
-                      l.external ? (
-                        <ExternalLink href={l.href} opensIn="new tab" class="chip">
-                          {l.label}
-                        </ExternalLink>
-                      ) : (
-                        <a class="chip" href={l.href}>{l.label}</a>
-                      )
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <div class="shrink-0">
+                    {e.photo?.src ? (
+                      <div class="media-frame h-24 w-24 rounded-full border" style="border-color: var(--color-border);">
+                        <img
+                          src={e.photo.src}
+                          alt={e.photo.alt ?? `Photo of ${e.name}`}
+                          width="96"
+                          height="96"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        class="flex h-24 w-24 items-center justify-center rounded-full border text-lg font-bold"
+                        style="border-color: var(--color-border); background: var(--color-surface-alt); color: var(--color-primary);"
+                        aria-hidden="true"
+                      >
+                        {getInitials(e.name)}
+                      </div>
                     )}
                   </div>
-                ) : null}
+
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <span class="badge badge-brand">{e.role}</span>
+                      {e.since ? <span class="badge">{e.since}</span> : null}
+                    </div>
+
+                    {(e.preferredName || e.pronouns || e.hours) && (
+                      <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs" style="color: var(--color-neutral-500);">
+                        {e.preferredName && <span>Goes by {e.preferredName}</span>}
+                        {e.pronouns && <span>{e.pronouns}</span>}
+                        {e.hours && <span>{e.hours}</span>}
+                      </div>
+                    )}
+
+                    {e.bio?.length ? (
+                      <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
+                    ) : null}
+
+                    <div class="mt-4 grid gap-3 md:grid-cols-2">
+                      {e.education?.length ? (
+                        <Accordion id={`leadership-${idx}-education`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                          <span slot="title">Education ({e.education.length})</span>
+                          <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                        </Accordion>
+                      ) : null}
+
+                      {e.credentialsAndTraining?.length ? (
+                        <Accordion id={`leadership-${idx}-credentials`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                          <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
+                          <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                        </Accordion>
+                      ) : null}
+                    </div>
+
+                    {e.links?.length ? (
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        {e.links.map((l) =>
+                          l.external ? (
+                            <ExternalLink href={l.href} opensIn="new tab" class="chip">
+                              {l.label}
+                            </ExternalLink>
+                          ) : (
+                            <a class="chip" href={l.href}>{l.label}</a>
+                          )
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
               </article>
             ))}
           </div>
@@ -105,28 +140,55 @@ const pageNavLinks = [
           <div class="mt-5 grid gap-5 md:grid-cols-2">
             {guides.map((e, idx) => (
               <article class="card card-body">
-                <div class="flex flex-wrap items-center gap-3">
-                  <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
-                  {e.since ? <span class="badge">{e.since}</span> : null}
-                </div>
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <div class="shrink-0">
+                    {e.photo?.src ? (
+                      <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
+                        <img
+                          src={e.photo.src}
+                          alt={e.photo.alt ?? `Photo of ${e.name}`}
+                          width="80"
+                          height="80"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        class="flex h-20 w-20 items-center justify-center rounded-full border text-base font-bold"
+                        style="border-color: var(--color-border); background: var(--color-surface-alt); color: var(--color-primary);"
+                        aria-hidden="true"
+                      >
+                        {getInitials(e.name)}
+                      </div>
+                    )}
+                  </div>
 
-                {e.bio?.length ? (
-                  <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
-                ) : null}
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      {e.since ? <span class="badge">{e.since}</span> : null}
+                    </div>
 
-                <div class="mt-3 space-y-2">
-                  {e.education?.length ? (
-                    <Accordion id={`guide-${idx}-education`} class="border-b-0">
-                      <span slot="title">Education ({e.education.length})</span>
-                      <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
-                    </Accordion>
-                  ) : null}
-                  {e.credentialsAndTraining?.length ? (
-                    <Accordion id={`guide-${idx}-credentials`} class="border-b-0">
-                      <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
-                      <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
-                    </Accordion>
-                  ) : null}
+                    {e.bio?.length ? (
+                      <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
+                    ) : null}
+
+                    <div class="mt-3 space-y-2">
+                      {e.education?.length ? (
+                        <Accordion id={`guide-${idx}-education`} class="border-b-0">
+                          <span slot="title">Education ({e.education.length})</span>
+                          <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                        </Accordion>
+                      ) : null}
+                      {e.credentialsAndTraining?.length ? (
+                        <Accordion id={`guide-${idx}-credentials`} class="border-b-0">
+                          <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
+                          <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                        </Accordion>
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}
@@ -140,16 +202,43 @@ const pageNavLinks = [
           <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {support.map((e) => (
               <article class="card card-body">
-                <div class="flex flex-wrap items-center gap-3">
-                  <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
-                  <span class="badge">{e.role}</span>
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <div class="shrink-0">
+                    {e.photo?.src ? (
+                      <div class="media-frame h-16 w-16 rounded-full border" style="border-color: var(--color-border);">
+                        <img
+                          src={e.photo.src}
+                          alt={e.photo.alt ?? `Photo of ${e.name}`}
+                          width="64"
+                          height="64"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        class="flex h-16 w-16 items-center justify-center rounded-full border text-sm font-bold"
+                        style="border-color: var(--color-border); background: var(--color-surface-alt); color: var(--color-primary);"
+                        aria-hidden="true"
+                      >
+                        {getInitials(e.name)}
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <span class="badge">{e.role}</span>
+                    </div>
+                    {e.pronouns && <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">{e.pronouns}</p>}
+                    {e.credentialsAndTraining?.length ? (
+                      <ul class="mt-3 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-600);">
+                        {e.credentialsAndTraining.map((i) => <li>{i}</li>)}
+                      </ul>
+                    ) : null}
+                  </div>
                 </div>
-                {e.pronouns && <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">{e.pronouns}</p>}
-                {e.credentialsAndTraining?.length ? (
-                  <ul class="mt-3 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-600);">
-                    {e.credentialsAndTraining.map((i) => <li>{i}</li>)}
-                  </ul>
-                ) : null}
               </article>
             ))}
           </div>
