@@ -8,8 +8,10 @@ services:
         SITE_URL: ${SITE_URL:-https://amstch.com}
     environment:
       SITE_URL: ${SITE_URL:-https://amstch.com}
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
+    networks:
+      - docker-stack
 
   # Local development (optional):
   #   docker compose --profile dev up --build
@@ -24,4 +26,9 @@ services:
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 4321"
     ports:
       - "4321:4321"
+    networks:
+      - docker-stack
 
+networks:
+  docker-stack:
+    external: true
