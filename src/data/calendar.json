@@ -1,4 +1,6 @@
 {
   "externalCalendarUrl": "https://amstch.hubbli.com/events/",
-  "calendarPdfUrl": ""
+  "pdfPath": "/documents/calendar.pdf",
+  "lastUpdated": "",
+  "keyDates": []
 }

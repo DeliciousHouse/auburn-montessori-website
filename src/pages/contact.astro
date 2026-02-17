@@ -4,6 +4,12 @@ import site from '../data/site.json';
 
 const addressLine = `${site.address.street} ${site.address.city}, ${site.address.state} ${site.address.postalCode}`;
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressLine)}`;
+
+const tourSubject = encodeURIComponent('Request a tour - Auburn Montessori School');
+const tourBody = encodeURIComponent(
+  'Hello,\n\nI would like to schedule a tour of Auburn Montessori School - The Children\'s House.\n\nPreferred date/time (if any):\n\nMy name:\n\nChild\'s name and age:\n\nPhone:\n\nThank you.'
+);
+const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}`;
 ---
 
 <Layout
@@ -43,9 +49,18 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURICompo
             <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a>
           </dd>
         </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Office hours</dt>
+          <dd class="mt-1 text-slate-700">
+            Program hours vary by program (Part Time, Full Time, K–3rd). See <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/fees-hours">Fees &amp; Hours</a> for schedule and pickup times.
+          </dd>
+        </div>
       </dl>
+      <p class="mt-4 text-sm text-slate-700">
+        <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={tourMailto}>Request a tour</a> — opens your email with a pre-filled message.
+      </p>
       <p class="mt-5 text-xs text-slate-600">
-        Note: This website does not accept form submissions. Please contact us by phone or email.
+        This website does not accept form submissions. Please contact us by phone or email.
       </p>
     </section>
 

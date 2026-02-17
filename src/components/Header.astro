@@ -13,7 +13,14 @@ const isActive = (href: string) => {
 
 <header class="border-b border-slate-200 bg-white">
   <div class="container-page flex items-center justify-between gap-4 py-4">
-    <a class="no-underline" href="/" aria-label={`${site.shortName} home`}>
+    <a class="flex items-center gap-3 no-underline" href="/" aria-label={`${site.shortName} home`}>
+      <img
+        src="/images/brand/logo.webp"
+        alt=""
+        width="48"
+        height="48"
+        class="h-12 w-12 shrink-0 rounded-lg object-contain"
+      />
       <div class="leading-tight">
         <div class="text-base font-extrabold tracking-tight text-slate-900">{site.shortName}</div>
         <div class="text-sm text-slate-600">{site.tagline}</div>
@@ -25,7 +32,7 @@ const isActive = (href: string) => {
         <a
           class:list={[
             'text-sm font-semibold no-underline',
-            isActive(item.href) ? 'text-blue-800' : 'text-slate-700 hover:text-slate-900'
+            isActive(item.href) ? 'text-[var(--color-brand-primary)]' : 'text-slate-700 hover:text-slate-900'
           ]}
           href={item.href}
           aria-current={isActive(item.href) ? 'page' : undefined}
@@ -45,37 +52,47 @@ const isActive = (href: string) => {
       </a>
     </nav>
 
-    <details class="relative md:hidden">
+    <details class="relative md:hidden" id="mobile-menu" data-mobile-menu>
       <summary
+        id="mobile-menu-toggle"
         class="btn btn-outline cursor-pointer select-none list-none"
         aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-panel"
       >
         Menu
       </summary>
 
-      <div class="absolute right-0 mt-2 w-[min(90vw,22rem)] rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+      <div
+        id="mobile-menu-panel"
+        class="absolute right-0 mt-2 w-[min(90vw,22rem)] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+        role="region"
+        aria-label="Mobile navigation"
+      >
         <nav class="flex flex-col gap-1" aria-label="Mobile primary">
           {nav.map((item) => (
             <a
               class:list={[
                 'rounded-lg px-3 py-2 text-sm font-semibold no-underline',
                 isActive(item.href)
-                  ? 'bg-blue-50 text-blue-900'
+                  ? 'bg-[color:var(--color-neutral-100)] text-[var(--color-brand-primary)]'
                   : 'text-slate-800 hover:bg-slate-50'
               ]}
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
+              data-mobile-nav-link
             >
               {item.label}
             </a>
           ))}
-          <div class="my-1 border-t border-slate-200"></div>
+          <div class="my-1 border-t border-slate-200" aria-hidden="true"></div>
           <a
             class="btn btn-primary"
             href={site.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="New Parent Registration (opens in a new tab)"
+            data-mobile-nav-link
           >
             New Parent Registration (Brightwheel)
           </a>
@@ -84,4 +101,35 @@ const isActive = (href: string) => {
     </details>
   </div>
 </header>
+
+<script>
+  (function () {
+    const details = document.querySelector<HTMLDetailsElement>('#mobile-menu');
+    const summary = document.querySelector<HTMLElement>('#mobile-menu-toggle');
+    if (!details || !summary) return;
+
+    const close = () => {
+      details.removeAttribute('open');
+      summary?.setAttribute('aria-expanded', 'false');
+      summary?.focus();
+    };
+
+    details.querySelectorAll('[data-mobile-nav-link]').forEach((el) => {
+      el.addEventListener('click', () => {
+        close();
+      });
+    });
+
+    details.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        close();
+        e.preventDefault();
+      }
+    });
+
+    details.addEventListener('toggle', () => {
+      summary?.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+    });
+  })();
+</script>
 

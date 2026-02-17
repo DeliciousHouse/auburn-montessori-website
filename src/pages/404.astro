@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+---
+
+<Layout title="Page not found" description="The page you requested was not found." noindex>
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Page not found</h1>
+    <p class="mt-4 text-base leading-relaxed text-slate-700">
+      The page you requested could not be found. It may have been moved or the link may be incorrect.
+    </p>
+    <p class="mt-6 text-sm font-semibold text-slate-900">Helpful links</p>
+    <ul class="mt-2 space-y-2 text-sm text-slate-700">
+      <li><a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/">Home</a></li>
+      <li><a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/parent-resources">Parent Resources</a></li>
+      <li><a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/admissions">Admissions</a></li>
+      <li><a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/fees-hours">Fees &amp; Hours</a></li>
+      <li><a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/contact">Contact</a></li>
+    </ul>
+    <p class="mt-8 text-sm text-slate-600">
+      <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/">Return to {site.shortName} home</a>
+    </p>
+  </div>
+</Layout>

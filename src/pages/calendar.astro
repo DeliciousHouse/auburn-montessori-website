@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import calendar from '../data/calendar.json';
+
+const hasPdf = calendar.pdfPath && calendar.pdfPath.length > 0;
+const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
 ---
 
 <Layout
@@ -10,12 +13,43 @@ import calendar from '../data/calendar.json';
   <header class="space-y-3">
     <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Calendar</h1>
     <p class="max-w-4xl text-base leading-relaxed text-slate-700">
-      This page shares school calendar information and links. If you have a school-year calendar PDF, place it
-      in the documents folder and set the link in <code class="rounded bg-slate-100 px-1 py-0.5">src/data/calendar.json</code>.
+      School calendar, key dates, and event information. For the full calendar year, view or download the PDF below.
     </p>
   </header>
 
   <section class="mt-10 grid gap-6 lg:grid-cols-2">
+    {hasPdf ? (
+      <div class="card p-6">
+        <h2 class="text-lg font-bold text-slate-900">School Year Calendar (PDF)</h2>
+        {calendar.lastUpdated ? (
+          <p class="mt-2 text-sm text-slate-600">Last updated: {calendar.lastUpdated}</p>
+        ) : null}
+        <p class="mt-2 text-sm text-slate-700">
+          <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={calendar.pdfPath} download>
+            Download calendar (PDF)
+          </a>
+        </p>
+        <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+          <iframe
+            title="School year calendar PDF"
+            src={`${calendar.pdfPath}#view=FitH`}
+            class="h-[65vh] w-full"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <p class="mt-3 text-xs text-slate-600">
+          If the viewer does not load, use the download link above.
+        </p>
+      </div>
+    ) : (
+      <div class="card p-6">
+        <h2 class="text-lg font-bold text-slate-900">School Year Calendar</h2>
+        <p class="mt-3 text-sm leading-relaxed text-slate-700">
+          The school-year calendar PDF will be posted here when available. For upcoming events, see the online calendar link below.
+        </p>
+      </div>
+    )}
+
     <div class="card p-6">
       <h2 class="text-lg font-bold text-slate-900">Online Calendar</h2>
       <p class="mt-3 text-sm leading-relaxed text-slate-700">
@@ -25,35 +59,39 @@ import calendar from '../data/calendar.json';
           target="_blank"
           rel="noopener noreferrer"
         >
-          View the existing site calendar (opens in a new tab)
+          View events calendar (opens in a new tab)
         </a>
       </p>
     </div>
-
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Calendar PDF</h2>
-      {calendar.calendarPdfUrl ? (
-        <>
-          <p class="mt-3 text-sm leading-relaxed text-slate-700">
-            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={calendar.calendarPdfUrl} target="_blank" rel="noopener noreferrer">
-              View/Download Calendar (PDF) (opens in a new tab)
-            </a>
-          </p>
-          <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
-            <iframe
-              title="Calendar PDF viewer"
-              src={`${calendar.calendarPdfUrl}#view=FitH`}
-              class="h-[65vh] w-full"
-              loading="lazy"
-            ></iframe>
-          </div>
-        </>
-      ) : (
-        <p class="mt-3 text-sm leading-relaxed text-slate-700">
-          No calendar PDF is configured yet.
-        </p>
-      )}
-    </div>
   </section>
-</Layout>
 
+  {hasKeyDates ? (
+    <section class="mt-10 card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Key dates</h2>
+      <p class="mt-2 text-sm text-slate-600">
+        Closures, teacher work days, and other important dates. Confirm with the school for any changes.
+      </p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full min-w-[20rem] border-collapse text-sm">
+          <caption class="sr-only">Key school dates</caption>
+          <thead>
+            <tr class="border-b border-slate-200 text-left">
+              <th scope="col" class="py-2 pr-4 font-semibold text-slate-900">Date</th>
+              <th scope="col" class="py-2 pr-4 font-semibold text-slate-900">Event</th>
+              <th scope="col" class="py-2 pr-4 font-semibold text-slate-900">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {calendar.keyDates.map((d: { date: string; label: string; notes?: string }) => (
+              <tr class="border-b border-slate-100">
+                <td class="py-3 pr-4 text-slate-700">{d.date}</td>
+                <td class="py-3 pr-4 font-medium text-slate-900">{d.label}</td>
+                <td class="py-3 pr-4 text-slate-700">{d.notes ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ) : null}
+</Layout>

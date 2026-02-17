@@ -1,4 +1,10 @@
 {
+  "checklist": [
+    { "step": 1, "label": "Schedule a tour", "detail": "45-minute parent interview and tour (2:30–5:00pm). Overview of philosophy, schedule, fees, and calendar." },
+    { "step": 2, "label": "Child interview", "detail": "30-minute visit (8:30–10:00am). Staff observe readiness and fit with the Montessori environment." },
+    { "step": 3, "label": "Complete registration and pay fee", "detail": "Submit online registration and $50 non-refundable registration fee (Brightwheel)." },
+    { "step": 4, "label": "Submit required documents", "detail": "School Readiness Guidelines (signed), Enrollment Contract, Pre-Admission Record, Immunization Certificate. Child must be potty trained prior to entry." }
+  ],
   "overview": [
     "Auburn Montessori School - The Children's House is a school of choice. We believe that a family deserves the opportunity to investigate the program as it pertains to an environment that provides a high quality education of their young child.",
     "We also believe that our school deserves equal opportunity to interview families to determine whether the family's philosophy is currently compatible or has the potential to align with the Montessori Philosophy."
@@ -40,9 +46,11 @@
       ]
     },
     {
-      "title": "Step 3 - Welcome (admissions process)",
+      "title": "Step 3 - Registration and documents",
       "bullets": [
-        "Welcome! Admissions process: see Admission Requirements."
+        "Complete online registration and pay $50 registration fee.",
+        "Submit signed School Readiness Guidelines, Enrollment Contract, Pre-Admission Record, and Immunization Certificate.",
+        "Once accepted, the school will guide next steps for enrollment and start date."
       ]
     }
   ],

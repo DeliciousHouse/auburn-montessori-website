@@ -2,6 +2,7 @@
 type CarouselImage = {
   src: string;
   alt: string;
+  caption?: string;
 };
 
 type Props = {
@@ -32,6 +33,11 @@ const { id, label, images } = Astro.props as Props;
             loading="lazy"
             decoding="async"
           />
+          {img.caption ? (
+            <figcaption class="absolute bottom-0 left-0 right-0 bg-black/60 px-3 py-2 text-sm text-white">
+              {img.caption}
+            </figcaption>
+          ) : null}
         </figure>
       ))}
     </div>

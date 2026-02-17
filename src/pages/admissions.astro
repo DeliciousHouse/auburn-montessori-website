@@ -11,39 +11,42 @@ import site from '../data/site.json';
   <header class="space-y-3">
     <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Admissions</h1>
     <p class="max-w-4xl text-base leading-relaxed text-slate-700">
-      Start here for the admissions and interview process. For the full set of policies and procedures, refer to
-      the <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/parent-resources">Parent Handbook</a>.
+      Start here for the admissions and interview process. For full policies and procedures, see the
+      <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/parent-resources">Parent Handbook</a>.
     </p>
   </header>
 
-  <section class="mt-10 grid gap-6 lg:grid-cols-2">
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">New Parent Registration</h2>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        <a
-          class="btn btn-primary"
-          href={site.registrationUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="New Parent Registration (opens in a new tab)"
-        >
-          New Parent Registration (Brightwheel)
-        </a>
-      </p>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        Registration opens in a new tab and is handled through Brightwheel (a third-party service).
-      </p>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        Related: <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="https://amstch.hubbli.com/student-registration-form-2025-2026/" target="_blank" rel="noopener noreferrer">Student Registration Form (opens in a new tab)</a>
-      </p>
-    </section>
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Admissions checklist</h2>
+    <ol class="mt-4 list-decimal space-y-4 pl-6">
+      {admissions.checklist.map((item) => (
+        <li class="pl-2">
+          <span class="font-semibold text-slate-900">{item.label}</span>
+          <p class="mt-1 text-sm leading-relaxed text-slate-700">{item.detail}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        class="btn btn-primary"
+        href={site.registrationUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="New Parent Registration (opens in a new tab)"
+      >
+        New Parent Registration (Brightwheel)
+      </a>
+      <a class="btn btn-secondary" href="/documents/parent-handbook.pdf" download>Parent Handbook (PDF)</a>
+      <a class="btn btn-secondary" href="/documents/school-readiness-guidelines.pdf" download>School Readiness Guidelines (PDF)</a>
+      <a class="btn btn-secondary" href="/documents/fees-hours-2026-2027.pdf" download>Fees &amp; Hours (PDF)</a>
+    </div>
+  </section>
 
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Admissions overview</h2>
-      <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
-        {admissions.overview.map((p) => <p>{p}</p>)}
-      </div>
-    </section>
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Admissions overview</h2>
+    <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+      {admissions.overview.map((p) => <p>{p}</p>)}
+    </div>
   </section>
 
   <section class="mt-10 card p-6">

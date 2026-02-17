@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../data/site.json';
+import legal from '../data/legal.json';
 ---
 
 <Layout
@@ -8,6 +9,7 @@ import site from '../data/site.json';
   description="Terms of use for the Auburn Montessori School - The Children's House website."
 >
   <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Terms of Use</h1>
+  <p class="mt-2 text-sm text-slate-600">Effective date: {legal.effectiveDate}. Last updated: {legal.lastUpdated}.</p>
   <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
     <p>
       By using this website, you agree to these Terms of Use. If you do not agree, please do not use the site.

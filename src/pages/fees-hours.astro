@@ -1,6 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import fees from '../data/fees-hours.json';
+
+function formatDate(iso: string): string {
+  if (!iso) return iso;
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch {
+    return iso;
+  }
+}
+
+// Flatten meal options with program info for one table.
+const mealPlanRows = fees.programs.flatMap((p) =>
+  p.mealPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
+);
 ---
 
 <Layout
@@ -36,50 +51,55 @@ import fees from '../data/fees-hours.json';
     <section class="card p-6">
       <h2 class="text-lg font-bold text-slate-900">Key policies</h2>
 
+      <div class="mt-4 space-y-4">
+        <div class="rounded-lg border border-amber-200 bg-amber-50/50 p-4">
+          <h3 class="text-sm font-bold text-slate-900">Late pick up</h3>
+          <p class="mt-1 text-sm leading-relaxed text-slate-700">{fees.latePickUpFeePolicy}</p>
+        </div>
+        <div class="rounded-lg border border-amber-200 bg-amber-50/50 p-4">
+          <h3 class="text-sm font-bold text-slate-900">Late payment</h3>
+          <p class="mt-1 text-sm leading-relaxed text-slate-700">{fees.paymentFeePolicy}</p>
+        </div>
+        <div class="rounded-lg border border-amber-200 bg-amber-50/50 p-4">
+          <h3 class="text-sm font-bold text-slate-900">Returned checks</h3>
+          <p class="mt-1 text-sm leading-relaxed text-slate-700">{fees.returnedChecksPolicy}</p>
+        </div>
+      </div>
+
       <h3 class="mt-4 text-sm font-bold text-slate-900">Payment agreement</h3>
       <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
         {fees.paymentAgreement.map((p) => <li>{p}</li>)}
       </ul>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Payment fee policy</h3>
-      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.paymentFeePolicy}</p>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Late pick up fee policy</h3>
-      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.latePickUpFeePolicy}</p>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Returned checks</h3>
-      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.returnedChecksPolicy}</p>
     </section>
   </section>
 
   <section class="mt-10 card p-6">
     <h2 class="text-lg font-bold text-slate-900">Programs</h2>
     <div class="mt-4 overflow-x-auto">
-      <table class="w-full min-w-[42rem] border-collapse text-sm">
+      <table class="fees-programs-table w-full min-w-[42rem] border-collapse text-sm">
+        <caption class="sr-only">Program hours, tuition, enrollment fee, and late pickup policy by program</caption>
         <thead>
           <tr class="border-b border-slate-200 text-left">
-            <th class="py-2 pr-4 font-semibold text-slate-900">Program</th>
-            <th class="py-2 pr-4 font-semibold text-slate-900">Hours</th>
-            <th class="py-2 pr-4 font-semibold text-slate-900">Monthly tuition</th>
-            <th class="py-2 pr-4 font-semibold text-slate-900">Annual enrollment fee</th>
-            <th class="py-2 pr-4 font-semibold text-slate-900">Enrollment fee due</th>
-            <th class="py-2 pr-4 font-semibold text-slate-900">Late pickup</th>
+            <th scope="col" class="sticky left-0 z-10 bg-white py-2 pr-4 font-semibold text-slate-900 shadow-[2px_0_0_0_theme(colors.slate.200)]">Program</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Hours</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Monthly tuition</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Annual enrollment fee</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Enrollment fee due</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Late pickup</th>
           </tr>
         </thead>
         <tbody>
-          {fees.programs.map((p) => (
-            <tr class="border-b border-slate-100 align-top">
-              <td class="py-3 pr-4 font-semibold text-slate-900">{p.name}</td>
+          {fees.programs.map((p, i) => (
+            <tr class={`border-b border-slate-100 align-top ${i % 2 === 1 ? 'bg-slate-50/50' : ''}`}>
+              <td class="sticky left-0 z-[4] bg-white py-3 pr-4 font-semibold text-slate-900 shadow-[2px_0_0_0_theme(colors.slate.200)]">{p.name}</td>
               <td class="py-3 pr-4 text-slate-700">{p.hours}</td>
               <td class="py-3 pr-4 text-slate-700">
                 ${p.monthlyTuition}
-                <div class="mt-1 text-xs text-slate-600">{p.tuitionNotes}</div>
+                <span class="block mt-1 text-xs text-slate-600">{p.tuitionNotes}</span>
               </td>
               <td class="py-3 pr-4 text-slate-700">${p.annualEnrollmentFee}</td>
-              <td class="py-3 pr-4 text-slate-700">{p.annualEnrollmentFeeDue}</td>
-              <td class="py-3 pr-4 text-slate-700">
-                {p.latePickupPolicy}
-              </td>
+              <td class="py-3 pr-4 text-slate-700">{formatDate(p.annualEnrollmentFeeDue)}</td>
+              <td class="py-3 pr-4 text-slate-700">{p.latePickupPolicy}</td>
             </tr>
           ))}
         </tbody>
@@ -87,55 +107,56 @@ import fees from '../data/fees-hours.json';
     </div>
   </section>
 
-  <section class="mt-10 grid gap-6 lg:grid-cols-2">
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Meal Plan</h2>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        {fees.mealProvider}
-      </p>
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Meal Plan</h2>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">
+      {fees.mealProvider}
+    </p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[32rem] border-collapse text-sm">
+        <caption class="sr-only">Meal plan options and amounts by program</caption>
+        <thead>
+          <tr class="border-b border-slate-200 text-left">
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Program</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Hours</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Option</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Amount per year</th>
+            <th scope="col" class="sticky-header bg-white py-2 pr-4 font-semibold text-slate-900">Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mealPlanRows.map((row, i) => (
+            <tr class={`border-b border-slate-100 ${i % 2 === 1 ? 'bg-slate-50/50' : ''}`}>
+              <td class="py-3 pr-4 text-slate-700">{row.program}</td>
+              <td class="py-3 pr-4 text-slate-700">{row.hours}</td>
+              <td class="py-3 pr-4 font-medium text-slate-900">{row.option}</td>
+              <td class="py-3 pr-4 text-slate-700">${row.amount}</td>
+              <td class="py-3 pr-4 text-slate-700">{row.notes}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-      <div class="mt-5 space-y-5">
-        {fees.programs.map((p) => (
-          <div class="rounded-lg border border-slate-200 p-4">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-sm font-bold text-slate-900">{p.name}</h3>
-              <span class="badge">{p.hours}</span>
-            </div>
-            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
-              {p.mealPlanOptions.map((m) => (
-                <li>
-                  <span class="font-semibold text-slate-900">{m.name}:</span> ${m.amountPerYear}/year
-                  <div class="mt-1 text-xs text-slate-600">{m.notes}</div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Policies and Payment</h2>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Registration fee</h3>
-      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.registrationFee.note}</p>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Payment options</h3>
-      <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-        {fees.paymentOptions.map((p) => <li>{p}</li>)}
-      </ul>
-
-      <h3 class="mt-4 text-sm font-bold text-slate-900">Sources</h3>
-      <ul class="mt-2 space-y-2 text-sm text-slate-700">
-        {fees.sources.map((s) => (
-          <li>
-            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={s.href} download>
-              {s.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Payment</h2>
+    <h3 class="mt-4 text-sm font-bold text-slate-900">Registration fee</h3>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.registrationFee.note}</p>
+    <h3 class="mt-4 text-sm font-bold text-slate-900">Payment options</h3>
+    <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+      {fees.paymentOptions.map((p) => <li>{p}</li>)}
+    </ul>
+    <h3 class="mt-4 text-sm font-bold text-slate-900">Download</h3>
+    <ul class="mt-2 space-y-2 text-sm text-slate-700">
+      {fees.sources.map((s) => (
+        <li>
+          <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={s.href} download>
+            {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
 </Layout>
 

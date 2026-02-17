@@ -1,54 +1,15 @@
 {
-  "groups": [
-    {
-      "title": "Key Documents",
-      "items": [
-        {
-          "label": "Parent Handbook (PDF)",
-          "href": "/documents/parent-handbook.pdf",
-          "external": false
-        },
-        {
-          "label": "Fees and Hours of Operation (PDF)",
-          "href": "/documents/fees-hours-2026-2027.pdf",
-          "external": false
-        },
-        {
-          "label": "School Readiness Guidelines (PDF)",
-          "href": "/documents/school-readiness-guidelines.pdf",
-          "external": false
-        }
-      ]
-    },
-    {
-      "title": "Forms and Registration",
-      "items": [
-        {
-          "label": "New Parent Registration (Brightwheel - opens in a new tab)",
-          "href": "https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a8a5a/self-service",
-          "external": true
-        },
-        {
-          "label": "Student Registration Form (public site)",
-          "href": "https://amstch.hubbli.com/student-registration-form-2025-2026/",
-          "external": true
-        }
-      ]
-    },
-    {
-      "title": "Lists and Learning",
-      "items": [
-        {
-          "label": "Personal Belongings List",
-          "href": "https://amstch.hubbli.com/personal-belongings-list/",
-          "external": true
-        },
-        {
-          "label": "Curriculum Work Cycle (The Montessori Way)",
-          "href": "https://amstch.hubbli.com/individual-work-cycle/",
-          "external": true
-        }
-      ]
-    }
+  "keyDocuments": [
+    { "label": "Parent Handbook", "href": "/documents/parent-handbook.pdf" },
+    { "label": "Fees and Hours of Operation", "href": "/documents/fees-hours-2026-2027.pdf" },
+    { "label": "School Readiness Guidelines", "href": "/documents/school-readiness-guidelines.pdf" }
+  ],
+  "externalServices": [
+    { "label": "New Parent Registration (Brightwheel)", "href": "https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a8a5a/self-service" },
+    { "label": "Student Registration Form (Hubbli)", "href": "https://amstch.hubbli.com/student-registration-form-2025-2026/" }
+  ],
+  "listsAndLearning": [
+    { "label": "Personal Belongings List", "href": "https://amstch.hubbli.com/personal-belongings-list/" },
+    { "label": "Curriculum Work Cycle (The Montessori Way)", "href": "https://amstch.hubbli.com/individual-work-cycle/" }
   ]
 }

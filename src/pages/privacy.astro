@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../data/site.json';
+import legal from '../data/legal.json';
 ---
 
 <Layout
@@ -8,6 +9,7 @@ import site from '../data/site.json';
   description="Privacy policy for the Auburn Montessori School - The Children's House website."
 >
   <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Privacy Policy</h1>
+  <p class="mt-2 text-sm text-slate-600">Effective date: {legal.effectiveDate}. Last updated: {legal.lastUpdated}.</p>
   <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
     <p>
       This website is provided to share information about {site.shortName}. It is a static website and does not
@@ -20,9 +22,10 @@ import site from '../data/site.json';
       to contact us by email or phone, we will receive the information you provide in your message or call.
     </p>
     <p>
-      Like most websites, our hosting provider may automatically collect limited technical information in server
-      logs (for example: IP address, device/browser type, and the pages requested) for security and operational
-      purposes.
+      This site does not use client-side analytics, cookies, or tracking scripts for marketing or advertising.
+      Our hosting environment may collect limited technical information in server logs (for example: IP address,
+      device/browser type, and the pages requested) for security and operational purposes. We do not use that
+      data to identify individuals.
     </p>
 
     <h2 class="text-base font-bold text-slate-900">Third-party services</h2>

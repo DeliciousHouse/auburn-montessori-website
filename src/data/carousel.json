@@ -1,0 +1,9 @@
+{
+  "slides": [
+    { "src": "/images/carousel/slide-1.webp", "alt": "Children in the Montessori classroom", "caption": "Learning in the prepared environment" },
+    { "src": "/images/carousel/slide-2.webp", "alt": "Students engaged in classroom activities", "caption": "Purposeful work and discovery" },
+    { "src": "/images/carousel/slide-3.webp", "alt": "Outdoor or classroom activity at Auburn Montessori", "caption": "Indoor and outdoor learning" },
+    { "src": "/images/carousel/slide-4.webp", "alt": "School community moment", "caption": "Community and peace education" },
+    { "src": "/images/carousel/slide-5.webp", "alt": "Auburn Montessori School – The Children's House", "caption": "Ages 3–6 · The Children's House" }
+  ]
+}

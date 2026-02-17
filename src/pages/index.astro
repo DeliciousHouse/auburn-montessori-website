@@ -3,9 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import ImageCarousel from '../components/ImageCarousel.astro';
 import home from '../data/home.json';
 import site from '../data/site.json';
+import carousel from '../data/carousel.json';
 ---
 
 <Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House.">
+	<section class="trust-bar flex flex-wrap items-center gap-3 border-b border-slate-200 bg-slate-50/80 py-3 text-sm" aria-label="Key information">
+		<a class="badge badge-brand no-underline hover:opacity-90" href="/contact">
+			{site.address.street}, {site.address.city}, {site.address.state}
+		</a>
+		<a class="badge badge-brand no-underline hover:opacity-90" href={`tel:${site.phone}`}>
+			{site.phone}
+		</a>
+		<span class="badge">Ages 3–6</span>
+		<span class="badge badge-brand">Quality STARS 5-STAR</span>
+	</section>
+
 	<section class="grid gap-10 lg:grid-cols-2 lg:items-center">
 		<div class="space-y-5">
 			<p class="badge">{home.heroKicker}</p>
@@ -13,7 +25,7 @@ import site from '../data/site.json';
 				{home.heroTitle}
 			</h1>
 			<p class="text-base leading-relaxed text-slate-700">
-				A mobile-first, parent-friendly site with quick links to the handbook, calendar, fees, and registration.
+				Find the handbook, calendar, fees, and registration in one place. We welcome your family.
 			</p>
 
 			<div class="flex flex-wrap gap-3">
@@ -40,11 +52,7 @@ import site from '../data/site.json';
 		<ImageCarousel
 			id="home-carousel"
 			label="School photo carousel"
-			images={[
-				{ src: '/images/carousel/slide-1.svg', alt: 'Placeholder school photo 1' },
-				{ src: '/images/carousel/slide-2.svg', alt: 'Placeholder school photo 2' },
-				{ src: '/images/carousel/slide-3.svg', alt: 'Placeholder school photo 3' }
-			]}
+			images={carousel.slides}
 		/>
 	</section>
 
