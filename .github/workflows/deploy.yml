@@ -52,25 +52,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "→ Ensuring ./auburn-montessori-website exists..."
-          mkdir -p ./auburn-montessori-website
-          cd ./auburn-montessori-website
-
-          if [ -f .env ]; then
-            set -a
-            source .env
-            set +a
-            if [ -n "${GHCR_PAT:-}" ]; then
-              echo "→ Logging in to ghcr.io (private package)..."
-              echo "$GHCR_PAT" | docker login ghcr.io -u "${GHCR_USERNAME:-}" --password-stdin
-            fi
-          fi
-
+          cd "$GITHUB_WORKSPACE"
           echo "→ Pulling and starting containers..."
           docker compose pull
           docker compose up -d --remove-orphans
-
           echo "→ Pruning unused images..."
           docker image prune -f
-
           echo "Deploy done."
