@@ -41,8 +41,6 @@ jobs:
           tags: |
             ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:sha-${{ github.sha }}
-          build-args: |
-            SITE_URL=${{ secrets.SITE_URL || 'https://amstch.com' }}
 
   deploy:
     needs: build-and-push
