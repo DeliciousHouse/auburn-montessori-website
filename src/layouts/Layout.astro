@@ -90,8 +90,9 @@ const ogImageUrl = Astro.site
 
     <script>
       (function () {
-        const el = document.getElementById('back-to-top');
-        if (!el) return;
+        const maybeEl = document.getElementById('back-to-top');
+        if (!(maybeEl instanceof HTMLElement)) return;
+        const el = maybeEl;
         const showAfter = 400;
         function update() {
           if (window.scrollY > showAfter) {

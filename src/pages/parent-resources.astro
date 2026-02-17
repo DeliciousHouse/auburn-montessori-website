@@ -80,7 +80,7 @@ const docDescriptions: Record<string, string> = {
             item.external ? (
               <ExternalLink
                 href={item.href}
-                opensIn={item.opensIn ?? 'new tab'}
+                opensIn={'opensIn' in item && typeof item.opensIn === 'string' && item.opensIn ? item.opensIn : 'new tab'}
                 class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
               >
                 <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
@@ -111,7 +111,7 @@ const docDescriptions: Record<string, string> = {
             item.external ? (
               <ExternalLink
                 href={item.href}
-                opensIn={item.opensIn ?? 'new tab'}
+                opensIn={'opensIn' in item && typeof item.opensIn === 'string' && item.opensIn ? item.opensIn : 'new tab'}
                 class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
               >
                 <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
