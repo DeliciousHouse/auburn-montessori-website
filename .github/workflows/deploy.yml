@@ -52,9 +52,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "→ Ensuring /opt/moms-website exists..."
-          mkdir -p /opt/moms-website
-          cd /opt/moms-website
+          echo "→ Ensuring ./auburn-montessori-website exists..."
+          mkdir -p ./auburn-montessori-website
+          cd ./auburn-montessori-website
 
           if [ -f .env ]; then
             set -a
