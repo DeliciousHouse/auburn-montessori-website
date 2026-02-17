@@ -1,16 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../data/site.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Icon from '../components/Icon.astro';
 
 const addressLine = `${site.address.street} ${site.address.city}, ${site.address.state} ${site.address.postalCode}`;
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressLine)}`;
 const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(addressLine)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-
-const tourSubject = encodeURIComponent('Request a tour - Auburn Montessori School');
-const tourBody = encodeURIComponent(
-  'Hello,\n\nI would like to schedule a tour of Auburn Montessori School - The Children\'s House.\n\nPreferred date/time (if any):\n\nMy name:\n\nChild\'s name and age:\n\nPhone:\n\nThank you.'
-);
-const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}`;
 ---
 
 <Layout
@@ -24,19 +20,19 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
       <!-- Contact cards -->
       <div class="space-y-5 lg:col-span-2">
         <div class="contact-item">
-          <div class="contact-icon">📍</div>
+          <div class="contact-icon"><Icon name="location" size={20} /></div>
           <div>
             <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Address</div>
             <div class="mt-1 text-sm" style="color: var(--color-neutral-800);">
               {site.address.street}<br />
               {site.address.city}, {site.address.state} {site.address.postalCode}
             </div>
-            <a class="mt-1 inline-block text-sm font-semibold" href={mapUrl} target="_blank" rel="noopener noreferrer">Open in maps ↗</a>
+            <ExternalLink href={mapUrl} opensIn="Google Maps" class="mt-1 inline-block text-sm font-semibold no-underline hover:underline">Open in maps</ExternalLink>
           </div>
         </div>
 
         <div class="contact-item">
-          <div class="contact-icon">📞</div>
+          <div class="contact-icon"><Icon name="phone" size={20} /></div>
           <div>
             <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Phone</div>
             <a class="mt-1 block text-sm font-semibold" href={`tel:${site.phone}`}>{site.phone}</a>
@@ -44,7 +40,7 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
         </div>
 
         <div class="contact-item">
-          <div class="contact-icon">✉️</div>
+          <div class="contact-icon"><Icon name="mail" size={20} /></div>
           <div>
             <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Email</div>
             <a class="mt-1 block text-sm font-semibold" href={`mailto:${site.email}`}>{site.email}</a>
@@ -52,7 +48,7 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
         </div>
 
         <div class="contact-item">
-          <div class="contact-icon">🕐</div>
+          <div class="contact-icon"><Icon name="clock" size={20} /></div>
           <div>
             <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Office Hours</div>
             <p class="mt-1 text-sm" style="color: var(--color-neutral-700);">Program hours vary. See <a class="font-semibold" href="/fees-hours">Fees &amp; Hours</a> for details.</p>
@@ -61,17 +57,48 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
 
         <hr class="divider" />
 
-        <a class="btn btn-outline btn-icon" href={tourMailto}>
-          <span aria-hidden="true">📧</span> Request a Tour
-        </a>
-        <p class="text-xs" style="color: var(--color-neutral-500);">
-          Opens your email with a pre-filled message. No online forms — contact us directly.
+        <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Request a Tour</h2>
+        <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">
+          Fill out the form below to open your email with a pre-filled tour request. No backend — your message goes to the school email.
         </p>
+        <form id="tour-request-form" class="mt-4 space-y-3">
+          <div>
+            <label for="tour-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="tour-name" name="name" required autocomplete="name" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+          </div>
+          <div>
+            <label for="tour-email" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Email <span aria-hidden="true">*</span></label>
+            <input type="email" id="tour-email" name="email" required autocomplete="email" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+          </div>
+          <div>
+            <label for="tour-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Phone (optional)</label>
+            <input type="tel" id="tour-phone" name="phone" autocomplete="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+          </div>
+          <div>
+            <label for="tour-child-age" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child age (optional)</label>
+            <input type="text" id="tour-child-age" name="childAge" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="e.g. 4 years" />
+          </div>
+          <div>
+            <label for="tour-times" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Preferred tour times (optional)</label>
+            <input type="text" id="tour-times" name="preferredTimes" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="e.g. weekday afternoons" />
+          </div>
+          <div>
+            <label for="tour-message" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Message (optional)</label>
+            <textarea id="tour-message" name="message" rows={3} class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Any questions or notes for the school"></textarea>
+          </div>
+          <div class="honeypot-field" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+            <label for="tour-website">Leave blank</label>
+            <input type="text" id="tour-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-icon">
+            <Icon name="mail" size={18} /> Send tour request via email
+          </button>
+        </form>
       </div>
 
       <!-- Map panel -->
       <div class="lg:col-span-3">
-        <div class="overflow-hidden rounded-xl border shadow-sm" style="border-color: var(--color-neutral-200);">
+        <div class="media-frame border shadow-sm" style="border-color: var(--color-border);">
           <iframe
             title="Auburn Montessori School location map"
             src={mapEmbedUrl}
@@ -95,17 +122,44 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
             <h2 class="text-lg font-bold">New Parent Registration</h2>
             <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Registration is handled through Brightwheel (a third-party service) and opens in a new tab.</p>
           </div>
-          <a
-            class="btn btn-primary btn-lg shrink-0"
-            href={site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="New Parent Registration (opens in a new tab)"
-          >
-            Register Now ↗
-          </a>
+          <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary btn-lg shrink-0" ariaLabel="New Parent Registration (opens in Brightwheel)">
+            Register Now
+          </ExternalLink>
         </div>
       </div>
     </div>
   </div>
 </Layout>
+
+<script define:vars={{ siteEmail: site.email }}>
+  const form = document.getElementById('tour-request-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const honeypot = form.querySelector('input[name="website"]');
+      if (honeypot && (honeypot.value || '').trim() !== '') return;
+
+      const name = (form.querySelector('#tour-name')?.value || '').trim();
+      const email = (form.querySelector('#tour-email')?.value || '').trim();
+      const phone = (form.querySelector('#tour-phone')?.value || '').trim();
+      const childAge = (form.querySelector('#tour-child-age')?.value || '').trim();
+      const preferredTimes = (form.querySelector('#tour-times')?.value || '').trim();
+      const message = (form.querySelector('#tour-message')?.value || '').trim();
+
+      const subject = encodeURIComponent(`Tour request – ${name || 'Auburn Montessori School'}`);
+      const lines = [
+        'I would like to schedule a tour of Auburn Montessori School - The Children\'s House.',
+        '',
+        'Name: ' + name,
+        'Email: ' + email,
+        phone ? 'Phone: ' + phone : '',
+        childAge ? 'Child age: ' + childAge : '',
+        preferredTimes ? 'Preferred tour times: ' + preferredTimes : '',
+        message ? '\nMessage:\n' + message : ''
+      ];
+      const body = encodeURIComponent(lines.filter(Boolean).join('\n'));
+      const mailto = `mailto:${siteEmail}?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+    });
+  }
+</script>

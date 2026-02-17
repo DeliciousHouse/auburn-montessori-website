@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import calendar from '../data/calendar.json';
+import ExternalLink from '../components/ExternalLink.astro';
 
 const hasPdf = calendar.pdfPath && calendar.pdfPath.length > 0;
 const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
@@ -35,28 +36,37 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     <div class="container-page grid gap-8 lg:grid-cols-3">
       {/* PDF embed */}
       <div class="lg:col-span-2">
-        {hasPdf ? (
-          <div>
+        <div>
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="section-heading">Full Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
             </div>
-            <div class="mt-4 overflow-hidden rounded-xl border bg-white shadow-sm" style="border-color: var(--color-neutral-200);">
-              <iframe
-                title="School year calendar PDF"
-                src={`${calendar.pdfPath}#view=FitH`}
-                class="h-[70vh] w-full"
-                loading="lazy"
-              ></iframe>
-            </div>
+            {/* Always-visible download button */}
             <div class="mt-3 flex flex-wrap gap-3">
-              <a class="btn btn-primary btn-sm btn-icon" href={calendar.pdfPath} download>
+              <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download id="calendar-download-btn">
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
-                Download PDF
+                Download Calendar PDF
               </a>
             </div>
+            {/* PDF embed with fallback */}
+            <div id="calendar-pdf-container" class="media-frame mt-4 border bg-white shadow-sm" style="border-color: var(--color-border);">
+              <iframe
+                id="calendar-pdf-iframe"
+                title="School year calendar PDF"
+                src={`${calendar.pdfPath}#view=FitH`}
+                class="calendar-pdf-iframe h-[70vh] w-full"
+                loading="lazy"
+              />
+              <div id="calendar-pdf-fallback" class="calendar-pdf-fallback hidden flex h-[70vh] flex-col items-center justify-center gap-3 px-4 text-center" style="color: var(--color-neutral-600);">
+                <p class="text-sm font-medium">The calendar could not be displayed in the browser.</p>
+                <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
+                  Download Calendar PDF
+                </a>
+              </div>
+            </div>
             <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
-              If the viewer doesn't load, use the download button.
+              If the viewer doesn&apos;t load, use the download button above.
             </p>
           </div>
         ) : (
@@ -72,14 +82,9 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
         <div class="card card-body">
           <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Online Calendar</h3>
           <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">View the live events calendar on the school website.</p>
-          <a
-            class="btn btn-outline btn-sm btn-icon mt-3"
-            href={calendar.externalCalendarUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Events ↗
-          </a>
+          <ExternalLink href={calendar.externalCalendarUrl} opensIn="Hubbli" class="btn btn-outline btn-sm btn-icon mt-3">
+            View Events
+          </ExternalLink>
         </div>
 
         <div class="card card-body">
@@ -91,3 +96,31 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     </div>
   </div>
 </Layout>
+
+<script>
+  (function () {
+    const iframe = document.getElementById('calendar-pdf-iframe');
+    const fallback = document.getElementById('calendar-pdf-fallback');
+    if (!iframe || !fallback) return;
+
+    function showFallback() {
+      iframe.classList.add('hidden');
+      fallback.classList.remove('hidden');
+    }
+
+    iframe.addEventListener('load', function () {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (doc?.body && (doc.body.innerText?.includes('Not Found') || doc.body.innerText?.includes('404') || doc.title?.includes('404'))) {
+          showFallback();
+        }
+      } catch (_) {
+        showFallback();
+      }
+    });
+
+    iframe.addEventListener('error', function () {
+      showFallback();
+    });
+  })();
+</script>

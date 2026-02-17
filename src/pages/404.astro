@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import site from '../data/site.json';
+import Icon from '../components/Icon.astro';
 ---
 
 <Layout title="Page not found" description="The page you requested was not found." noindex>
   <div class="section-band">
     <div class="container-page text-center">
       <div class="mx-auto max-w-md">
-        <div class="text-6xl" aria-hidden="true">🔍</div>
+        <div class="flex justify-center" aria-hidden="true"><Icon name="search" size={64} class="inline-flex" style="color: var(--color-border-strong);" /></div>
         <h1 class="mt-4 text-2xl font-bold" style="color: var(--color-neutral-900);">Page Not Found</h1>
         <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">
           The page you requested could not be found. It may have been moved or the link may be incorrect.

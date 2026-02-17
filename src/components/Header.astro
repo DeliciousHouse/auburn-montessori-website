@@ -1,6 +1,7 @@
 ---
 import nav from '../data/navigation.json';
 import site from '../data/site.json';
+import ExternalLink from './ExternalLink.astro';
 
 type Props = { currentPath: string };
 const { currentPath } = Astro.props as Props;
@@ -13,7 +14,7 @@ const isActive = (href: string) => {
 const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
 ---
 
-<header class="sticky top-0 z-40 border-b bg-white/95 backdrop-blur-sm" style={`border-color: var(--color-neutral-200);`}>
+<header class="sticky-header border-b bg-white/95 backdrop-blur-sm" style="border-color: var(--color-border);">
   <div class="container-page flex h-16 items-center justify-between gap-6">
     <!-- Logo + Wordmark -->
     <a class="flex shrink-0 items-center gap-2.5 no-underline" href="/" aria-label={`${site.shortName} home`}>
@@ -25,20 +26,20 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
         class="h-10 w-10 rounded-lg object-contain"
       />
       <div class="hidden leading-tight sm:block">
-        <div class="text-sm font-bold tracking-tight" style={`color: var(--color-neutral-900);`}>{site.shortName}</div>
-        <div class="text-xs" style={`color: var(--color-neutral-500);`}>{site.tagline}</div>
+        <div class="text-sm font-bold tracking-tight" style="color: var(--color-text);">{site.shortName}</div>
+        <div class="text-xs" style="color: var(--color-text-subtle);">{site.tagline}</div>
       </div>
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+    <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
       {mainNav.map((item: {href:string; label:string}) => (
         <a
           class:list={[
-            'rounded-lg px-3 py-1.5 text-sm font-medium no-underline transition-colors',
+            'rounded-lg px-4 py-2.5 text-sm font-medium no-underline transition-colors',
             isActive(item.href)
-              ? 'bg-[var(--color-brand-primary-light)] text-[var(--color-brand-primary)]'
-              : 'text-[var(--color-neutral-600)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-neutral-900)]'
+              ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
+              : 'text-[var(--color-text-muted)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-text)]'
           ]}
           href={item.href}
           aria-current={isActive(item.href) ? 'page' : undefined}
@@ -48,17 +49,13 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
       ))}
     </nav>
 
-    <div class="flex items-center gap-3">
-      <!-- CTA -->
-      <a
-        class="btn btn-primary btn-sm hidden md:inline-flex"
-        href={site.registrationUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Register (opens in a new tab)"
-      >
-        Register
+    <div class="flex items-center gap-2">
+      <a href="/contact#tour-request-form" class="btn btn-ghost btn-sm hidden md:inline-flex no-underline">
+        Schedule a Tour
       </a>
+      <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary btn-sm hidden md:inline-flex" ariaLabel="Register (opens in Brightwheel)">
+        Register
+      </ExternalLink>
 
       <!-- Mobile menu toggle -->
       <details class="relative lg:hidden" id="mobile-menu" data-mobile-menu>
@@ -78,7 +75,7 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
         <div
           id="mobile-menu-panel"
           class="absolute right-0 mt-2 w-[min(92vw,22rem)] rounded-xl border bg-white p-2 shadow-xl"
-          style={`border-color: var(--color-neutral-200);`}
+          style="border-color: var(--color-border);"
           role="region"
           aria-label="Mobile navigation"
         >
@@ -88,8 +85,8 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
                 class:list={[
                   'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors',
                   isActive(item.href)
-                    ? 'bg-[var(--color-brand-primary-light)] text-[var(--color-brand-primary)]'
-                    : 'text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-50)]'
+                    ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
+                    : 'text-[var(--color-text-muted)] hover:bg-[var(--color-surface-alt)]'
                 ]}
                 href={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
@@ -99,16 +96,9 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
               </a>
             ))}
             <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
-            <a
-              class="btn btn-primary w-full justify-center"
-              href={site.registrationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Register (opens in a new tab)"
-              data-mobile-nav-link
-            >
+            <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary w-full justify-center" ariaLabel="New Parent Registration (opens in Brightwheel)" data-mobile-nav-link>
               New Parent Registration
-            </a>
+            </ExternalLink>
           </nav>
         </div>
       </details>

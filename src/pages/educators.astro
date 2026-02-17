@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import educatorsData from '../data/educators.json';
 import site from '../data/site.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Accordion from '../components/Accordion.astro';
+import PageNav from '../components/PageNav.astro';
 
 const leadership = educatorsData.educators.filter((e) =>
   e.role?.toLowerCase().includes('director') || e.role?.toLowerCase().includes('founder')
@@ -12,6 +15,12 @@ const guides = educatorsData.educators.filter((e) =>
 const support = educatorsData.educators.filter((e) =>
   e.role === 'Assistant Director' || e.role === 'Support Staff'
 );
+
+const pageNavLinks = [
+  ...(leadership.length > 0 ? [{ id: 'leadership', label: 'Leadership' }] : []),
+  ...(guides.length > 0 ? [{ id: 'lead-guides', label: 'Lead Guides' }] : []),
+  ...(support.length > 0 ? [{ id: 'assistants-support', label: 'Assistants & Support' }] : []),
+];
 ---
 
 <Layout
@@ -28,11 +37,13 @@ const support = educatorsData.educators.filter((e) =>
         <a class="font-semibold" href={`tel:${site.phone}`}>{site.phone}</a>.
       </p>
 
+      <PageNav links={pageNavLinks} class="mt-6" />
+
       {leadership.length > 0 && (
         <div class="mt-8">
-          <h2 class="section-heading">Leadership</h2>
+          <h2 id="leadership" class="section-heading">Leadership</h2>
           <div class="mt-4 grid gap-5">
-            {leadership.map((e) => (
+            {leadership.map((e, idx) => (
               <article class="card card-body">
                 <div class="flex flex-wrap items-center gap-3">
                   <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
@@ -54,36 +65,31 @@ const support = educatorsData.educators.filter((e) =>
 
                 <div class="mt-4 grid gap-3 md:grid-cols-2">
                   {e.education?.length ? (
-                    <details class="accordion-item border-b-0 border-t" style="border-color: var(--color-neutral-200);">
-                      <summary><span>Education ({e.education.length})</span></summary>
-                      <div class="accordion-body">
-                        <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
-                      </div>
-                    </details>
+                    <Accordion id={`leadership-${idx}-education`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                      <span slot="title">Education ({e.education.length})</span>
+                      <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                    </Accordion>
                   ) : null}
 
                   {e.credentialsAndTraining?.length ? (
-                    <details class="accordion-item border-b-0 border-t" style="border-color: var(--color-neutral-200);">
-                      <summary><span>Credentials ({e.credentialsAndTraining.length})</span></summary>
-                      <div class="accordion-body">
-                        <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
-                      </div>
-                    </details>
+                    <Accordion id={`leadership-${idx}-credentials`} class="border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                      <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
+                      <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                    </Accordion>
                   ) : null}
                 </div>
 
                 {e.links?.length ? (
                   <div class="mt-4 flex flex-wrap gap-2">
-                    {e.links.map((l) => (
-                      <a
-                        class="chip"
-                        href={l.href}
-                        target={l.external ? '_blank' : undefined}
-                        rel={l.external ? 'noopener noreferrer' : undefined}
-                      >
-                        {l.external ? '↗' : ''} {l.label}
-                      </a>
-                    ))}
+                    {e.links.map((l) =>
+                      l.external ? (
+                        <ExternalLink href={l.href} opensIn="new tab" class="chip">
+                          {l.label}
+                        </ExternalLink>
+                      ) : (
+                        <a class="chip" href={l.href}>{l.label}</a>
+                      )
+                    )}
                   </div>
                 ) : null}
               </article>
@@ -94,10 +100,10 @@ const support = educatorsData.educators.filter((e) =>
 
       {guides.length > 0 && (
         <div class="mt-10">
-          <h2 class="section-heading">Lead Guides</h2>
+          <h2 id="lead-guides" class="section-heading">Lead Guides</h2>
           <p class="section-subheading">Classroom educators supporting daily Montessori instruction</p>
           <div class="mt-5 grid gap-5 md:grid-cols-2">
-            {guides.map((e) => (
+            {guides.map((e, idx) => (
               <article class="card card-body">
                 <div class="flex flex-wrap items-center gap-3">
                   <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
@@ -110,20 +116,16 @@ const support = educatorsData.educators.filter((e) =>
 
                 <div class="mt-3 space-y-2">
                   {e.education?.length ? (
-                    <details class="accordion-item border-b-0">
-                      <summary><span>Education ({e.education.length})</span></summary>
-                      <div class="accordion-body">
-                        <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
-                      </div>
-                    </details>
+                    <Accordion id={`guide-${idx}-education`} class="border-b-0">
+                      <span slot="title">Education ({e.education.length})</span>
+                      <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                    </Accordion>
                   ) : null}
                   {e.credentialsAndTraining?.length ? (
-                    <details class="accordion-item border-b-0">
-                      <summary><span>Credentials ({e.credentialsAndTraining.length})</span></summary>
-                      <div class="accordion-body">
-                        <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
-                      </div>
-                    </details>
+                    <Accordion id={`guide-${idx}-credentials`} class="border-b-0">
+                      <span slot="title">Credentials ({e.credentialsAndTraining.length})</span>
+                      <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                    </Accordion>
                   ) : null}
                 </div>
               </article>
@@ -134,7 +136,7 @@ const support = educatorsData.educators.filter((e) =>
 
       {support.length > 0 && (
         <div class="mt-10">
-          <h2 class="section-heading">Assistants &amp; Support</h2>
+          <h2 id="assistants-support" class="section-heading">Assistants &amp; Support</h2>
           <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {support.map((e) => (
               <article class="card card-body">

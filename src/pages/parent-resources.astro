@@ -1,6 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import resources from '../data/resources.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Accordion from '../components/Accordion.astro';
+import PageNav from '../components/PageNav.astro';
+import Icon from '../components/Icon.astro';
+
+const pageNavLinks = [
+  { id: 'documents', label: 'Documents' },
+  { id: 'registration-forms', label: 'Registration & Forms' },
+  { id: 'learning-resources', label: 'Learning Resources' },
+];
 
 const docDescriptions: Record<string, string> = {
   'Parent Handbook': 'Complete guide to school policies, procedures, and expectations.',
@@ -18,11 +28,13 @@ const docDescriptions: Record<string, string> = {
   <!-- Documents -->
   <div class="section-band">
     <div class="container-page">
-      <h2 class="section-heading">Documents</h2>
+      <PageNav links={pageNavLinks} />
+
+      <h2 id="documents" class="section-heading">Documents</h2>
       <p class="section-subheading">View in the browser or download to your device</p>
 
       <div class="mt-6 grid gap-5 lg:grid-cols-3">
-        {resources.keyDocuments.map((doc) => (
+        {resources.keyDocuments.map((doc, docIdx) => (
           <div class="doc-card">
             <div class="flex items-start justify-between gap-3">
               <div>
@@ -37,11 +49,9 @@ const docDescriptions: Record<string, string> = {
                 Download
               </a>
             </div>
-            <details class="mt-3 border-t pt-3" style="border-color: var(--color-neutral-200);">
-              <summary class="cursor-pointer text-xs font-semibold" style="color: var(--color-neutral-500);">
-                Preview document
-              </summary>
-              <div class="mt-2 overflow-hidden rounded-lg border" style="border-color: var(--color-neutral-200);">
+            <Accordion id={`doc-preview-${docIdx}`} class="mt-3 border-t pt-3" triggerClass="cursor-pointer text-xs font-semibold">
+              <span slot="title">Preview document</span>
+              <div class="media-frame mt-2 border" style="border-color: var(--color-border);">
                 <iframe
                   title={`${doc.label} PDF viewer`}
                   src={`${doc.href}#view=FitH`}
@@ -52,7 +62,7 @@ const docDescriptions: Record<string, string> = {
               <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
                 If the preview doesn't load, use the download button above.
               </p>
-            </details>
+            </Accordion>
           </div>
         ))}
       </div>
@@ -63,43 +73,39 @@ const docDescriptions: Record<string, string> = {
   <div class="section-band-alt">
     <div class="container-page grid gap-8 lg:grid-cols-2">
       <div>
-        <h2 class="section-heading">Registration &amp; Forms</h2>
+        <h2 id="registration-forms" class="section-heading">Registration &amp; Forms</h2>
         <p class="section-subheading">External services for enrollment</p>
         <div class="mt-5 space-y-3">
           {resources.externalServices.map((item) => (
-            <a
-              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+            <ExternalLink
               href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              opensIn={item.opensIn ?? 'new tab'}
+              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
             >
-              <div class="feature-icon shrink-0">↗</div>
+              <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
               <div>
                 <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-                <div class="text-xs" style="color: var(--color-neutral-500);">Opens in a new tab</div>
               </div>
-            </a>
+            </ExternalLink>
           ))}
         </div>
       </div>
 
       <div>
-        <h2 class="section-heading">Learning Resources</h2>
+        <h2 id="learning-resources" class="section-heading">Learning Resources</h2>
         <p class="section-subheading">Informational links for parents</p>
         <div class="mt-5 space-y-3">
           {resources.listsAndLearning.map((item) => (
-            <a
-              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+            <ExternalLink
               href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              opensIn={item.opensIn ?? 'new tab'}
+              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
             >
-              <div class="feature-icon shrink-0">📚</div>
+              <div class="feature-icon shrink-0"><Icon name="document" size={22} /></div>
               <div>
                 <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-                <div class="text-xs" style="color: var(--color-neutral-500);">Opens in a new tab</div>
               </div>
-            </a>
+            </ExternalLink>
           ))}
         </div>
       </div>

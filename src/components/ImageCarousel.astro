@@ -25,11 +25,11 @@ const { id, label, images } = Astro.props as Props;
       aria-label={label}
     >
       {images.map((img) => (
-        <figure class="relative w-[min(90vw,56rem)] shrink-0 snap-center overflow-hidden rounded-lg bg-slate-50">
+        <figure class="media-frame ratio-3x2 relative w-[min(90vw,56rem)] shrink-0 snap-center">
           <img
             src={img.src}
             alt={img.alt}
-            class="h-auto w-full object-cover"
+            class="h-full w-full object-cover"
             loading="lazy"
             decoding="async"
           />

@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import fees from '../data/fees-hours.json';
+import Accordion from '../components/Accordion.astro';
+import Icon from '../components/Icon.astro';
 
 function formatDate(iso: string): string {
   if (!iso) return iso;
@@ -13,6 +15,15 @@ function formatDate(iso: string): string {
 const mealPlanRows = fees.programs.flatMap((p) =>
   p.mealPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
 );
+
+const minTuition = Math.min(...fees.programs.map((p) => p.monthlyTuition));
+const maxTuition = Math.max(...fees.programs.map((p) => p.monthlyTuition));
+const enrollmentRange = fees.programs.length
+  ? `${Math.min(...fees.programs.map((p) => p.annualEnrollmentFee))}–${Math.max(...fees.programs.map((p) => p.annualEnrollmentFee))}`
+  : '—';
+const hoursSummary = fees.programs.length
+  ? fees.programs.map((p) => p.hours).filter((h, i, a) => a.indexOf(h) === i).join(' · ')
+  : '—';
 ---
 
 <Layout
@@ -32,11 +43,35 @@ const mealPlanRows = fees.programs.flatMap((p) =>
         </a>
       </div>
 
+      <!-- Key facts cards -->
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="card card-body">
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Hours</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">{hoursSummary}</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Varies by program</p>
+        </div>
+        <div class="card card-body">
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Monthly tuition</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${minTuition} – ${maxTuition}/mo</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">See table by program</p>
+        </div>
+        <div class="card card-body">
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Annual enrollment</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${enrollmentRange}</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Per program (non-refundable)</p>
+        </div>
+        <div class="card card-body">
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Registration</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${fees.registrationFee.amount} one-time</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Non-refundable</p>
+        </div>
+      </div>
+
       <!-- Programs table -->
-      <div class="mt-8">
+      <div class="mt-10">
         <h2 class="section-heading">Programs</h2>
         <p class="section-subheading">Hours, tuition, and enrollment fees by program</p>
-        <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-neutral-200);">
+        <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-border);">
           <table class="data-table table-cards w-full min-w-[42rem]">
             <caption class="sr-only">Program hours, tuition, enrollment fee, and late pickup policy by program</caption>
             <thead>
@@ -52,11 +87,11 @@ const mealPlanRows = fees.programs.flatMap((p) =>
             <tbody>
               {fees.programs.map((p) => (
                 <tr>
-                  <td data-label="Program" class="font-semibold" style="color: var(--color-neutral-900);">{p.name}</td>
+                  <td data-label="Program" class="font-semibold" style="color: var(--color-text);">{p.name}</td>
                   <td data-label="Hours">{p.hours}</td>
                   <td data-label="Mo. Tuition">
-                    <span class="font-semibold" style="color: var(--color-neutral-900);">${p.monthlyTuition}</span>
-                    {p.tuitionNotes ? <span class="block text-xs" style="color: var(--color-neutral-500);">{p.tuitionNotes}</span> : null}
+                    <span class="font-semibold" style="color: var(--color-text);">${p.monthlyTuition}</span>
+                    {p.tuitionNotes ? <span class="block text-xs" style="color: var(--color-text-subtle);">{p.tuitionNotes}</span> : null}
                   </td>
                   <td data-label="Enrollment">${p.annualEnrollmentFee}</td>
                   <td data-label="Due">{formatDate(p.annualEnrollmentFeeDue)}</td>
@@ -72,8 +107,8 @@ const mealPlanRows = fees.programs.flatMap((p) =>
       <div class="mt-10">
         <h2 class="section-heading">Meal Plan</h2>
         <p class="section-subheading">{fees.mealProvider}</p>
-        <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-neutral-200);">
-          <table class="data-table table-cards w-full min-w-[32rem]">
+        <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-border);">
+            <table class="data-table table-cards w-full min-w-[32rem]">
             <caption class="sr-only">Meal plan options and amounts by program</caption>
             <thead>
               <tr>
@@ -89,7 +124,7 @@ const mealPlanRows = fees.programs.flatMap((p) =>
                 <tr>
                   <td data-label="Program">{row.program}</td>
                   <td data-label="Hours">{row.hours}</td>
-                  <td data-label="Option" class="font-semibold" style="color: var(--color-neutral-900);">{row.option}</td>
+                  <td data-label="Option" class="font-semibold" style="color: var(--color-text);">{row.option}</td>
                   <td data-label="Amount">${row.amount}</td>
                   <td data-label="Due">{row.notes}</td>
                 </tr>
@@ -110,19 +145,19 @@ const mealPlanRows = fees.programs.flatMap((p) =>
       <div class="mt-6 grid gap-5 md:grid-cols-3">
         <div class="callout callout-warn">
           <div class="callout-title">
-            <span aria-hidden="true">⏰</span> Late Pick Up
+            <Icon name="clock" size={18} /> Late Pick Up
           </div>
           <div class="callout-body">{fees.latePickUpFeePolicy}</div>
         </div>
         <div class="callout callout-warn">
           <div class="callout-title">
-            <span aria-hidden="true">💳</span> Late Payment
+            <Icon name="fees" size={18} /> Late Payment
           </div>
           <div class="callout-body">{fees.paymentFeePolicy}</div>
         </div>
         <div class="callout callout-warn">
           <div class="callout-title">
-            <span aria-hidden="true">📄</span> Returned Checks
+            <Icon name="document" size={18} /> Returned Checks
           </div>
           <div class="callout-body">{fees.returnedChecksPolicy}</div>
         </div>
@@ -130,7 +165,7 @@ const mealPlanRows = fees.programs.flatMap((p) =>
 
       <div class="mt-8 grid gap-8 lg:grid-cols-2">
         <div class="card card-body">
-          <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Payment Agreement</h3>
+          <h3 class="text-sm font-bold" style="color: var(--color-text);">Payment Agreement</h3>
           <ul class="mt-3 space-y-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
             {fees.paymentAgreement.map((p) => (
               <li class="flex gap-2">
@@ -142,10 +177,10 @@ const mealPlanRows = fees.programs.flatMap((p) =>
         </div>
 
         <div class="card card-body">
-          <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Registration Fee</h3>
+          <h3 class="text-sm font-bold" style="color: var(--color-text);">Registration Fee</h3>
           <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{fees.registrationFee.note}</p>
 
-          <h3 class="mt-5 text-sm font-bold" style="color: var(--color-neutral-900);">Payment Options</h3>
+          <h3 class="mt-5 text-sm font-bold" style="color: var(--color-text);">Payment Options</h3>
           <ul class="mt-2 space-y-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
             {fees.paymentOptions.map((p) => (
               <li class="flex gap-2">
@@ -155,7 +190,7 @@ const mealPlanRows = fees.programs.flatMap((p) =>
             ))}
           </ul>
 
-          <h3 class="mt-5 text-sm font-bold" style="color: var(--color-neutral-900);">Downloads</h3>
+          <h3 class="mt-5 text-sm font-bold" style="color: var(--color-text);">Downloads</h3>
           <div class="mt-2 flex flex-wrap gap-2">
             {fees.sources.map((s) => (
               <a class="btn btn-outline btn-sm" href={s.href} download>{s.label}</a>
@@ -169,9 +204,9 @@ const mealPlanRows = fees.programs.flatMap((p) =>
   <!-- PDF preview -->
   <div class="section-band">
     <div class="container-page">
-      <details>
-        <summary class="btn btn-ghost btn-sm cursor-pointer">Preview official PDF in browser</summary>
-        <div class="mt-4 overflow-hidden rounded-xl border bg-white shadow-sm" style="border-color: var(--color-neutral-200);">
+      <Accordion id="fees-pdf-preview" triggerClass="btn btn-ghost btn-sm cursor-pointer">
+        <span slot="title">Preview official PDF in browser</span>
+        <div class="media-frame mt-4 border bg-white shadow-sm" style="border-color: var(--color-border);">
           <iframe
             title="Fees and Hours of Operation PDF viewer"
             src={`${fees.pdfPath}#view=FitH`}
@@ -180,7 +215,7 @@ const mealPlanRows = fees.programs.flatMap((p) =>
           ></iframe>
         </div>
         <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">If the viewer doesn't load, use the download button above.</p>
-      </details>
+      </Accordion>
     </div>
   </div>
 </Layout>

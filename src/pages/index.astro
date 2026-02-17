@@ -1,54 +1,58 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ImageCarousel from '../components/ImageCarousel.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import Icon from '../components/Icon.astro';
 import home from '../data/home.json';
 import site from '../data/site.json';
 import carousel from '../data/carousel.json';
+
+const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', alt: 'Auburn Montessori School' };
 ---
 
 <Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House. A Montessori community serving children ages 3–6 in Auburn, Alabama.">
-	<!-- Hero -->
-	<section class="hero-band">
-		<div class="container-page grid gap-8 lg:grid-cols-2 lg:items-center">
-			<div>
-				<p class="badge-accent mb-4 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background: rgba(255,255,255,0.15); color: white;">{home.heroKicker}</p>
-				<h1>{home.heroTitle}</h1>
-				<p class="hero-lead">A Montessori community nurturing the love of learning for children ages 3–6 in Auburn, Alabama. Everything you need — handbook, calendar, fees, and registration — in one place.</p>
-			</div>
-			<div class="hidden lg:block">
-				<ImageCarousel
-					id="home-carousel"
-					label="School photo carousel"
-					images={carousel.slides}
-				/>
+	<!-- Hero: one strong image, headline, supporting line, primary + secondary CTA -->
+	<section class="hero-band" aria-label="Welcome">
+		<div class="container-page">
+			<div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+				<div class="order-2 lg:order-1">
+					<h1>{home.heroTitle}</h1>
+					<p class="hero-lead">
+						A Montessori community nurturing the love of learning for children ages 3–6 in Auburn, Alabama.
+					</p>
+					<div class="mt-6 flex flex-wrap gap-3">
+						<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
+						<ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Register (opens in Brightwheel)">
+							Register
+						</ExternalLink>
+					</div>
+				</div>
+				<div class="order-1 lg:order-2 media-frame ratio-3x2 lg:min-h-0">
+					<img
+						src={heroImage.src}
+						alt={heroImage.alt}
+						width="800"
+						height="533"
+						class="h-full w-full object-cover"
+						fetchpriority="high"
+					/>
+				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Trust bar -->
-	<div style="background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200);">
-		<div class="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3 text-sm" style="color: var(--color-neutral-600);">
-			<a class="flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-neutral-600);" href="/contact">
-				<span aria-hidden="true">📍</span> {site.address.street}, {site.address.city}, {site.address.state}
+	<div class="border-b" style="background: var(--color-surface-alt); border-color: var(--color-border);">
+		<div class="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3 text-sm" style="color: var(--color-text-muted);">
+			<a class="flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted);" href="/contact">
+				<Icon name="location" size={18} class="inline-flex" /> {site.address.street}, {site.address.city}, {site.address.state}
 			</a>
-			<a class="flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-neutral-600);" href={`tel:${site.phone}`}>
-				<span aria-hidden="true">📞</span> {site.phone}
+			<a class="flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted);" href={`tel:${site.phone}`}>
+				<Icon name="phone" size={18} class="inline-flex" /> {site.phone}
 			</a>
 			<span class="flex items-center gap-1.5">
-				<span aria-hidden="true">🎓</span> Ages 3–6
+				<Icon name="people" size={18} class="inline-flex" /> Ages 3–6
 			</span>
 			<span class="badge badge-brand">Quality STARS 5-STAR</span>
-		</div>
-	</div>
-
-	<!-- Mobile carousel (visible on smaller screens) -->
-	<div class="section-band lg:hidden">
-		<div class="container-page">
-			<ImageCarousel
-				id="home-carousel-mobile"
-				label="School photo carousel"
-				images={carousel.slides}
-			/>
 		</div>
 	</div>
 
@@ -56,31 +60,31 @@ import carousel from '../data/carousel.json';
 	<div class="section-band">
 		<div class="container-page">
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-				<a href="/parent-resources" class="card card-body flex flex-col items-start gap-2 no-underline hover:shadow-md transition-shadow">
-					<div class="feature-icon">📋</div>
-					<h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Parent Handbook</h2>
-					<p class="text-xs" style="color: var(--color-neutral-500);">View or download the full handbook</p>
+				<a href="/parent-resources" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+					<div class="feature-icon"><Icon name="document" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-text);">Parent Handbook</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">View or download the full handbook</p>
 				</a>
-				<a href="/calendar" class="card card-body flex flex-col items-start gap-2 no-underline hover:shadow-md transition-shadow">
-					<div class="feature-icon">📅</div>
-					<h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Calendar</h2>
-					<p class="text-xs" style="color: var(--color-neutral-500);">Key dates, closures, and events</p>
+				<a href="/calendar" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+					<div class="feature-icon"><Icon name="calendar" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-text);">Calendar</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Key dates, closures, and events</p>
 				</a>
-				<a href="/fees-hours" class="card card-body flex flex-col items-start gap-2 no-underline hover:shadow-md transition-shadow">
-					<div class="feature-icon">💰</div>
-					<h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Fees &amp; Hours</h2>
-					<p class="text-xs" style="color: var(--color-neutral-500);">Tuition, schedules, and policies</p>
+				<a href="/fees-hours" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+					<div class="feature-icon"><Icon name="fees" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-text);">Fees &amp; Hours</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Tuition, schedules, and policies</p>
 				</a>
-				<a href="/educators" class="card card-body flex flex-col items-start gap-2 no-underline hover:shadow-md transition-shadow">
-					<div class="feature-icon">👩‍🏫</div>
-					<h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Educators</h2>
-					<p class="text-xs" style="color: var(--color-neutral-500);">Meet our experienced team</p>
+				<a href="/educators" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+					<div class="feature-icon"><Icon name="people" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-text);">Educators</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Meet our experienced team</p>
 				</a>
-				<a href={site.registrationUrl} target="_blank" rel="noopener noreferrer" class="card card-body flex flex-col items-start gap-2 no-underline hover:shadow-md transition-shadow" style="background: var(--color-brand-primary-light); border-color: rgba(30,58,95,0.15);">
-					<div class="feature-icon" style="background: var(--color-brand-primary); color: white;">✏️</div>
-					<h2 class="text-sm font-bold" style="color: var(--color-brand-primary);">Register</h2>
-					<p class="text-xs" style="color: var(--color-neutral-500);">New parent registration (Brightwheel) ↗</p>
-				</a>
+				<ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Register (opens in Brightwheel)">
+					<div class="feature-icon" style="background: var(--color-primary); color: white;"><Icon name="edit" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Register</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Opens in Brightwheel</p>
+				</ExternalLink>
 			</div>
 		</div>
 	</div>
@@ -105,7 +109,7 @@ import carousel from '../data/carousel.json';
 					<ul class="space-y-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
 						{home.missions.map((m) => (
 							<li class="flex gap-2">
-								<span class="shrink-0 mt-1" style="color: var(--color-brand-primary);">•</span>
+								<span class="shrink-0 mt-1" style="color: var(--color-primary);">•</span>
 								<span>{m}</span>
 							</li>
 						))}
@@ -123,14 +127,14 @@ import carousel from '../data/carousel.json';
 	<!-- CTA band -->
 	<div class="section-band">
 		<div class="container-page">
-			<div class="cta-panel text-center" style="padding: 2.5rem;">
+			<div class="cta-panel text-center" style="padding: var(--space-10);">
 				<h2 class="text-xl font-bold">Ready to join our community?</h2>
-				<p class="mx-auto mt-2 max-w-md text-sm" style="color: rgba(255,255,255,0.8);">
+				<p class="mx-auto mt-2 max-w-md text-sm" style="color: rgba(255,255,255,0.9);">
 					Schedule a tour, learn about our admissions process, or register today.
 				</p>
-				<div class="mt-5 flex flex-wrap justify-center gap-3">
-					<a class="btn btn-primary" href="/admissions">Admissions Process</a>
-					<a class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white; background: transparent;" href="/contact">Contact Us</a>
+				<div class="mt-6 flex flex-wrap justify-center gap-3">
+					<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
+					<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/admissions">Admissions Process</a>
 				</div>
 			</div>
 		</div>

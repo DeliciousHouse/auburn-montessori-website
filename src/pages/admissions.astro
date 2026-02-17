@@ -2,6 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import admissions from '../data/admissions.json';
 import site from '../data/site.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Accordion from '../components/Accordion.astro';
+import PageNav from '../components/PageNav.astro';
+
+const pageNavLinks = [
+  { id: 'how-to-enroll', label: 'How to Enroll' },
+  { id: 'interview-process', label: 'Interview Process' },
+  { id: 'signs-of-readiness', label: 'Signs of Readiness' },
+  { id: 'admission-requirements', label: 'Admission Requirements' },
+  { id: 'admissions-philosophy', label: 'Admissions Philosophy' },
+];
 ---
 
 <Layout
@@ -13,7 +24,9 @@ import site from '../data/site.json';
   <!-- Stepper -->
   <div class="section-band">
     <div class="container-page">
-      <h2 class="section-heading">How to Enroll</h2>
+      <PageNav links={pageNavLinks} />
+
+      <h2 id="how-to-enroll" class="section-heading">How to Enroll</h2>
       <p class="section-subheading">Four steps from first visit to first day</p>
 
       <div class="stepper mt-6">
@@ -33,15 +46,9 @@ import site from '../data/site.json';
             <h3 class="text-lg font-bold">Ready to register?</h3>
             <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Complete your registration online through Brightwheel. Registration fee: $50 (non-refundable).</p>
           </div>
-          <a
-            class="btn btn-primary btn-lg shrink-0"
-            href={site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="New Parent Registration (opens in a new tab)"
-          >
-            Register Now ↗
-          </a>
+          <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary btn-lg shrink-0" ariaLabel="New Parent Registration (opens in Brightwheel)">
+            Register Now
+          </ExternalLink>
         </div>
       </div>
 
@@ -56,19 +63,19 @@ import site from '../data/site.json';
   <!-- Interview process detail -->
   <div class="section-band-alt">
     <div class="container-page">
-      <h2 class="section-heading">Interview Process (Detail)</h2>
+      <h2 id="interview-process" class="section-heading">Interview Process (Detail)</h2>
       <p class="section-subheading">What to expect at each stage</p>
 
       <div class="mt-6 space-y-5">
         {admissions.interviewSteps.map((s, i) => (
-          <details class="card card-body" open={i === 0}>
-            <summary class="cursor-pointer flex items-center gap-3">
+          <Accordion id={`interview-${i}`} defaultOpen={i === 0} class="card card-body" triggerClass="cursor-pointer flex items-center gap-3">
+            <span slot="title">
               <span class="stepper-number" style="margin-bottom: 0;">{i + 1}</span>
               <div>
                 <span class="text-sm font-bold" style="color: var(--color-neutral-900);">{s.title}</span>
                 {s.timeWindow ? <span class="badge ml-2">{s.timeWindow}</span> : null}
               </div>
-            </summary>
+            </span>
             {s.bullets?.length ? (
               <ul class="mt-4 space-y-2 pl-12 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
                 {s.bullets.map((b) => (
@@ -79,7 +86,7 @@ import site from '../data/site.json';
                 ))}
               </ul>
             ) : null}
-          </details>
+          </Accordion>
         ))}
       </div>
     </div>
@@ -88,7 +95,7 @@ import site from '../data/site.json';
   <!-- Signs of success — two-column layout -->
   <div class="section-band">
     <div class="container-page">
-      <h2 class="section-heading">Signs of Readiness</h2>
+      <h2 id="signs-of-readiness" class="section-heading">Signs of Readiness</h2>
       <p class="section-subheading">How staff evaluate interview observations (from the handbook)</p>
 
       <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -135,7 +142,7 @@ import site from '../data/site.json';
   <div class="section-band-alt">
     <div class="container-page">
       <div class="mx-auto max-w-3xl">
-        <h2 class="section-heading">Admission Requirements</h2>
+        <h2 id="admission-requirements" class="section-heading">Admission Requirements</h2>
         <p class="section-subheading">Documents and conditions for enrollment</p>
         <div class="mt-5 grid gap-3 sm:grid-cols-2">
           {admissions.admissionRequirements.map((r) => (
@@ -155,7 +162,7 @@ import site from '../data/site.json';
   <!-- Overview (philosophy) -->
   <div class="section-band">
     <div class="container-page mx-auto max-w-3xl">
-      <h2 class="section-heading">About Our Admissions Philosophy</h2>
+      <h2 id="admissions-philosophy" class="section-heading">About Our Admissions Philosophy</h2>
       <div class="mt-4 space-y-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
         {admissions.overview.map((p) => <p>{p}</p>)}
       </div>

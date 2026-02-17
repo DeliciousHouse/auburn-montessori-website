@@ -1,0 +1,28 @@
+---
+type Props = {
+  href: string;
+  opensIn: string;
+  class?: string;
+  ariaLabel?: string;
+  [key: string]: unknown;
+};
+
+const { href, opensIn, class: className = '', ariaLabel, ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[className]}
+  aria-label={ariaLabel ?? undefined}
+  {...rest}
+>
+  <slot />
+  <span class="icon-external-wrap" aria-hidden="true">
+    <svg class="icon-external" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 6.5V10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3.5M7 1h4v4M11 1l-6 6" />
+    </svg>
+  </span>
+  {opensIn ? <span class="external-helper text-xs" style="color: var(--color-neutral-500);">Opens in {opensIn}</span> : null}
+</a>

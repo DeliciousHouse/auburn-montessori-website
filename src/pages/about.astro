@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import home from '../data/home.json';
 import about from '../data/about.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import Accordion from '../components/Accordion.astro';
+import Icon from '../components/Icon.astro';
 ---
 
 <Layout
@@ -53,12 +56,10 @@ import about from '../data/about.json';
         <p class="section-subheading">How we put our purpose into practice</p>
         <div class="mt-5">
           {about.objectives.map((o, i) => (
-            <details class="accordion-item" open={i === 0}>
-              <summary>
-                <span>Objective {i + 1}</span>
-              </summary>
-              <div class="accordion-body">{o}</div>
-            </details>
+            <Accordion id={`objective-${i}`} defaultOpen={i === 0}>
+              <span slot="title">Objective {i + 1}</span>
+              {o}
+            </Accordion>
           ))}
         </div>
       </div>
@@ -73,53 +74,53 @@ import about from '../data/about.json';
 
       <div class="mt-8 feature-grid">
         <div class="feature-item">
-          <div class="feature-icon">🧩</div>
+          <div class="feature-icon"><Icon name="document" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Prepared Environment</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Prepared Environment</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Classrooms are designed for exploration, independence, and purposeful work.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">⏳</div>
+          <div class="feature-icon"><Icon name="clock" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Uninterrupted Work Cycle</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Uninterrupted Work Cycle</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Students have extended time and space to practice lessons individually or in small groups.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🕊️</div>
+          <div class="feature-icon"><Icon name="people" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Peace Education</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Peace Education</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Educators guide children toward inner discipline and peace through purposeful engagement.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🌱</div>
+          <div class="feature-icon"><Icon name="people" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Whole-Child Development</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Whole-Child Development</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Nurturing the physical, emotional, social, spiritual, and mental capacities of each child.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🔬</div>
+          <div class="feature-icon"><Icon name="document" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Scientific Observation</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Scientific Observation</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Educators observe each child to understand their unique needs and adapt accordingly.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🏡</div>
+          <div class="feature-icon"><Icon name="people" size={22} /></div>
           <div>
-            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Home Away from Home</h3>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">Home Away from Home</h3>
             <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">A warm, loving environment where each child is respected as a unique individual.</p>
           </div>
         </div>
       </div>
 
       <p class="mt-8 text-center text-sm">
-        <a class="font-semibold no-underline hover:underline" href="https://amstch.hubbli.com/individual-work-cycle/" target="_blank" rel="noopener noreferrer">
-          Learn about the Montessori work cycle ↗
-        </a>
+        <ExternalLink href="https://amstch.hubbli.com/individual-work-cycle/" opensIn="Hubbli" class="font-semibold no-underline hover:underline">
+          Learn about the Montessori work cycle
+        </ExternalLink>
       </p>
     </div>
   </div>

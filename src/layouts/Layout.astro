@@ -36,6 +36,9 @@ const ogImageUrl = Astro.site
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
@@ -55,7 +58,7 @@ const ogImageUrl = Astro.site
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content={ogImageUrl} />
   </head>
-  <body class="flex min-h-screen flex-col bg-white">
+  <body class="flex min-h-screen flex-col">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <Header currentPath={Astro.url.pathname} />
@@ -74,5 +77,32 @@ const ogImageUrl = Astro.site
     </main>
 
     <Footer />
+
+    <a
+      href="#main"
+      id="back-to-top"
+      class="back-to-top fixed bottom-6 right-6 z-30 rounded-full border bg-white px-4 py-2 text-sm font-medium shadow-md no-underline opacity-0 pointer-events-none transition-opacity focus:opacity-100 focus:pointer-events-auto"
+      style="border-color: var(--color-border); color: var(--color-text-muted);"
+      aria-label="Back to top"
+    >
+      Back to top
+    </a>
+
+    <script>
+      (function () {
+        const el = document.getElementById('back-to-top');
+        if (!el) return;
+        const showAfter = 400;
+        function update() {
+          if (window.scrollY > showAfter) {
+            el.classList.add('back-to-top-visible');
+          } else {
+            el.classList.remove('back-to-top-visible');
+          }
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('load', update);
+      })();
+    </script>
   </body>
 </html>

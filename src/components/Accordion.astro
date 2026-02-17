@@ -1,0 +1,48 @@
+---
+type Props = {
+  id: string;
+  defaultOpen?: boolean;
+  class?: string;
+  triggerClass?: string;
+};
+
+const { id, defaultOpen = false, class: className = '', triggerClass = '' } = Astro.props;
+const triggerId = id;
+const panelId = `${id}-panel`;
+---
+
+<div class:list={['accordion-item', className]}>
+  <button
+    type="button"
+    class:list={['accordion-trigger', triggerClass]}
+    id={triggerId}
+    aria-expanded={defaultOpen}
+    aria-controls={panelId}
+    data-accordion-trigger
+  >
+    <span><slot name="title" /></span>
+  </button>
+  <div
+    id={panelId}
+    role="region"
+    aria-labelledby={triggerId}
+    class="accordion-body"
+    hidden={!defaultOpen}
+    data-accordion-panel
+  >
+    <slot />
+  </div>
+</div>
+
+<script define:vars={{ triggerId, panelId }}>
+  (function () {
+    const btn = document.getElementById(triggerId);
+    const panel = document.getElementById(panelId);
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      panel.hidden = expanded;
+    });
+  })();
+</script>

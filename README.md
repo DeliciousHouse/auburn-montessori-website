@@ -6,6 +6,10 @@ Static marketing + parent information site for Auburn Montessori School - The Ch
 - Mobile-first responsive, accessible, fast
 - Content is kept in editable JSON files under `src/data/`
 
+## Design system
+
+Colors, typography, spacing, buttons, cards, and layout are defined as design tokens and components. See **[docs/design-system.md](docs/design-system.md)** for the full reference. A page-by-page summary of the design refresh is in **[docs/design-refresh-summary.md](docs/design-refresh-summary.md)**.
+
 ## Environment variable (required for production)
 
 The canonical site/domain is configured via:
@@ -22,6 +26,8 @@ npm run dev
 ```
 
 Dev server runs on `http://localhost:4321` by default.
+
+Before committing, run `npm run build` to confirm the site builds. For type checking, install `@astrojs/check` and `typescript` and run `npm run check`.
 
 To test sitemap/canonical behavior locally:
 
@@ -63,18 +69,17 @@ Most content is in `src/data/`:
 
 PDFs live in `public/documents/` and are linked consistently throughout the site:
 
+- `public/documents/calendar.pdf` — **required for Calendar page**: place the current school-year calendar PDF here so the embed and download work.
 - `public/documents/parent-handbook.pdf` (embedded + downloadable)
 - `public/documents/fees-hours-2026-2027.pdf` (embedded + downloadable)
 - `public/documents/school-readiness-guidelines.pdf`
 
 Replace these files with the current-year versions as needed (keep filenames the same to avoid changing links).
 
-## Carousel images
+## Images
 
-Carousel images live in `public/images/carousel/`.
-
-- Replace `slide-1.svg`, `slide-2.svg`, `slide-3.svg` with real images (JPG/PNG/WebP recommended).
-- Update the image list in `src/pages/index.astro` if you add/remove slides.
+- **Logo:** `public/images/brand/logo.webp`
+- **Hero / carousel:** `public/images/carousel/` (slide-1.webp, etc.). The homepage hero uses the first slide; the list is in `src/data/carousel.json`. Use real school photography (JPG/PNG/WebP) for best results.
 
 ## Brightwheel registration link (required)
 

@@ -1,10 +1,11 @@
 ---
 import site from '../data/site.json';
 import nav from '../data/navigation.json';
+import ExternalLink from './ExternalLink.astro';
 
 const year = new Date().getFullYear();
 
-const quickLinks = nav.filter((item: {href:string}) => ['/', '/about', '/admissions', '/fees-hours', '/calendar'].includes(item.href));
+const quickLinks = nav.filter((item: {href:string}) => ['/', '/about', '/admissions', '/fees-hours', '/calendar', '/contact'].includes(item.href));
 
 const legalLinks = [
   { label: 'Privacy Policy', href: '/privacy' },
@@ -14,68 +15,62 @@ const legalLinks = [
 ];
 ---
 
-<footer class="border-t mt-auto" style={`border-color: var(--color-neutral-200); background: var(--color-neutral-50);`}>
+<footer class="border-t mt-auto" style="border-color: var(--color-border); background: var(--color-surface-alt);">
   <div class="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
     <!-- Contact -->
-    <div class="space-y-3">
+    <div class="stack">
       <a class="flex items-center gap-2 no-underline" href="/">
         <img src="/images/brand/logo.webp" alt="" width="28" height="28" class="h-7 w-7 rounded object-contain" />
-        <span class="text-sm font-bold" style={`color: var(--color-neutral-900);`}>{site.shortName}</span>
+        <span class="text-sm font-bold" style="color: var(--color-text);">{site.shortName}</span>
       </a>
-      <address class="not-italic text-sm" style={`color: var(--color-neutral-600);`}>
+      <address class="not-italic text-sm" style="color: var(--color-text-muted);">
         {site.address.street}<br />
         {site.address.city}, {site.address.state} {site.address.postalCode}
       </address>
-      <div class="space-y-1 text-sm">
-        <a class="no-underline block" style={`color: var(--color-neutral-600);`} href={`tel:${site.phone}`}>{site.phone}</a>
-        <a class="no-underline block" style={`color: var(--color-neutral-600);`} href={`mailto:${site.email}`}>{site.email}</a>
+      <div class="flex flex-col gap-1 text-sm">
+        <a class="no-underline hover:underline" style="color: var(--color-text-muted);" href={`tel:${site.phone}`}>{site.phone}</a>
+        <a class="no-underline hover:underline" style="color: var(--color-text-muted);" href={`mailto:${site.email}`}>{site.email}</a>
       </div>
     </div>
 
     <!-- Quick Links -->
     <div>
-      <div class="text-xs font-semibold uppercase tracking-wider" style={`color: var(--color-neutral-500);`}>Quick Links</div>
+      <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Quick Links</div>
       <nav class="mt-3 flex flex-col gap-2" aria-label="Footer quick links">
         {quickLinks.map((l: {href:string; label:string}) => (
-          <a class="text-sm no-underline hover:underline" style={`color: var(--color-neutral-600);`} href={l.href}>{l.label}</a>
+          <a class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);" href={l.href}>{l.label}</a>
         ))}
-        <a
-          class="text-sm no-underline hover:underline"
-          style={`color: var(--color-neutral-600);`}
-          href={site.registrationUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Register (Brightwheel) ↗
-        </a>
+        <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);">
+          Register (Brightwheel)
+        </ExternalLink>
       </nav>
     </div>
 
     <!-- Legal -->
     <div>
-      <div class="text-xs font-semibold uppercase tracking-wider" style={`color: var(--color-neutral-500);`}>Legal</div>
+      <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Legal</div>
       <nav class="mt-3 flex flex-col gap-2" aria-label="Footer legal">
         {legalLinks.map((l) => (
-          <a class="text-sm no-underline hover:underline" style={`color: var(--color-neutral-600);`} href={l.href}>{l.label}</a>
+          <a class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);" href={l.href}>{l.label}</a>
         ))}
       </nav>
     </div>
 
     <!-- External Services -->
     <div>
-      <div class="text-xs font-semibold uppercase tracking-wider" style={`color: var(--color-neutral-500);`}>Third-Party Services</div>
-      <p class="mt-3 text-xs leading-relaxed" style={`color: var(--color-neutral-500);`}>
+      <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Third-Party Services</div>
+      <p class="mt-3 text-xs leading-relaxed" style="color: var(--color-text-subtle);">
         Links to third-party services are provided for convenience. When you leave this site, you are subject to the
         third party's own terms and privacy practices.
       </p>
-      <p class="mt-2 text-xs" style={`color: var(--color-neutral-500);`}>
+      <p class="mt-2 text-xs" style="color: var(--color-text-subtle);">
         Parent registration is handled through Brightwheel.
       </p>
     </div>
   </div>
 
-  <div class="border-t" style={`border-color: var(--color-neutral-200);`}>
-    <div class="container-page py-4 text-xs" style={`color: var(--color-neutral-500);`}>
+  <div class="border-t" style="border-color: var(--color-border);">
+    <div class="container-page py-4 text-xs" style="color: var(--color-text-subtle);">
       &copy; {year} {site.shortName}. All rights reserved.
     </div>
   </div>
