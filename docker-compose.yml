@@ -1,20 +1,13 @@
+# VPS runtime: image from GHCR, no local build. Reverse proxy forwards to APP_PORT (default 8080).
 services:
-  # Production container: static build served by nginx.
   website:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        SITE_URL: ${SITE_URL:-https://amstch.com}
-    environment:
-      SITE_URL: ${SITE_URL:-https://amstch.com}
-    # ports:
-    #   - "3000:3000"
-    networks:
-      - docker-stack
+    image: ghcr.io/delicioushouse/auburn-montessori-website:latest
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${APP_PORT:-8080}:80"
 
-  # Local development (optional):
-  #   docker compose --profile dev up --build
+  # Local development (optional): docker compose --profile dev up
   website-dev:
     image: node:22-alpine
     working_dir: /app
@@ -26,9 +19,3 @@ services:
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 4321"
     ports:
       - "4321:4321"
-    networks:
-      - docker-stack
-
-networks:
-  docker-stack:
-    external: true

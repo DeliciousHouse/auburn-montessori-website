@@ -37,13 +37,13 @@ SITE_URL=https://amstch.com npm run build
 
 ## Docker (production container)
 
-Build and run the production container on port `3000`:
+The production image is built in CI and published to GitHub Container Registry (GHCR). To run it locally (e.g. after logging in to GHCR if the package is private):
 
 ```bash
-SITE_URL=https://amstch.com docker compose up --build
+docker compose up -d
 ```
 
-Open `http://localhost:3000`.
+The app listens on port `8080` by default (`APP_PORT` in `.env`). Open `http://localhost:8080`.
 
 ## Docker (local dev)
 
@@ -52,6 +52,57 @@ docker compose --profile dev up --build
 ```
 
 Open `http://localhost:4321`.
+
+## Deployment
+
+Deploys run on push to `main`: the GitHub Action builds the image, pushes it to GHCR, then SSHs to the VPS and runs `docker compose pull && docker compose up -d` in `/opt/moms-website`. No local Docker build is required.
+
+### One-time VPS setup
+
+1. **Install Docker and the Compose plugin** (e.g. Docker Engine + `docker compose` v2).
+
+2. **Create the app directory:**
+   ```bash
+   sudo mkdir -p /opt/moms-website
+   sudo chown "$USER:$USER" /opt/moms-website
+   cd /opt/moms-website
+   ```
+
+3. **Place the Compose file** (clone the repo or copy `docker-compose.yml` from this repo into `/opt/moms-website`).
+
+4. **Create `.env`** in `/opt/moms-website` (do not commit this file):
+   ```bash
+   APP_PORT=8080
+   SITE_URL=https://amstch.com
+   ```
+   `SITE_URL` is also set at build time via GitHub Secrets; the value here is for any runtime use.  
+   If the GHCR package is **private**, add so the VPS can pull images:
+   ```bash
+   GHCR_USERNAME=your-github-username
+   GHCR_PAT=your-personal-access-token-with-read-packages
+   ```
+   The deploy script will run `docker login ghcr.io` using these when present.
+
+5. **Start the stack once (optional; CI will do this on first deploy):**
+   ```bash
+   docker compose up -d
+   ```
+
+6. **Point your reverse proxy** (Caddy, Nginx Proxy Manager, Cloudflare, etc.) at `http://127.0.0.1:8080` (or the host/port you set in `APP_PORT`).
+
+### GitHub Secrets
+
+In the repo: **Settings → Secrets and variables → Actions**, add:
+
+| Secret | Required | Description |
+|--------|----------|-------------|
+| `VPS_HOST` | Yes | VPS hostname or IP |
+| `VPS_USER` | Yes | SSH user for deploy |
+| `MOMS_WEBSITE` | Yes | SSH private key for deploy (full key, including `-----BEGIN ... -----`) |
+| `VPS_PORT` | No | SSH port (default `22`) |
+| `SITE_URL` | No | Canonical site URL for build (sitemap/canonicals); defaults to `https://amstch.com` in the workflow |
+
+**Note:** If the GHCR package is private, the VPS must be able to pull from `ghcr.io`. Set `GHCR_USERNAME` and `GHCR_PAT` in `/opt/moms-website/.env`; the deploy workflow will run `docker login ghcr.io` using that PAT (needs `read:packages`).
 
 ## Where to update content
 
