@@ -87,19 +87,6 @@ const ogImageUrl = Astro.site
     >
       Back to top
     </a>
-
-    <!-- #region agent log -->
-    <script define:vars={{ canonicalUrl }}>
-      (function () {
-        const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? '';
-        const base = document.querySelector('base')?.getAttribute('href') ?? null;
-        const loc = window.location.href;
-        const ref = document.referrer || '';
-        const navLinks = Array.from(document.querySelectorAll('header a[href]')).slice(0, 5).map(function (a) { return a.getAttribute('href'); });
-        fetch('http://127.0.0.1:7836/ingest/b9619b01-7d8b-433b-88f9-534c358b3290', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'e7fa17' }, body: JSON.stringify({ sessionId: 'e7fa17', location: 'Layout.astro:client', message: 'URL sources', data: { canonical, base, windowLocation: loc, referrer: ref, navLinkHrefs: navLinks, canonicalFromBuild: canonicalUrl }, hypothesisId: 'H1,H2,H3,H4,H5', timestamp: Date.now() }) }).catch(function () {});
-      })();
-    </script>
-    <!-- #endregion agent log -->
     <script>
       (function () {
         const maybeEl = document.getElementById('back-to-top');
