@@ -6,7 +6,7 @@ services:
     environment:
       SITE_URL: ${SITE_URL:-https://amstch.com}
     ports:
-      - "${APP_PORT:-8080}:80"
+      - "${APP_PORT:-8090}:80"
 
   # Local development (optional): docker compose --profile dev up
   website-dev:
