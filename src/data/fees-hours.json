@@ -1,6 +1,7 @@
 {
   "effectiveSchoolYear": "2026-2027",
   "term": "August 2026 - May 2027",
+  "lastUpdated": "2026-02-01",
   "pdfPath": "/documents/fees-hours-2026-2027.pdf",
   "paymentAgreement": [
     "Total fee is not subject to adjustments due to holidays, illnesses, absences, or teacher education days.",
@@ -15,7 +16,7 @@
     "Checks payable to Auburn Montessori School",
     "Automatic check from your bank.",
     "Credit card payment plus 2.5% transaction fee",
-    "Venmo @Charlene-Kam"
+    "Pay via Brightwheel or contact school office for options"
   ],
   "paymentFeePolicy": "Tuition is due at the 1st of each month and is delinquent on the 15th day of the month. A $20 late fee is applied to late payments.",
   "latePickUpFeePolicy": "All children must be picked up no later than their designated pick up times. A late fee of $1/minute will be applied.",

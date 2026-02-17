@@ -6,8 +6,6 @@
       "role": "Founder / Director / Lead Educator",
       "since": "1997-present",
       "preferredName": "Charlene",
-      "pronouns": "she/her",
-      "hours": "7:45 am - 1:00 pm / 6:00 pm when needed",
       "photo": { "src": "/images/educators/charlene-kam.webp", "alt": "Charlene Kam" },
       "education": [
         "B.A. Chemistry (minor in Biology and Secondary Education), University of Miami (1993)",
@@ -92,7 +90,6 @@
       "name": "Sarah Cox",
       "role": "Educator",
       "since": "Joined 8-1-2022",
-      "pronouns": "she/her",
       "photo": { "src": "/images/educators/sarah-cox.webp", "alt": "Sarah Cox" },
       "education": [
         "Associate Degree in Child Development, Southern Union (May 2022)"
@@ -117,7 +114,6 @@
     {
       "name": "Emma Stevenson",
       "role": "Assistant Director",
-      "pronouns": "she/her",
       "photo": { "src": "/images/educators/emma-stevenson.webp", "alt": "Emma Stevenson" },
       "credentialsAndTraining": [
         "Completed 200hr yoga training"
@@ -125,7 +121,8 @@
     },
     {
       "name": "Maci DeMoras",
-      "role": "Support Staff"
+      "role": "Support Staff",
+      "bio": [ "Support staff at Auburn Montessori School." ]
     }
   ]
 }

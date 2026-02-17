@@ -12,12 +12,12 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
   heroTitle="School Calendar"
   heroLead="Key dates, closures, events, and the full school-year calendar. Confirm with the school for any changes."
 >
-  {/* Key Dates cards — shown first so parents don't need to open a PDF */}
-  {hasKeyDates && (
-    <div class="section-band">
-      <div class="container-page">
-        <h2 class="section-heading">Key Dates</h2>
-        <p class="section-subheading">Closures, teacher work days, and important events at a glance</p>
+  {/* Key Dates — HTML from data so the page always has useful content */}
+  <div class="section-band">
+    <div class="container-page">
+      <h2 class="section-heading">Key Dates</h2>
+      <p class="section-subheading">Closures, teacher work days, and important events at a glance</p>
+      {hasKeyDates ? (
         <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {calendar.keyDates.map((d: { date: string; label: string; notes?: string }) => (
             <div class="card card-body">
@@ -27,13 +27,14 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
             </div>
           ))}
         </div>
-      </div>
+      ) : (
+        <p class="mt-4 text-sm" style="color: var(--color-neutral-600);">Key dates will be posted here when the school-year calendar is set. See the full calendar PDF below or contact the school.</p>
+      )}
     </div>
-  )}
+  </div>
 
   <div class="section-band-alt">
     <div class="container-page grid gap-8 lg:grid-cols-3">
-      {/* PDF embed */}
       <div class="lg:col-span-2">
         {hasPdf ? (
           <div>
@@ -41,33 +42,16 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
               <h2 class="section-heading">Full Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
             </div>
-            {/* Always-visible download button */}
-            <div class="mt-3 flex flex-wrap gap-3">
-              <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download id="calendar-download-btn">
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">Download the school-year calendar or open it in a new tab to view.</p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
                 Download Calendar PDF
               </a>
+              <a class="btn btn-outline btn-icon" href={calendar.pdfPath} target="_blank" rel="noopener noreferrer">
+                Open PDF in new tab
+              </a>
             </div>
-            {/* PDF embed with fallback */}
-            <div id="calendar-pdf-container" class="media-frame mt-4 border bg-white shadow-sm" style="border-color: var(--color-border);">
-              <iframe
-                id="calendar-pdf-iframe"
-                title="School year calendar PDF"
-                src={`${calendar.pdfPath}#view=FitH`}
-                class="calendar-pdf-iframe h-[70vh] w-full"
-                loading="lazy"
-              />
-              <div id="calendar-pdf-fallback" class="calendar-pdf-fallback hidden flex h-[70vh] flex-col items-center justify-center gap-3 px-4 text-center" style="color: var(--color-neutral-600);">
-                <p class="text-sm font-medium">The calendar could not be displayed in the browser.</p>
-                <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
-                  Download Calendar PDF
-                </a>
-              </div>
-            </div>
-            <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
-              If the viewer doesn&apos;t load, use the download button above.
-            </p>
           </div>
         ) : (
           <div class="callout callout-info">
@@ -77,7 +61,6 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
         )}
       </div>
 
-      {/* Online Calendar + Quick actions */}
       <div class="space-y-5">
         <div class="card card-body">
           <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Questions?</h3>
@@ -88,33 +71,3 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     </div>
   </div>
 </Layout>
-
-<script>
-  (function () {
-    const maybeIframe = document.getElementById('calendar-pdf-iframe');
-    const maybeFallback = document.getElementById('calendar-pdf-fallback');
-    if (!(maybeIframe instanceof HTMLIFrameElement) || !(maybeFallback instanceof HTMLElement)) return;
-    const iframe = maybeIframe;
-    const fallback = maybeFallback;
-
-    function showFallback() {
-      iframe.classList.add('hidden');
-      fallback.classList.remove('hidden');
-    }
-
-    iframe.addEventListener('load', function () {
-      try {
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (doc?.body && (doc.body.innerText?.includes('Not Found') || doc.body.innerText?.includes('404') || doc.title?.includes('404'))) {
-          showFallback();
-        }
-      } catch (_) {
-        showFallback();
-      }
-    });
-
-    iframe.addEventListener('error', function () {
-      showFallback();
-    });
-  })();
-</script>

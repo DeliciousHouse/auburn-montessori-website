@@ -231,7 +231,9 @@ const getInitials = (name: string) =>
                       <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
                       <span class="badge">{e.role}</span>
                     </div>
-                    {e.pronouns && <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">{e.pronouns}</p>}
+                    {e.bio?.length ? (
+                      <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
+                    ) : null}
                     {e.credentialsAndTraining?.length ? (
                       <ul class="mt-3 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-600);">
                         {e.credentialsAndTraining.map((i) => <li>{i}</li>)}
