@@ -75,8 +75,8 @@ import Icon from '../components/Icon.astro';
                   Program length <span aria-hidden="true">*</span>
                 </legend>
                 <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
-                  <input type="radio" name="programLength" value="Part Time: Pre-K 7:30am - 12:00pm" required />
-                  Part Time: Pre-K 7:30am - 12:00pm
+                  <input type="radio" name="programLength" value="Part Time: Pre-K 7:15am - 12:00pm" required />
+                  Part Time: Pre-K 7:15am - 12:00pm
                 </label>
                 <label class="flex items-center gap-2 text-sm" style="color: var(--color-neutral-700);">
                   <input type="radio" name="programLength" value="Full Time: Pre-K 7:15am - 5:15pm" required />
@@ -570,15 +570,16 @@ import Icon from '../components/Icon.astro';
     const fatherSame = getCheckedValue('fatherSameAddress') || 'Yes';
     const fatherAddress = fatherSame === 'No' ? address('father') : '(same as child)';
 
+    const BLANK = {}; // sentinel for intentional section separators (must survive filter)
     const lines = [
       `Student Registration Form - ${new Date().toLocaleDateString()}`,
-      '',
+      BLANK,
       'PROGRAM SELECTION',
       `Expected enrollment year: ${enrollmentYear}`,
       `Program length: ${programLength}`,
       `Meal plan: ${mealPlan}`,
       `Registration fee payment option: ${getCheckedValue('paymentOption')}`,
-      '',
+      BLANK,
       'STUDENT',
       `Child full name: ${getValue('childFullName')}`,
       `Preferred name: ${getValue('childPreferredName')}`,
@@ -587,8 +588,8 @@ import Icon from '../components/Icon.astro';
       `Current age: ${getValue('childAge')}`,
       `Home phone: ${getValue('childHomePhone')}`,
       'Address:',
-      childAddress ? childAddress : '',
-      '',
+      childAddress || '',
+      BLANK,
       'PARENT / GUARDIAN',
       `Mother/guardian: ${motherName}`,
       `Mother employer: ${getValue('motherEmployer')}`,
@@ -596,21 +597,23 @@ import Icon from '../components/Icon.astro';
       `Mother mobile phone: ${getValue('motherMobile')}`,
       `Mother email: ${getValue('motherEmail')}`,
       `Mother address: ${motherAddress}`,
-      '',
+      BLANK,
       fatherName ? `Father/guardian: ${fatherName}` : 'Father/guardian: (not provided)',
       fatherName ? `Father employer: ${getValue('fatherEmployer')}` : '',
       fatherName ? `Father work phone: ${getValue('fatherWorkPhone')}` : '',
       fatherName ? `Father mobile phone: ${getValue('fatherMobile')}` : '',
       fatherName ? `Father email: ${getValue('fatherEmail')}` : '',
       fatherName ? `Father address: ${fatherAddress}` : '',
-      '',
+      BLANK,
       'DISCOVERY',
       `Learned about the school from: ${getValue('heardFrom')}`,
       `If other, specify: ${getValue('heardOther')}`,
-      '',
+      BLANK,
       'SPECIAL NOTES',
       getValue('specialNotes'),
-    ].filter((l) => l !== '');
+    ]
+      .filter((l) => l !== '')
+      .map((l) => (l === BLANK ? '' : l));
 
     return lines.join('\n');
   }
