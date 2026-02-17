@@ -6,7 +6,7 @@ services:
     environment:
       SITE_URL: ${SITE_URL:-https://amstch.com}
     networks:
-      - shared_webnet
+      - docker-stack
 
   # Local development (optional): docker compose --profile dev up
   website-dev:
@@ -21,8 +21,8 @@ services:
     ports:
       - "4321:4321"
     networks:
-      - shared_webnet
+      - docker-stack
 
 networks:
-  shared_webnet:
+  docker-stack:
     external: true
