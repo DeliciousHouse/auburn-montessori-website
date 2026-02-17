@@ -5,8 +5,8 @@ services:
     restart: unless-stopped
     environment:
       SITE_URL: ${SITE_URL:-https://amstch.com}
-    ports:
-      - "${APP_PORT:-8090}:80"
+    networks:
+      - shared_webnet
 
   # Local development (optional): docker compose --profile dev up
   website-dev:
@@ -20,3 +20,9 @@ services:
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 4321"
     ports:
       - "4321:4321"
+    networks:
+      - shared_webnet
+
+networks:
+  shared_webnet:
+    external: true
