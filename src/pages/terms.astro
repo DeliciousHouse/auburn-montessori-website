@@ -2,48 +2,70 @@
 import Layout from '../layouts/Layout.astro';
 import site from '../data/site.json';
 import legal from '../data/legal.json';
+
+const sections = [
+  { id: 'website-info', label: 'Website Information' },
+  { id: 'no-warranties', label: 'No Warranties' },
+  { id: 'third-party', label: 'Third-Party Links' },
+  { id: 'ip', label: 'Intellectual Property' },
+  { id: 'contact', label: 'Contact' }
+];
 ---
 
 <Layout
   title="Terms of Use"
   description="Terms of use for the Auburn Montessori School - The Children's House website."
+  heroTitle="Terms of Use"
+  heroLead="Terms governing your use of this website."
 >
-  <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Terms of Use</h1>
-  <p class="mt-2 text-sm text-slate-600">Effective date: {legal.effectiveDate}. Last updated: {legal.lastUpdated}.</p>
-  <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
-    <p>
-      By using this website, you agree to these Terms of Use. If you do not agree, please do not use the site.
-    </p>
+  <div class="section-band">
+    <div class="container-page flex gap-12">
+      <aside class="hidden shrink-0 lg:block lg:w-48">
+        <nav class="mini-nav" aria-label="On this page">
+          <div class="mb-2 text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">On this page</div>
+          {sections.map((s) => (
+            <a href={`#${s.id}`}>{s.label}</a>
+          ))}
+        </nav>
+      </aside>
 
-    <h2 class="text-base font-bold text-slate-900">Website information</h2>
-    <p>
-      The content on this website is provided for general information about {site.shortName}. We try to keep
-      information current and accurate, but details may change. For official policies and procedures, refer to
-      the Parent Handbook and school communications.
-    </p>
+      <div class="legal-layout flex-1 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+        <div class="badge mb-4">Last updated {legal.lastUpdated}</div>
 
-    <h2 class="text-base font-bold text-slate-900">No warranties</h2>
-    <p>
-      This website is provided "as is" without warranties of any kind, express or implied, to the extent
-      permitted by law.
-    </p>
+        <p>
+          By using this website, you agree to these Terms of Use. If you do not agree, please do not use the site.
+        </p>
 
-    <h2 class="text-base font-bold text-slate-900">Third-party links</h2>
-    <p>
-      This site may link to third-party websites and services (including Brightwheel for registration). We do
-      not control third-party sites and are not responsible for their content or practices.
-    </p>
+        <h2 id="website-info">Website Information</h2>
+        <p>
+          The content on this website is provided for general information about {site.shortName}. We try to keep
+          information current and accurate, but details may change. For official policies and procedures, refer to
+          the Parent Handbook and school communications.
+        </p>
 
-    <h2 class="text-base font-bold text-slate-900">Intellectual property</h2>
-    <p>
-      Unless otherwise noted, text and materials on this website are owned by {site.shortName} and may not be
-      reproduced for commercial use without permission.
-    </p>
+        <h2 id="no-warranties">No Warranties</h2>
+        <p>
+          This website is provided "as is" without warranties of any kind, express or implied, to the extent
+          permitted by law.
+        </p>
 
-    <h2 class="text-base font-bold text-slate-900">Contact</h2>
-    <p>
-      Questions about these Terms may be sent to <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a>.
-    </p>
+        <h2 id="third-party">Third-Party Links</h2>
+        <p>
+          This site may link to third-party websites and services (including Brightwheel for registration). We do
+          not control third-party sites and are not responsible for their content or practices.
+        </p>
+
+        <h2 id="ip">Intellectual Property</h2>
+        <p>
+          Unless otherwise noted, text and materials on this website are owned by {site.shortName} and may not be
+          reproduced for commercial use without permission.
+        </p>
+
+        <h2 id="contact">Contact</h2>
+        <p>
+          Questions about these Terms may be sent to <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </div>
+    </div>
   </div>
 </Layout>
-

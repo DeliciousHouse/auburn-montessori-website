@@ -8,9 +8,11 @@ type Props = {
   title?: string;
   description?: string;
   noindex?: boolean;
+  heroTitle?: string;
+  heroLead?: string;
 };
 
-const { title, description, noindex } = Astro.props as Props;
+const { title, description, noindex, heroTitle, heroLead } = Astro.props as Props;
 
 const pageTitle = title
   ? `${title} | ${site.shortName}`
@@ -53,12 +55,21 @@ const ogImageUrl = Astro.site
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content={ogImageUrl} />
   </head>
-  <body class="min-h-screen">
+  <body class="flex min-h-screen flex-col bg-white">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <Header currentPath={Astro.url.pathname} />
 
-    <main id="main" class="container-page py-10">
+    {heroTitle ? (
+      <div class="hero-band">
+        <div class="container-page">
+          <h1>{heroTitle}</h1>
+          {heroLead ? <p class="hero-lead">{heroLead}</p> : null}
+        </div>
+      </div>
+    ) : null}
+
+    <main id="main" class="flex-1">
       <slot />
     </main>
 

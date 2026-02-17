@@ -4,6 +4,7 @@ import site from '../data/site.json';
 
 const addressLine = `${site.address.street} ${site.address.city}, ${site.address.state} ${site.address.postalCode}`;
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressLine)}`;
+const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(addressLine)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
 const tourSubject = encodeURIComponent('Request a tour - Auburn Montessori School');
 const tourBody = encodeURIComponent(
@@ -15,72 +16,96 @@ const tourMailto = `mailto:${site.email}?subject=${tourSubject}&body=${tourBody}
 <Layout
   title="Contact"
   description="Contact Auburn Montessori School - The Children's House (address, phone, email)."
+  heroTitle="Contact Us"
+  heroLead="Get in touch with Auburn Montessori School - The Children's House."
 >
-  <header class="space-y-3">
-    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Contact</h1>
-    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
-      Get in touch with Auburn Montessori School - The Children's House.
-    </p>
-  </header>
+  <div class="section-band">
+    <div class="container-page grid gap-8 lg:grid-cols-5">
+      <!-- Contact cards -->
+      <div class="space-y-5 lg:col-span-2">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Address</div>
+            <div class="mt-1 text-sm" style="color: var(--color-neutral-800);">
+              {site.address.street}<br />
+              {site.address.city}, {site.address.state} {site.address.postalCode}
+            </div>
+            <a class="mt-1 inline-block text-sm font-semibold" href={mapUrl} target="_blank" rel="noopener noreferrer">Open in maps ↗</a>
+          </div>
+        </div>
 
-  <section class="mt-10 grid gap-6 lg:grid-cols-2">
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">School information</h2>
-      <dl class="mt-4 grid gap-3 text-sm text-slate-700">
-        <div>
-          <dt class="font-semibold text-slate-900">Address</dt>
-          <dd class="mt-1">
-            {site.address.street}<br />
-            {site.address.city}, {site.address.state} {site.address.postalCode}<br />
-            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={mapUrl} target="_blank" rel="noopener noreferrer">
-              Open in maps (opens in a new tab)
-            </a>
-          </dd>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Phone</div>
+            <a class="mt-1 block text-sm font-semibold" href={`tel:${site.phone}`}>{site.phone}</a>
+          </div>
         </div>
-        <div>
-          <dt class="font-semibold text-slate-900">Phone</dt>
-          <dd class="mt-1">
-            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`tel:${site.phone}`}>{site.phone}</a>
-          </dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-slate-900">Email</dt>
-          <dd class="mt-1">
-            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a>
-          </dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-slate-900">Office hours</dt>
-          <dd class="mt-1 text-slate-700">
-            Program hours vary by program (Part Time, Full Time, K–3rd). See <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/fees-hours">Fees &amp; Hours</a> for schedule and pickup times.
-          </dd>
-        </div>
-      </dl>
-      <p class="mt-4 text-sm text-slate-700">
-        <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={tourMailto}>Request a tour</a> — opens your email with a pre-filled message.
-      </p>
-      <p class="mt-5 text-xs text-slate-600">
-        This website does not accept form submissions. Please contact us by phone or email.
-      </p>
-    </section>
 
-    <section class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">New parent registration</h2>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        <a
-          class="btn btn-primary"
-          href={site.registrationUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="New Parent Registration (opens in a new tab)"
-        >
-          New Parent Registration (Brightwheel)
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Email</div>
+            <a class="mt-1 block text-sm font-semibold" href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-neutral-500);">Office Hours</div>
+            <p class="mt-1 text-sm" style="color: var(--color-neutral-700);">Program hours vary. See <a class="font-semibold" href="/fees-hours">Fees &amp; Hours</a> for details.</p>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <a class="btn btn-outline btn-icon" href={tourMailto}>
+          <span aria-hidden="true">📧</span> Request a Tour
         </a>
-      </p>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">
-        Registration opens in a new tab and is handled through Brightwheel (a third-party service).
-      </p>
-    </section>
-  </section>
-</Layout>
+        <p class="text-xs" style="color: var(--color-neutral-500);">
+          Opens your email with a pre-filled message. No online forms — contact us directly.
+        </p>
+      </div>
 
+      <!-- Map panel -->
+      <div class="lg:col-span-3">
+        <div class="overflow-hidden rounded-xl border shadow-sm" style="border-color: var(--color-neutral-200);">
+          <iframe
+            title="Auburn Montessori School location map"
+            src={mapEmbedUrl}
+            class="h-[20rem] w-full lg:h-[26rem]"
+            loading="lazy"
+            allowfullscreen=""
+            referrerpolicy="no-referrer-when-downgrade"
+            style="border:0;"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration CTA band -->
+  <div class="section-band-alt">
+    <div class="container-page">
+      <div class="cta-panel">
+        <div class="flex flex-col items-center gap-4 text-center md:flex-row md:text-left">
+          <div class="flex-1">
+            <h2 class="text-lg font-bold">New Parent Registration</h2>
+            <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Registration is handled through Brightwheel (a third-party service) and opens in a new tab.</p>
+          </div>
+          <a
+            class="btn btn-primary btn-lg shrink-0"
+            href={site.registrationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="New Parent Registration (opens in a new tab)"
+          >
+            Register Now ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -2,103 +2,157 @@
 import Layout from '../layouts/Layout.astro';
 import educatorsData from '../data/educators.json';
 import site from '../data/site.json';
+
+const leadership = educatorsData.educators.filter((e) =>
+  e.role?.toLowerCase().includes('director') || e.role?.toLowerCase().includes('founder')
+);
+const guides = educatorsData.educators.filter((e) =>
+  e.role === 'Educator'
+);
+const support = educatorsData.educators.filter((e) =>
+  e.role === 'Assistant Director' || e.role === 'Support Staff'
+);
 ---
 
 <Layout
   title="Educators"
   description="Meet the educators and staff at Auburn Montessori School - The Children's House."
+  heroTitle="Our Educators"
+  heroLead="All teachers have completed necessary trainings including CPR, references, and background checks in compliance with Alabama DHR, Child Care Division."
 >
-  <header class="space-y-3">
-    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Educators</h1>
-    <p class="max-w-4xl text-base leading-relaxed text-slate-700">{educatorsData.intro}</p>
-    <p class="text-sm text-slate-600">
-      For questions about our staff or programs, please contact the school at <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a> or <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`tel:${site.phone}`}>{site.phone}</a>.
-    </p>
-  </header>
+  <div class="section-band">
+    <div class="container-page">
+      <p class="text-sm" style="color: var(--color-neutral-600);">
+        For questions about our staff or programs, contact the school at
+        <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a> or
+        <a class="font-semibold" href={`tel:${site.phone}`}>{site.phone}</a>.
+      </p>
 
-  <section class="mt-10 grid gap-6 md:grid-cols-2">
-    {educatorsData.educators.map((e) => {
-      const showEducationMore = e.education && e.education.length > 3;
-      const educationFirst = showEducationMore ? e.education!.slice(0, 3) : (e.education ?? []);
-      const educationRest = showEducationMore ? e.education!.slice(3) : [];
-      const showCredsMore = e.credentialsAndTraining && e.credentialsAndTraining.length > 3;
-      const credsFirst = showCredsMore ? e.credentialsAndTraining!.slice(0, 3) : (e.credentialsAndTraining ?? []);
-      const credsRest = showCredsMore ? e.credentialsAndTraining!.slice(3) : [];
-      return (
-      <article class="card p-6">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <h2 class="text-lg font-bold text-slate-900">{e.name}</h2>
-          {e.role ? <span class="badge">{e.role}</span> : null}
-        </div>
+      {leadership.length > 0 && (
+        <div class="mt-8">
+          <h2 class="section-heading">Leadership</h2>
+          <div class="mt-4 grid gap-5">
+            {leadership.map((e) => (
+              <article class="card card-body">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                  <span class="badge badge-brand">{e.role}</span>
+                  {e.since ? <span class="badge">{e.since}</span> : null}
+                </div>
 
-        <div class="mt-3 space-y-2 text-sm text-slate-700">
-          {e.since ? <p><span class="font-semibold text-slate-900">Since:</span> {e.since}</p> : null}
-          {e.preferredName ? (
-            <p><span class="font-semibold text-slate-900">Preferred name:</span> {e.preferredName}</p>
-          ) : null}
-          {e.pronouns ? <p><span class="font-semibold text-slate-900">Pronouns:</span> {e.pronouns}</p> : null}
-          {e.hours ? <p><span class="font-semibold text-slate-900">Hours:</span> {e.hours}</p> : null}
-        </div>
+                {(e.preferredName || e.pronouns || e.hours) && (
+                  <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs" style="color: var(--color-neutral-500);">
+                    {e.preferredName && <span>Goes by {e.preferredName}</span>}
+                    {e.pronouns && <span>{e.pronouns}</span>}
+                    {e.hours && <span>{e.hours}</span>}
+                  </div>
+                )}
 
-        {e.education?.length ? (
-          <details class="mt-4 educator-details">
-            <summary class="cursor-pointer text-sm font-semibold text-[var(--color-brand-primary)]">Education</summary>
-            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
-              {educationFirst.map((i) => <li>{i}</li>)}
-            </ul>
-            {showEducationMore ? (
-              <details class="mt-2 ml-0">
-                <summary class="cursor-pointer list-none text-sm font-medium text-slate-600">More ({educationRest.length} more)</summary>
-                <ul class="mt-1 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                  {educationRest.map((i) => <li>{i}</li>)}
-                </ul>
-              </details>
-            ) : null}
-          </details>
-        ) : null}
+                {e.bio?.length ? (
+                  <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
+                ) : null}
 
-        {e.credentialsAndTraining?.length ? (
-          <details class="mt-3 educator-details">
-            <summary class="cursor-pointer text-sm font-semibold text-[var(--color-brand-primary)]">Credentials and training</summary>
-            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
-              {credsFirst.map((i) => <li>{i}</li>)}
-            </ul>
-            {showCredsMore ? (
-              <details class="mt-2 ml-0">
-                <summary class="cursor-pointer list-none text-sm font-medium text-slate-600">More ({credsRest.length} more)</summary>
-                <ul class="mt-1 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                  {credsRest.map((i) => <li>{i}</li>)}
-                </ul>
-              </details>
-            ) : null}
-          </details>
-        ) : null}
+                <div class="mt-4 grid gap-3 md:grid-cols-2">
+                  {e.education?.length ? (
+                    <details class="accordion-item border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                      <summary><span>Education ({e.education.length})</span></summary>
+                      <div class="accordion-body">
+                        <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                      </div>
+                    </details>
+                  ) : null}
 
-        {e.bio?.length ? (
-          <details class="mt-3 educator-details">
-            <summary class="cursor-pointer text-sm font-semibold text-[var(--color-brand-primary)]">Bio</summary>
-            <div class="mt-2 space-y-2 text-sm leading-relaxed text-slate-700">
-              {e.bio.map((p) => <p>{p}</p>)}
-            </div>
-          </details>
-        ) : null}
+                  {e.credentialsAndTraining?.length ? (
+                    <details class="accordion-item border-b-0 border-t" style="border-color: var(--color-neutral-200);">
+                      <summary><span>Credentials ({e.credentialsAndTraining.length})</span></summary>
+                      <div class="accordion-body">
+                        <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                      </div>
+                    </details>
+                  ) : null}
+                </div>
 
-        {e.links?.length ? (
-          <div class="mt-4 flex flex-wrap gap-3">
-            {e.links.map((l) => (
-              <a
-                class="text-sm font-semibold no-underline text-[var(--color-brand-primary)] hover:underline"
-                href={l.href}
-                target={l.external ? '_blank' : undefined}
-                rel={l.external ? 'noopener noreferrer' : undefined}
-              >
-                {l.label}{l.external ? ' (opens in a new tab)' : ''}
-              </a>
+                {e.links?.length ? (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {e.links.map((l) => (
+                      <a
+                        class="chip"
+                        href={l.href}
+                        target={l.external ? '_blank' : undefined}
+                        rel={l.external ? 'noopener noreferrer' : undefined}
+                      >
+                        {l.external ? '↗' : ''} {l.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </article>
             ))}
           </div>
-        ) : null}
-      </article>
-    );})}
-  </section>
-</Layout>
+        </div>
+      )}
 
+      {guides.length > 0 && (
+        <div class="mt-10">
+          <h2 class="section-heading">Lead Guides</h2>
+          <p class="section-subheading">Classroom educators supporting daily Montessori instruction</p>
+          <div class="mt-5 grid gap-5 md:grid-cols-2">
+            {guides.map((e) => (
+              <article class="card card-body">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                  {e.since ? <span class="badge">{e.since}</span> : null}
+                </div>
+
+                {e.bio?.length ? (
+                  <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
+                ) : null}
+
+                <div class="mt-3 space-y-2">
+                  {e.education?.length ? (
+                    <details class="accordion-item border-b-0">
+                      <summary><span>Education ({e.education.length})</span></summary>
+                      <div class="accordion-body">
+                        <ul class="list-disc space-y-1 pl-5">{e.education.map((i) => <li>{i}</li>)}</ul>
+                      </div>
+                    </details>
+                  ) : null}
+                  {e.credentialsAndTraining?.length ? (
+                    <details class="accordion-item border-b-0">
+                      <summary><span>Credentials ({e.credentialsAndTraining.length})</span></summary>
+                      <div class="accordion-body">
+                        <ul class="list-disc space-y-1 pl-5">{e.credentialsAndTraining.map((i) => <li>{i}</li>)}</ul>
+                      </div>
+                    </details>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {support.length > 0 && (
+        <div class="mt-10">
+          <h2 class="section-heading">Assistants &amp; Support</h2>
+          <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {support.map((e) => (
+              <article class="card card-body">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                  <span class="badge">{e.role}</span>
+                </div>
+                {e.pronouns && <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">{e.pronouns}</p>}
+                {e.credentialsAndTraining?.length ? (
+                  <ul class="mt-3 list-disc space-y-1 pl-5 text-xs" style="color: var(--color-neutral-600);">
+                    {e.credentialsAndTraining.map((i) => <li>{i}</li>)}
+                  </ul>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>

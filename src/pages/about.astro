@@ -7,56 +7,120 @@ import about from '../data/about.json';
 <Layout
   title="About"
   description="Learn about Auburn Montessori School - The Children's House: philosophy, mission, vision, purpose, and Montessori approach."
+  heroTitle="About Our School"
+  heroLead="Auburn Montessori School - The Children's House is a Montessori community serving children and families in Auburn, Alabama since 1997."
 >
-  <header class="space-y-3">
-    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">About</h1>
-    <p class="max-w-3xl text-base leading-relaxed text-slate-700">
-      Auburn Montessori School - The Children's House is a Montessori community serving children and families
-      in Auburn, Alabama.
-    </p>
-  </header>
-
-  <section class="mt-10 grid gap-6 lg:grid-cols-3">
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Philosophy</h2>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">{home.philosophy}</p>
-    </div>
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Mission</h2>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-        {home.missions.map((m) => <li>{m}</li>)}
-      </ul>
-    </div>
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Vision</h2>
-      <p class="mt-3 text-sm leading-relaxed text-slate-700">{home.vision}</p>
-    </div>
-  </section>
-
-  <section class="mt-10 grid gap-6 lg:grid-cols-2">
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Purpose</h2>
-      <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
-        {about.purpose.map((p) => <p>{p}</p>)}
+  <!-- Philosophy / Mission / Vision -->
+  <div class="section-band">
+    <div class="container-page">
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="card card-body">
+          <div class="badge badge-brand mb-3">Philosophy</div>
+          <p class="text-sm leading-relaxed" style="color: var(--color-neutral-700);">{home.philosophy}</p>
+        </div>
+        <div class="card card-body">
+          <div class="badge badge-brand mb-3">Mission</div>
+          <ul class="space-y-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+            {home.missions.map((m) => (
+              <li class="flex gap-2">
+                <span class="shrink-0 mt-1" style="color: var(--color-brand-primary);">•</span>
+                <span>{m}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="card card-body">
+          <div class="badge badge-brand mb-3">Vision</div>
+          <p class="text-sm leading-relaxed" style="color: var(--color-neutral-700);">{home.vision}</p>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="card p-6">
-      <h2 class="text-lg font-bold text-slate-900">Objectives</h2>
-      <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-        {about.objectives.map((o) => <li>{o}</li>)}
-      </ol>
-    </div>
-  </section>
+  <!-- Purpose + Objectives -->
+  <div class="section-band-alt">
+    <div class="container-page grid gap-8 lg:grid-cols-2">
+      <div>
+        <h2 class="section-heading">Purpose</h2>
+        <p class="section-subheading">What drives us every day</p>
+        <div class="mt-5 space-y-4 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          {about.purpose.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
 
-  <section class="mt-10 card p-6">
-    <h2 class="text-lg font-bold text-slate-900">Montessori Approach (brief)</h2>
-    <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
-      {about.montessoriApproach.map((p) => <p>{p}</p>)}
+      <div>
+        <h2 class="section-heading">Objectives</h2>
+        <p class="section-subheading">How we put our purpose into practice</p>
+        <div class="mt-5">
+          {about.objectives.map((o, i) => (
+            <details class="accordion-item" open={i === 0}>
+              <summary>
+                <span>Objective {i + 1}</span>
+              </summary>
+              <div class="accordion-body">{o}</div>
+            </details>
+          ))}
+        </div>
+      </div>
     </div>
-    <p class="mt-4 text-sm text-slate-700">
-      More: <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="https://amstch.hubbli.com/individual-work-cycle/" target="_blank" rel="noopener noreferrer">Curriculum Work Cycle (opens in a new tab)</a>
-    </p>
-  </section>
+  </div>
+
+  <!-- Montessori in practice feature list -->
+  <div class="section-band">
+    <div class="container-page">
+      <h2 class="section-heading text-center">Montessori in Practice</h2>
+      <p class="section-subheading mx-auto text-center">How the Montessori approach shapes daily learning at our school</p>
+
+      <div class="mt-8 feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🧩</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Prepared Environment</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Classrooms are designed for exploration, independence, and purposeful work.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⏳</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Uninterrupted Work Cycle</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Students have extended time and space to practice lessons individually or in small groups.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🕊️</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Peace Education</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Educators guide children toward inner discipline and peace through purposeful engagement.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌱</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Whole-Child Development</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Nurturing the physical, emotional, social, spiritual, and mental capacities of each child.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔬</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Scientific Observation</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">Educators observe each child to understand their unique needs and adapt accordingly.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏡</div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Home Away from Home</h3>
+            <p class="mt-1 text-xs leading-relaxed" style="color: var(--color-neutral-600);">A warm, loving environment where each child is respected as a unique individual.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-8 text-center text-sm">
+        <a class="font-semibold no-underline hover:underline" href="https://amstch.hubbli.com/individual-work-cycle/" target="_blank" rel="noopener noreferrer">
+          Learn about the Montessori work cycle ↗
+        </a>
+      </p>
+    </div>
+  </div>
 </Layout>
-

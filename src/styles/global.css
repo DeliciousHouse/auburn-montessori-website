@@ -3,25 +3,26 @@
 @layer base {
   :root {
     color-scheme: light;
-    /* Brand kit: primary, secondary, accent + neutrals. 4.5:1 contrast for body text. */
+    /* Brand palette */
     --color-brand-primary: #1e3a5f;
     --color-brand-primary-hover: #152a47;
-    --color-brand-secondary: #2d5a3d;
-    --color-brand-secondary-hover: #234a30;
+    --color-brand-primary-light: rgba(30, 58, 95, 0.08);
     --color-brand-accent: #c17f59;
+    --color-brand-accent-light: rgba(193, 127, 89, 0.10);
     --color-neutral-50: #f8fafc;
     --color-neutral-100: #f1f5f9;
     --color-neutral-200: #e2e8f0;
+    --color-neutral-300: #cbd5e1;
+    --color-neutral-500: #64748b;
+    --color-neutral-600: #475569;
     --color-neutral-700: #334155;
     --color-neutral-800: #1e293b;
     --color-neutral-900: #0f172a;
-    --font-sans: ui-sans-serif, system-ui, sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --text-h1: 2.25rem;
-    --text-h2: 1.5rem;
-    --text-h3: 1.25rem;
-    --text-body: 1rem;
-    --text-sm: 0.875rem;
-    --text-xs: 0.75rem;
+    /* Type */
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    /* Spacing rhythm */
+    --section-gap: 3rem;
   }
 
   html {
@@ -29,22 +30,29 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
   }
 
   body {
-    @apply bg-white text-slate-900 antialiased;
+    @apply bg-white text-slate-800 antialiased;
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
   }
 
   a {
-    @apply underline underline-offset-2 decoration-slate-300;
+    @apply underline underline-offset-2;
+    color: var(--color-brand-primary);
+    text-decoration-color: var(--color-neutral-300);
   }
-
   a:hover {
-    @apply decoration-slate-500;
+    text-decoration-color: var(--color-brand-primary);
   }
 
   :focus-visible {
@@ -52,37 +60,123 @@
     outline-offset: 2px;
   }
 
-  summary::-webkit-details-marker {
-    display: none;
-  }
+  summary::-webkit-details-marker { display: none; }
+  summary { list-style: none; }
 }
 
+/* ── Components ─────────────────────────────────────────── */
 @layer components {
+  /* Skip link */
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-slate-900 focus:shadow;
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-slate-900 focus:shadow-lg;
   }
 
+  /* Container */
   .container-page {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 
+  /* ── Hero band ── */
+  .hero-band {
+    background: linear-gradient(135deg, var(--color-brand-primary) 0%, #2a4f7a 100%);
+    color: white;
+    padding: 3rem 0 2.5rem;
+  }
+  .hero-band h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: white;
+  }
+  .hero-band .hero-lead {
+    color: rgba(255,255,255,0.88);
+    font-size: 1.05rem;
+    max-width: 42rem;
+    margin-top: 0.75rem;
+    line-height: 1.65;
+  }
+
+  /* ── Section band (alternating bg) ── */
+  .section-band {
+    padding: var(--section-gap) 0;
+  }
+  .section-band-alt {
+    background-color: var(--color-neutral-50);
+    padding: var(--section-gap) 0;
+  }
+
+  /* ── Section heading ── */
+  .section-heading {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-neutral-900);
+    letter-spacing: -0.01em;
+  }
+  .section-subheading {
+    color: var(--color-neutral-600);
+    font-size: 0.9375rem;
+    margin-top: 0.375rem;
+    max-width: 36rem;
+  }
+
+  /* ── Card ── */
   .card {
-    @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+    @apply rounded-xl border bg-white shadow-sm;
+    border-color: var(--color-neutral-200);
+    transition: box-shadow 0.15s ease;
+  }
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .card-body { padding: 1.5rem; }
+
+  /* ── Callout ── */
+  .callout {
+    @apply rounded-xl p-5;
+    border-left: 4px solid;
+  }
+  .callout-warn {
+    background-color: #fffbeb;
+    border-color: #f59e0b;
+  }
+  .callout-info {
+    background-color: var(--color-brand-primary-light);
+    border-color: var(--color-brand-primary);
+  }
+  .callout-accent {
+    background-color: var(--color-brand-accent-light);
+    border-color: var(--color-brand-accent);
+  }
+  .callout-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-neutral-900);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .callout-body {
+    font-size: 0.875rem;
+    color: var(--color-neutral-700);
+    margin-top: 0.375rem;
+    line-height: 1.65;
   }
 
+  /* ── Buttons ── */
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold no-underline transition;
+    @apply inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold no-underline transition-all;
+    cursor: pointer;
   }
-
   .btn-primary {
     background-color: var(--color-brand-primary);
     color: white;
+    box-shadow: 0 1px 3px rgba(30,58,95,0.18);
   }
   .btn-primary:hover {
     background-color: var(--color-brand-primary-hover);
     color: white;
+    box-shadow: 0 2px 6px rgba(30,58,95,0.25);
   }
-
   .btn-secondary {
     background-color: var(--color-neutral-100);
     color: var(--color-neutral-800);
@@ -91,39 +185,312 @@
     background-color: var(--color-neutral-200);
     color: var(--color-neutral-900);
   }
-
   .btn-outline {
-    border: 1px solid var(--color-neutral-200);
-    color: var(--color-neutral-800);
+    border: 1.5px solid var(--color-neutral-200);
+    color: var(--color-neutral-700);
+    background: white;
   }
   .btn-outline:hover {
+    border-color: var(--color-neutral-300);
     background-color: var(--color-neutral-50);
     color: var(--color-neutral-900);
   }
-
-  .btn-tertiary {
+  .btn-ghost {
     background-color: transparent;
     color: var(--color-brand-primary);
   }
-  .btn-tertiary:hover {
-    background-color: var(--color-neutral-100);
+  .btn-ghost:hover {
+    background-color: var(--color-brand-primary-light);
     color: var(--color-brand-primary-hover);
   }
+  .btn-sm { @apply px-3.5 py-1.5 text-xs; }
+  .btn-lg { @apply px-6 py-3 text-base; }
+  .btn-icon { @apply gap-2; }
 
+  /* ── Badges ── */
   .badge {
-    @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     background-color: var(--color-neutral-100);
+    color: var(--color-neutral-600);
+  }
+  .badge-brand {
+    background-color: var(--color-brand-primary-light);
+    color: var(--color-brand-primary);
+  }
+  .badge-accent {
+    background-color: var(--color-brand-accent-light);
+    color: #9a5f3a;
+  }
+  .badge-success {
+    background: #ecfdf5;
+    color: #065f46;
+  }
+
+  /* ── Stepper / Timeline ── */
+  .stepper {
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .stepper { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  }
+  .stepper-step {
+    @apply rounded-xl border bg-white p-5;
+    border-color: var(--color-neutral-200);
+    position: relative;
+  }
+  .stepper-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 700;
+    background-color: var(--color-brand-primary);
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+  .stepper-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-neutral-900);
+  }
+  .stepper-detail {
+    font-size: 0.8125rem;
+    color: var(--color-neutral-600);
+    margin-top: 0.375rem;
+    line-height: 1.6;
+  }
+
+  /* ── Document card ── */
+  .doc-card {
+    @apply rounded-xl border bg-white p-5;
+    border-color: var(--color-neutral-200);
+  }
+  .doc-card-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-neutral-900);
+  }
+  .doc-card-desc {
+    font-size: 0.8125rem;
+    color: var(--color-neutral-600);
+    margin-top: 0.25rem;
+  }
+  .doc-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Accordion ── */
+  .accordion-item {
+    @apply border-b;
+    border-color: var(--color-neutral-200);
+  }
+  .accordion-item summary {
+    @apply cursor-pointer py-4 text-sm font-semibold;
+    color: var(--color-neutral-800);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .accordion-item summary::after {
+    content: "+";
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--color-neutral-500);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .accordion-item[open] summary::after {
+    content: "−";
+  }
+  .accordion-item .accordion-body {
+    @apply pb-4 text-sm leading-relaxed;
     color: var(--color-neutral-700);
   }
 
-  .badge-brand {
-    background-color: rgba(30, 58, 95, 0.12);
-    color: var(--color-brand-primary);
+  /* ── Chip (external resource) ── */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium no-underline;
+    border-color: var(--color-neutral-200);
+    color: var(--color-neutral-600);
+    background: white;
+    transition: all 0.15s;
+  }
+  .chip:hover {
+    border-color: var(--color-neutral-300);
+    background: var(--color-neutral-50);
+    color: var(--color-neutral-800);
   }
 
+  /* ── Tables ── */
+  .data-table {
+    @apply w-full border-collapse text-sm;
+  }
+  .data-table thead th {
+    @apply py-3 pr-4 text-left text-xs font-semibold uppercase tracking-wider;
+    color: var(--color-neutral-500);
+    border-bottom: 2px solid var(--color-neutral-200);
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .data-table tbody td {
+    @apply py-3 pr-4 align-top;
+    color: var(--color-neutral-700);
+    border-bottom: 1px solid var(--color-neutral-100);
+  }
+  .data-table tbody tr:nth-child(even) {
+    background-color: var(--color-neutral-50);
+  }
+  .data-table tbody tr:nth-child(even) td {
+    background-color: var(--color-neutral-50);
+  }
+
+  /* Mobile card stacking for tables */
+  @media (max-width: 767px) {
+    .table-cards thead { display: none; }
+    .table-cards tbody tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.25rem 1rem;
+      @apply rounded-xl border p-4 mb-3;
+      border-color: var(--color-neutral-200);
+      background: white;
+    }
+    .table-cards tbody td {
+      border-bottom: none;
+      padding: 0.25rem 0;
+      background: transparent !important;
+    }
+    .table-cards tbody td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-neutral-500);
+      margin-bottom: 0.125rem;
+    }
+    .table-cards tbody td.td-full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ── Contact card ── */
+  .contact-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-brand-primary-light);
+    color: var(--color-brand-primary);
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  /* ── CTA panel ── */
+  .cta-panel {
+    @apply rounded-xl p-6;
+    background: linear-gradient(135deg, var(--color-brand-primary) 0%, #2a4f7a 100%);
+    color: white;
+  }
+  .cta-panel h2, .cta-panel h3 {
+    color: white;
+  }
+  .cta-panel .btn-primary {
+    background: white;
+    color: var(--color-brand-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+  .cta-panel .btn-primary:hover {
+    background: var(--color-neutral-100);
+    color: var(--color-brand-primary-hover);
+  }
+
+  /* ── Legal layout ── */
+  .legal-layout {
+    max-width: 42rem;
+  }
+  .legal-layout h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-neutral-900);
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-neutral-200);
+  }
+  .legal-layout h2:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+  .legal-layout p {
+    margin-top: 0.75rem;
+  }
+
+  /* ── Mini page nav (legal sidebar) ── */
+  .mini-nav {
+    @apply sticky top-24 space-y-1 text-sm;
+  }
+  .mini-nav a {
+    @apply block rounded-lg px-3 py-1.5 no-underline;
+    color: var(--color-neutral-600);
+  }
+  .mini-nav a:hover {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-900);
+  }
+
+  /* ── Feature list ── */
+  .feature-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  .feature-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .feature-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-brand-primary-light);
+    color: var(--color-brand-primary);
+    flex-shrink: 0;
+    font-size: 1.125rem;
+  }
+
+  /* ── Sticky header helper ── */
   .sticky-header {
     position: sticky;
     top: 0;
     z-index: 5;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--color-neutral-200);
+    margin: 2rem 0;
   }
 }

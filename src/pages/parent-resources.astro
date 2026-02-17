@@ -1,83 +1,108 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import resources from '../data/resources.json';
+
+const docDescriptions: Record<string, string> = {
+  'Parent Handbook': 'Complete guide to school policies, procedures, and expectations.',
+  'Fees and Hours of Operation': 'Tuition, hours, meal plan options, and payment policies.',
+  'School Readiness Guidelines': 'Skills and readiness indicators for incoming students.'
+};
 ---
 
 <Layout
   title="Parent Resources"
   description="Parent handbook, downloads, and helpful links for Auburn Montessori School - The Children's House."
+  heroTitle="Parent Resources"
+  heroLead="The Parent Handbook is the primary reference for detailed policies and procedures. Below are key documents, registration links, and helpful resources."
 >
-  <header class="space-y-3">
-    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Parent Resources</h1>
-    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
-      The Parent Handbook is the primary reference for detailed policies and procedures. Below are key documents (view or download), plus links to registration and other resources.
-    </p>
-  </header>
+  <!-- Documents -->
+  <div class="section-band">
+    <div class="container-page">
+      <h2 class="section-heading">Documents</h2>
+      <p class="section-subheading">View in the browser or download to your device</p>
 
-  <section class="mt-10 space-y-10">
-    <h2 class="text-xl font-bold text-slate-900">Key Documents</h2>
-    <p class="text-sm text-slate-600">
-      View in the browser or use the download link if the viewer does not load.
-    </p>
-    {resources.keyDocuments.map((doc) => (
-      <div class="card p-6">
-        <h3 class="text-lg font-bold text-slate-900">{doc.label} (PDF)</h3>
-        <p class="mt-2 text-sm text-slate-700">
-          <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={doc.href} download>
-            Download {doc.label} (PDF)
-          </a>
-        </p>
-        <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
-          <iframe
-            title={`${doc.label} PDF viewer`}
-            src={`${doc.href}#view=FitH`}
-            class="h-[70vh] w-full"
-            loading="lazy"
-          ></iframe>
-        </div>
-        <p class="mt-3 text-xs text-slate-600">
-          If the PDF viewer does not load, use the download link above.
-        </p>
+      <div class="mt-6 grid gap-5 lg:grid-cols-3">
+        {resources.keyDocuments.map((doc) => (
+          <div class="doc-card">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="doc-card-title">{doc.label}</div>
+                <div class="doc-card-desc">{docDescriptions[doc.label] ?? 'PDF document'}</div>
+              </div>
+              <span class="badge" style="white-space: nowrap;">PDF</span>
+            </div>
+            <div class="doc-card-actions">
+              <a class="btn btn-primary btn-sm btn-icon" href={doc.href} download>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
+                Download
+              </a>
+            </div>
+            <details class="mt-3 border-t pt-3" style="border-color: var(--color-neutral-200);">
+              <summary class="cursor-pointer text-xs font-semibold" style="color: var(--color-neutral-500);">
+                Preview document
+              </summary>
+              <div class="mt-2 overflow-hidden rounded-lg border" style="border-color: var(--color-neutral-200);">
+                <iframe
+                  title={`${doc.label} PDF viewer`}
+                  src={`${doc.href}#view=FitH`}
+                  class="h-[50vh] w-full"
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
+                If the preview doesn't load, use the download button above.
+              </p>
+            </details>
+          </div>
+        ))}
       </div>
-    ))}
-  </section>
+    </div>
+  </div>
 
-  <section class="mt-12 card p-6">
-    <h2 class="text-lg font-bold text-slate-900">External services</h2>
-    <p class="mt-2 text-sm text-slate-600">
-      These links open in a new tab. Registration and some forms are hosted by third-party services (Brightwheel, Hubbli).
-    </p>
-    <ul class="mt-4 space-y-2 text-sm text-slate-700">
-      {resources.externalServices.map((item) => (
-        <li>
-          <a
-            class="font-semibold no-underline text-blue-800 hover:text-blue-900"
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {item.label} (opens in a new tab)
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+  <!-- Registration & Forms / Learning Resources -->
+  <div class="section-band-alt">
+    <div class="container-page grid gap-8 lg:grid-cols-2">
+      <div>
+        <h2 class="section-heading">Registration &amp; Forms</h2>
+        <p class="section-subheading">External services for enrollment</p>
+        <div class="mt-5 space-y-3">
+          {resources.externalServices.map((item) => (
+            <a
+              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="feature-icon shrink-0">↗</div>
+              <div>
+                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                <div class="text-xs" style="color: var(--color-neutral-500);">Opens in a new tab</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
 
-  <section class="mt-8 card p-6">
-    <h2 class="text-lg font-bold text-slate-900">Lists and learning</h2>
-    <ul class="mt-4 space-y-2 text-sm text-slate-700">
-      {resources.listsAndLearning.map((item) => (
-        <li>
-          <a
-            class="font-semibold no-underline text-blue-800 hover:text-blue-900"
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {item.label} (opens in a new tab)
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+      <div>
+        <h2 class="section-heading">Learning Resources</h2>
+        <p class="section-subheading">Informational links for parents</p>
+        <div class="mt-5 space-y-3">
+          {resources.listsAndLearning.map((item) => (
+            <a
+              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="feature-icon shrink-0">📚</div>
+              <div>
+                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                <div class="text-xs" style="color: var(--color-neutral-500);">Opens in a new tab</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>

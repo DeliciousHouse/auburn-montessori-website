@@ -9,30 +9,36 @@ const isActive = (href: string) => {
   if (href === '/') return currentPath === '/';
   return currentPath === href || currentPath.startsWith(`${href}/`);
 };
+
+const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
 ---
 
-<header class="border-b border-slate-200 bg-white">
-  <div class="container-page flex items-center justify-between gap-4 py-4">
-    <a class="flex items-center gap-3 no-underline" href="/" aria-label={`${site.shortName} home`}>
+<header class="sticky top-0 z-40 border-b bg-white/95 backdrop-blur-sm" style={`border-color: var(--color-neutral-200);`}>
+  <div class="container-page flex h-16 items-center justify-between gap-6">
+    <!-- Logo + Wordmark -->
+    <a class="flex shrink-0 items-center gap-2.5 no-underline" href="/" aria-label={`${site.shortName} home`}>
       <img
         src="/images/brand/logo.webp"
         alt=""
-        width="48"
-        height="48"
-        class="h-12 w-12 shrink-0 rounded-lg object-contain"
+        width="40"
+        height="40"
+        class="h-10 w-10 rounded-lg object-contain"
       />
-      <div class="leading-tight">
-        <div class="text-base font-extrabold tracking-tight text-slate-900">{site.shortName}</div>
-        <div class="text-sm text-slate-600">{site.tagline}</div>
+      <div class="hidden leading-tight sm:block">
+        <div class="text-sm font-bold tracking-tight" style={`color: var(--color-neutral-900);`}>{site.shortName}</div>
+        <div class="text-xs" style={`color: var(--color-neutral-500);`}>{site.tagline}</div>
       </div>
     </a>
 
-    <nav class="hidden items-center gap-4 md:flex" aria-label="Primary">
-      {nav.map((item) => (
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {mainNav.map((item: {href:string; label:string}) => (
         <a
           class:list={[
-            'text-sm font-semibold no-underline',
-            isActive(item.href) ? 'text-[var(--color-brand-primary)]' : 'text-slate-700 hover:text-slate-900'
+            'rounded-lg px-3 py-1.5 text-sm font-medium no-underline transition-colors',
+            isActive(item.href)
+              ? 'bg-[var(--color-brand-primary-light)] text-[var(--color-brand-primary)]'
+              : 'text-[var(--color-neutral-600)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-neutral-900)]'
           ]}
           href={item.href}
           aria-current={isActive(item.href) ? 'page' : undefined}
@@ -40,65 +46,73 @@ const isActive = (href: string) => {
           {item.label}
         </a>
       ))}
+    </nav>
 
+    <div class="flex items-center gap-3">
+      <!-- CTA -->
       <a
-        class="btn btn-primary"
+        class="btn btn-primary btn-sm hidden md:inline-flex"
         href={site.registrationUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="New Parent Registration (opens in a new tab)"
+        aria-label="Register (opens in a new tab)"
       >
-        New Parent Registration (Brightwheel)
+        Register
       </a>
-    </nav>
 
-    <details class="relative md:hidden" id="mobile-menu" data-mobile-menu>
-      <summary
-        id="mobile-menu-toggle"
-        class="btn btn-outline cursor-pointer select-none list-none"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu-panel"
-      >
-        Menu
-      </summary>
+      <!-- Mobile menu toggle -->
+      <details class="relative lg:hidden" id="mobile-menu" data-mobile-menu>
+        <summary
+          id="mobile-menu-toggle"
+          class="btn btn-outline btn-sm cursor-pointer select-none list-none"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu-panel"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 5h14M3 10h14M3 15h14" />
+          </svg>
+          <span class="ml-1.5">Menu</span>
+        </summary>
 
-      <div
-        id="mobile-menu-panel"
-        class="absolute right-0 mt-2 w-[min(90vw,22rem)] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
-        role="region"
-        aria-label="Mobile navigation"
-      >
-        <nav class="flex flex-col gap-1" aria-label="Mobile primary">
-          {nav.map((item) => (
+        <div
+          id="mobile-menu-panel"
+          class="absolute right-0 mt-2 w-[min(92vw,22rem)] rounded-xl border bg-white p-2 shadow-xl"
+          style={`border-color: var(--color-neutral-200);`}
+          role="region"
+          aria-label="Mobile navigation"
+        >
+          <nav class="flex flex-col gap-0.5" aria-label="Mobile primary">
+            {nav.map((item: {href:string; label:string}) => (
+              <a
+                class:list={[
+                  'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors',
+                  isActive(item.href)
+                    ? 'bg-[var(--color-brand-primary-light)] text-[var(--color-brand-primary)]'
+                    : 'text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-50)]'
+                ]}
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                data-mobile-nav-link
+              >
+                {item.label}
+              </a>
+            ))}
+            <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
             <a
-              class:list={[
-                'rounded-lg px-3 py-2 text-sm font-semibold no-underline',
-                isActive(item.href)
-                  ? 'bg-[color:var(--color-neutral-100)] text-[var(--color-brand-primary)]'
-                  : 'text-slate-800 hover:bg-slate-50'
-              ]}
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
+              class="btn btn-primary w-full justify-center"
+              href={site.registrationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Register (opens in a new tab)"
               data-mobile-nav-link
             >
-              {item.label}
+              New Parent Registration
             </a>
-          ))}
-          <div class="my-1 border-t border-slate-200" aria-hidden="true"></div>
-          <a
-            class="btn btn-primary"
-            href={site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="New Parent Registration (opens in a new tab)"
-            data-mobile-nav-link
-          >
-            New Parent Registration (Brightwheel)
-          </a>
-        </nav>
-      </div>
-    </details>
+          </nav>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -110,26 +124,20 @@ const isActive = (href: string) => {
 
     const close = () => {
       details.removeAttribute('open');
-      summary?.setAttribute('aria-expanded', 'false');
-      summary?.focus();
+      summary.setAttribute('aria-expanded', 'false');
+      summary.focus();
     };
 
     details.querySelectorAll('[data-mobile-nav-link]').forEach((el) => {
-      el.addEventListener('click', () => {
-        close();
-      });
+      el.addEventListener('click', () => close());
     });
 
     details.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        close();
-        e.preventDefault();
-      }
+      if (e.key === 'Escape') { close(); e.preventDefault(); }
     });
 
     details.addEventListener('toggle', () => {
-      summary?.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+      summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
     });
   })();
 </script>
-
