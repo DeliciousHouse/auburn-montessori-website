@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+---
+
+<Layout
+  title="Privacy Policy"
+  description="Privacy policy for the Auburn Montessori School - The Children's House website."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Privacy Policy</h1>
+  <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
+    <p>
+      This website is provided to share information about {site.shortName}. It is a static website and does not
+      offer user accounts or login features.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Information we collect</h2>
+    <p>
+      We do not ask you to submit personal information through a contact form on this website. If you choose
+      to contact us by email or phone, we will receive the information you provide in your message or call.
+    </p>
+    <p>
+      Like most websites, our hosting provider may automatically collect limited technical information in server
+      logs (for example: IP address, device/browser type, and the pages requested) for security and operational
+      purposes.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Third-party services</h2>
+    <p>
+      This website includes links to third-party services. In particular, new parent registration is handled
+      through Brightwheel. If you follow these links, your interaction is governed by the third party's privacy
+      policy and terms.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Changes</h2>
+    <p>
+      We may update this Privacy Policy from time to time. The updated version will be posted on this page.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Contact</h2>
+    <p>
+      If you have questions about this policy, please contact us at <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </div>
+</Layout>
+

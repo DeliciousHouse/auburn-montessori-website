@@ -1,0 +1,10 @@
+[
+  { "label": "Home", "href": "/" },
+  { "label": "About", "href": "/about" },
+  { "label": "Educators", "href": "/educators" },
+  { "label": "Parent Resources", "href": "/parent-resources" },
+  { "label": "Calendar", "href": "/calendar" },
+  { "label": "Fees & Hours", "href": "/fees-hours" },
+  { "label": "Admissions", "href": "/admissions" },
+  { "label": "Contact", "href": "/contact" }
+]

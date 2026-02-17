@@ -1,0 +1,111 @@
+{
+  "effectiveSchoolYear": "2026-2027",
+  "term": "August 2026 - May 2027",
+  "pdfPath": "/documents/fees-hours-2026-2027.pdf",
+  "paymentAgreement": [
+    "Total fee is not subject to adjustments due to holidays, illnesses, absences, or teacher education days.",
+    "In the case of the family relocating outside of the Auburn/Opelika area or decision to withdraw, a notice of relocating or withdrawal including 1 month's tuition must be given at least 1 month in advance of written notice."
+  ],
+  "registrationFee": {
+    "amount": 50,
+    "currency": "USD",
+    "note": "One Time Registration Fee (non refundable): $50"
+  },
+  "paymentOptions": [
+    "Checks payable to Auburn Montessori School",
+    "Automatic check from your bank.",
+    "Credit card payment plus 2.5% transaction fee",
+    "Venmo @Charlene-Kam"
+  ],
+  "paymentFeePolicy": "Tuition is due at the 1st of each month and is delinquent on the 15th day of the month. A $20 late fee is applied to late payments.",
+  "latePickUpFeePolicy": "All children must be picked up no later than their designated pick up times. A late fee of $1/minute will be applied.",
+  "returnedChecksPolicy": "$20 Bank Fee will be applied to any returned checks.",
+  "mealProvider": "Healthy hot lunches, AM and PM snacks provided by Greens and Beans.",
+  "programs": [
+    {
+      "name": "Part Time (3 - 4 year old rates)",
+      "hours": "7:30am - 12:00pm",
+      "monthlyTuition": 650,
+      "tuitionNotes": "Monthly tuition (non refundable): $650/mth",
+      "annualEnrollmentFee": 550,
+      "annualEnrollmentFeeDue": "3-5-26",
+      "latePickupPolicy": "A late fee of $1/minute will be applied.",
+      "mealPlanOptions": [
+        {
+          "name": "Full payment option",
+          "amountPerYear": 850,
+          "notes": "$50 off $900/year for $850/year. Due July 15th 2026."
+        },
+        {
+          "name": "Standard rate (reference)",
+          "amountPerYear": 900,
+          "notes": "$900/year"
+        },
+        {
+          "name": "Partial payment option (non refundable)",
+          "amountPerYear": 900,
+          "notes": "$450 due 7-1-26, and $450 due 1-1-27"
+        }
+      ]
+    },
+    {
+      "name": "Full Time (3 - 4 year old rates)",
+      "hours": "7:15am - 5:15pm",
+      "monthlyTuition": 875,
+      "tuitionNotes": "Monthly tuition (non refundable): $875/mth",
+      "annualEnrollmentFee": 600,
+      "annualEnrollmentFeeDue": "3-5-26",
+      "latePickupPolicy": "A late fee of $1/minute will be applied.",
+      "mealPlanOptions": [
+        {
+          "name": "Full payment option",
+          "amountPerYear": 1500,
+          "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
+        },
+        {
+          "name": "Standard rate (reference)",
+          "amountPerYear": 1600,
+          "notes": "$1,600/year"
+        },
+        {
+          "name": "Partial payment option (non refundable)",
+          "amountPerYear": 1600,
+          "notes": "$800 due 7-1-26, and $800 due 1-1-27"
+        }
+      ]
+    },
+    {
+      "name": "K - 3rd Grade",
+      "hours": "8:00am - 5:30pm",
+      "monthlyTuition": 975,
+      "tuitionNotes": "Monthly tuition (non refundable): $975/mth",
+      "annualEnrollmentFee": 700,
+      "annualEnrollmentFeeDue": "3-5-26",
+      "latePickupPolicy": "A late fee of $1/minute will be applied.",
+      "mealPlanOptions": [
+        {
+          "name": "Full payment option",
+          "amountPerYear": 1500,
+          "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
+        },
+        {
+          "name": "Standard rate (reference)",
+          "amountPerYear": 1600,
+          "notes": "$1,600/year"
+        },
+        {
+          "name": "Partial payment option (non refundable)",
+          "amountPerYear": 1600,
+          "notes": "$800 due 7-1-26, and $800 due 1-1-27"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Fees and Hours of Operation (PDF)",
+      "href": "/documents/fees-hours-2026-2027.pdf",
+      "external": false
+    }
+  ]
+}

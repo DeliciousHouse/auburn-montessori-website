@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+---
+
+<Layout
+  title="Accessibility Statement"
+  description="Accessibility statement for the Auburn Montessori School - The Children's House website."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Accessibility Statement</h1>
+  <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
+    <p>
+      {site.shortName} is committed to providing a website that is accessible to the widest possible audience,
+      regardless of technology or ability.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Accessibility features</h2>
+    <p>
+      This website aims to use semantic HTML, sufficient color contrast, keyboard navigation support, and clear
+      focus indicators. Pages are designed mobile-first and responsive.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">PDF documents</h2>
+    <p>
+      Some resources are provided as PDFs (such as the Parent Handbook). If you have difficulty accessing a
+      document, please contact us and we will work with you to provide the information in an alternative format
+      when possible.
+    </p>
+
+    <h2 class="text-base font-bold text-slate-900">Feedback</h2>
+    <p>
+      If you encounter an accessibility barrier on this site, please email <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a> and include the page URL and a brief description of the issue.
+    </p>
+  </div>
+</Layout>
+

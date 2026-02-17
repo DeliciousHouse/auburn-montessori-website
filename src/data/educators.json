@@ -1,0 +1,129 @@
+{
+  "intro": "All teachers have completed all necessary trainings including CPR, references, Medical Report, Child Abuse and Neglect registry, and background checks to be in compliance with Alabama Dept. of Human Resources, Child Care Division.",
+  "educators": [
+    {
+      "name": "Charlene Kam",
+      "role": "Founder / Director / Lead Educator",
+      "since": "1997-present",
+      "preferredName": "Charlene",
+      "pronouns": "she/her",
+      "hours": "7:45 am - 1:00 pm / 6:00 pm when needed",
+      "education": [
+        "B.A. Chemistry (minor in Biology and Secondary Education), University of Miami (1993)",
+        "MBA (1996)",
+        "M.A. Montessori Education, St. Catherine University (2022)"
+      ],
+      "credentialsAndTraining": [
+        "Alabama Early Learning Guidelines (AELG) certificate (2019)",
+        "Montessori Early Childhood Diploma (MACTE)",
+        "Montessori Lower Elementary Diploma (MACTE)",
+        "London Montessori Center practical workshop (children 2 1/2 to 6 years of age)",
+        "Landmark Leader Training Academy certificate",
+        "Montessori instructor for Online Teacher Training Center (MontessoriLive)",
+        "RYT 200 certified yoga instructor (March 2020); 500hr yoga training",
+        "Infant/child/adult CPR"
+      ],
+      "bio": [
+        "Founder/Director of The Children's House - Auburn Montessori (est. 1997).",
+        "Intention: To continue her work at Auburn Montessori School, keeping true to the Montessori philosophy to cultivate a desire to learn in ever changing diverse environments."
+      ],
+      "links": [
+        {
+          "label": "MontessoriLive Teacher Training Center",
+          "href": "http://www.montessorilive.net/",
+          "external": true
+        },
+        {
+          "label": "Charlene's travel site",
+          "href": "https://charlenekam.inteletravel.com/booktravel.cfm",
+          "external": true
+        }
+      ]
+    },
+    {
+      "name": "Rahma Ziyad",
+      "role": "Educator",
+      "since": "Joined March 2020",
+      "education": [
+        "B.S. Psychology (2020)",
+        "Early Childhood Education degree (2024)"
+      ],
+      "credentialsAndTraining": [
+        "Alabama Early Learning Guidelines (AELG) certificate (2020)",
+        "Pursuing Association Montessori Internationale (AMI) Primary degree in Early Childhood (expected June 2025)",
+        "Infant/child/adult CPR",
+        "T.E.A.C.H. scholarship participant"
+      ],
+      "bio": [
+        "Educator at Auburn Montessori School since March 2020."
+      ]
+    },
+    {
+      "name": "Asma Javed",
+      "role": "Educator",
+      "since": "Joined March 2020",
+      "credentialsAndTraining": [
+        "CDA",
+        "Alabama Early Learning Guidelines (AELG)",
+        "Completed 80hrs Montessori Education for the 3 - 6 year (7-21-21)",
+        "Infant/child/adult CPR"
+      ],
+      "bio": [
+        "Educator at Auburn Montessori School since March 2020."
+      ]
+    },
+    {
+      "name": "Sam Price",
+      "role": "Educator",
+      "since": "Educator since 3-1-2015",
+      "education": [
+        "B.S. Interdisciplinary Studies"
+      ],
+      "credentialsAndTraining": [
+        "Alabama Early Learning Guidelines (AELG) certificate",
+        "80hrs Montessori Education for the 3 - 6 year old child (7-23-2017)",
+        "Scouting certificate",
+        "Infant/child/adult CPR"
+      ],
+      "bio": [
+        "Educator at Auburn Montessori School since 3-1-2015."
+      ]
+    },
+    {
+      "name": "Sarah Cox",
+      "role": "Educator",
+      "since": "Joined 8-1-2022",
+      "pronouns": "she/her",
+      "education": [
+        "Associate Degree in Child Development, Southern Union (May 2022)"
+      ]
+    },
+    {
+      "name": "Patrick Tousley",
+      "role": "Educator",
+      "since": "Joined August 2024",
+      "education": [
+        "B.S. Interdisciplinary Studies"
+      ],
+      "credentialsAndTraining": [
+        "Montessori Core Principles of 3-6 year old child",
+        "Infant/child/adult CPR"
+      ],
+      "bio": [
+        "Educator at Auburn Montessori School since August 2024."
+      ]
+    },
+    {
+      "name": "Emma Stevenson",
+      "role": "Assistant Director",
+      "pronouns": "she/her",
+      "credentialsAndTraining": [
+        "Completed 200hr yoga training"
+      ]
+    },
+    {
+      "name": "Maci DeMoras",
+      "role": "Support Staff"
+    }
+  ]
+}

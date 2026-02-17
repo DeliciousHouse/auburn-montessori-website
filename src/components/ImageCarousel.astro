@@ -1,0 +1,70 @@
+---
+type CarouselImage = {
+  src: string;
+  alt: string;
+};
+
+type Props = {
+  id: string;
+  label: string;
+  images: CarouselImage[];
+};
+
+const { id, label, images } = Astro.props as Props;
+---
+
+<section class="card overflow-hidden" aria-label={label}>
+  <div class="relative">
+    <div
+      id={id}
+      class="flex snap-x snap-mandatory gap-2 overflow-x-auto scroll-smooth p-2"
+      tabindex="0"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={label}
+    >
+      {images.map((img) => (
+        <figure class="relative w-[min(90vw,56rem)] shrink-0 snap-center overflow-hidden rounded-lg bg-slate-50">
+          <img
+            src={img.src}
+            alt={img.alt}
+            class="h-auto w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      ))}
+    </div>
+
+    <div class="pointer-events-none absolute inset-x-0 bottom-2 flex justify-center">
+      <div class="pointer-events-auto flex gap-2 rounded-full bg-white/90 p-1 shadow">
+        <button type="button" class="btn btn-secondary px-3 py-1.5" data-carousel-prev={id}>
+          Prev
+        </button>
+        <button type="button" class="btn btn-secondary px-3 py-1.5" data-carousel-next={id}>
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ id }}>
+  (() => {
+    const container = document.getElementById(id);
+    if (!container) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+
+    const getStep = () => Math.max(container.clientWidth * 0.9, 320);
+
+    const scrollBy = (dir) => {
+      container.scrollBy({ left: dir * getStep(), top: 0, behavior });
+    };
+
+    document.querySelector(`[data-carousel-prev="${id}"]`)?.addEventListener('click', () => scrollBy(-1));
+    document.querySelector(`[data-carousel-next="${id}"]`)?.addEventListener('click', () => scrollBy(1));
+  })();
+</script>
+

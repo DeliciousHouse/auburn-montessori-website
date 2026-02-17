@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fees from '../data/fees-hours.json';
+---
+
+<Layout
+  title="Fees & Hours"
+  description="Hours of operation, tuition, fees, and policies for Auburn Montessori School - The Children's House."
+>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Fees &amp; Hours</h1>
+    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
+      Fee and schedule information (term: <span class="font-semibold">{fees.term}</span>). For the full details,
+      view the official PDF.
+    </p>
+  </header>
+
+  <section class="mt-8 grid gap-6 lg:grid-cols-2 lg:items-start">
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Fees and Hours (PDF)</h2>
+      <p class="mt-2 text-sm text-slate-700">
+        <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={fees.pdfPath} download>
+          Download Fees and Hours of Operation (PDF)
+        </a>
+      </p>
+      <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+        <iframe
+          title="Fees and Hours of Operation PDF viewer"
+          src={`${fees.pdfPath}#view=FitH`}
+          class="h-[55vh] w-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Key policies</h2>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Payment agreement</h3>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {fees.paymentAgreement.map((p) => <li>{p}</li>)}
+      </ul>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Payment fee policy</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.paymentFeePolicy}</p>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Late pick up fee policy</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.latePickUpFeePolicy}</p>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Returned checks</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.returnedChecksPolicy}</p>
+    </section>
+  </section>
+
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Programs</h2>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[42rem] border-collapse text-sm">
+        <thead>
+          <tr class="border-b border-slate-200 text-left">
+            <th class="py-2 pr-4 font-semibold text-slate-900">Program</th>
+            <th class="py-2 pr-4 font-semibold text-slate-900">Hours</th>
+            <th class="py-2 pr-4 font-semibold text-slate-900">Monthly tuition</th>
+            <th class="py-2 pr-4 font-semibold text-slate-900">Annual enrollment fee</th>
+            <th class="py-2 pr-4 font-semibold text-slate-900">Enrollment fee due</th>
+            <th class="py-2 pr-4 font-semibold text-slate-900">Late pickup</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fees.programs.map((p) => (
+            <tr class="border-b border-slate-100 align-top">
+              <td class="py-3 pr-4 font-semibold text-slate-900">{p.name}</td>
+              <td class="py-3 pr-4 text-slate-700">{p.hours}</td>
+              <td class="py-3 pr-4 text-slate-700">
+                ${p.monthlyTuition}
+                <div class="mt-1 text-xs text-slate-600">{p.tuitionNotes}</div>
+              </td>
+              <td class="py-3 pr-4 text-slate-700">${p.annualEnrollmentFee}</td>
+              <td class="py-3 pr-4 text-slate-700">{p.annualEnrollmentFeeDue}</td>
+              <td class="py-3 pr-4 text-slate-700">
+                {p.latePickupPolicy}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-2">
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Meal Plan</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">
+        {fees.mealProvider}
+      </p>
+
+      <div class="mt-5 space-y-5">
+        {fees.programs.map((p) => (
+          <div class="rounded-lg border border-slate-200 p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-slate-900">{p.name}</h3>
+              <span class="badge">{p.hours}</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+              {p.mealPlanOptions.map((m) => (
+                <li>
+                  <span class="font-semibold text-slate-900">{m.name}:</span> ${m.amountPerYear}/year
+                  <div class="mt-1 text-xs text-slate-600">{m.notes}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Policies and Payment</h2>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Registration fee</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-700">{fees.registrationFee.note}</p>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Payment options</h3>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {fees.paymentOptions.map((p) => <li>{p}</li>)}
+      </ul>
+
+      <h3 class="mt-4 text-sm font-bold text-slate-900">Sources</h3>
+      <ul class="mt-2 space-y-2 text-sm text-slate-700">
+        {fees.sources.map((s) => (
+          <li>
+            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={s.href} download>
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </section>
+</Layout>
+

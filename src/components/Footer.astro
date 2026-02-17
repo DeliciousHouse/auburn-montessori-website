@@ -1,0 +1,55 @@
+---
+import site from '../data/site.json';
+
+const year = new Date().getFullYear();
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Use', href: '/terms' },
+  { label: 'Accessibility Statement', href: '/accessibility' },
+  { label: 'Non-Discrimination', href: '/non-discrimination' }
+];
+---
+
+<footer class="border-t border-slate-200 bg-white">
+  <div class="container-page grid gap-8 py-10 md:grid-cols-3">
+    <div class="space-y-3">
+      <div class="text-sm font-extrabold text-slate-900">{site.shortName}</div>
+      <div class="text-sm text-slate-700">
+        {site.address.street}<br />
+        {site.address.city}, {site.address.state} {site.address.postalCode}
+      </div>
+      <div class="text-sm text-slate-700">
+        <a class="no-underline" href={`tel:${site.phone}`}>{site.phone}</a><br />
+        <a class="no-underline" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div class="text-sm font-bold text-slate-900">Legal</div>
+      <div class="flex flex-col gap-2">
+        {legalLinks.map((l) => (
+          <a class="text-sm no-underline text-slate-700 hover:text-slate-900" href={l.href}>{l.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div class="text-sm font-bold text-slate-900">Notes</div>
+      <p class="text-sm text-slate-700">
+        Links to third-party services are provided for convenience. When you leave this website,
+        you are subject to the terms and privacy practices of the third-party site.
+      </p>
+      <p class="text-sm text-slate-700">
+        New parent registration is handled through Brightwheel (a third-party service).
+      </p>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200">
+    <div class="container-page py-4 text-xs text-slate-600">
+      Copyright {year} {site.shortName}. All rights reserved.
+    </div>
+  </div>
+</footer>
+

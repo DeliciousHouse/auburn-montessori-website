@@ -1,11 +1,72 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import ImageCarousel from '../components/ImageCarousel.astro';
+import home from '../data/home.json';
+import site from '../data/site.json';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House.">
+	<section class="grid gap-10 lg:grid-cols-2 lg:items-center">
+		<div class="space-y-5">
+			<p class="badge">{home.heroKicker}</p>
+			<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+				{home.heroTitle}
+			</h1>
+			<p class="text-base leading-relaxed text-slate-700">
+				A mobile-first, parent-friendly site with quick links to the handbook, calendar, fees, and registration.
+			</p>
+
+			<div class="flex flex-wrap gap-3">
+				<a class="btn btn-primary" href="/parent-resources">Parent Handbook</a>
+				<a class="btn btn-secondary" href="/calendar">Calendar</a>
+				<a class="btn btn-secondary" href="/fees-hours">Fees &amp; Hours</a>
+				<a class="btn btn-secondary" href="/educators">Meet Our Educators</a>
+				<a
+					class="btn btn-outline"
+					href={site.registrationUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="New Parent Registration (opens in a new tab)"
+				>
+					New Parent Registration (Brightwheel)
+				</a>
+			</div>
+
+			<p class="text-sm text-slate-600">
+				Registration opens in a new tab (Brightwheel).
+			</p>
+		</div>
+
+		<ImageCarousel
+			id="home-carousel"
+			label="School photo carousel"
+			images={[
+				{ src: '/images/carousel/slide-1.svg', alt: 'Placeholder school photo 1' },
+				{ src: '/images/carousel/slide-2.svg', alt: 'Placeholder school photo 2' },
+				{ src: '/images/carousel/slide-3.svg', alt: 'Placeholder school photo 3' }
+			]}
+		/>
+	</section>
+
+	<section class="mt-12 grid gap-6 lg:grid-cols-3">
+		<div class="card p-6">
+			<h2 class="text-lg font-bold text-slate-900">Philosophy</h2>
+			<p class="mt-3 text-sm leading-relaxed text-slate-700">{home.philosophy}</p>
+			<p class="mt-4 text-sm">
+				<a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/about">Read more about our approach</a>
+			</p>
+		</div>
+
+		<div class="card p-6">
+			<h2 class="text-lg font-bold text-slate-900">Mission</h2>
+			<ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+				{home.missions.map((m) => <li>{m}</li>)}
+			</ul>
+		</div>
+
+		<div class="card p-6">
+			<h2 class="text-lg font-bold text-slate-900">Vision</h2>
+			<p class="mt-3 text-sm leading-relaxed text-slate-700">{home.vision}</p>
+		</div>
+	</section>
 </Layout>

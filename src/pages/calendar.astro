@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import calendar from '../data/calendar.json';
+---
+
+<Layout
+  title="Calendar"
+  description="School calendar information for Auburn Montessori School - The Children's House."
+>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Calendar</h1>
+    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
+      This page shares school calendar information and links. If you have a school-year calendar PDF, place it
+      in the documents folder and set the link in <code class="rounded bg-slate-100 px-1 py-0.5">src/data/calendar.json</code>.
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-2">
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Online Calendar</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">
+        <a
+          class="font-semibold no-underline text-blue-800 hover:text-blue-900"
+          href={calendar.externalCalendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View the existing site calendar (opens in a new tab)
+        </a>
+      </p>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Calendar PDF</h2>
+      {calendar.calendarPdfUrl ? (
+        <>
+          <p class="mt-3 text-sm leading-relaxed text-slate-700">
+            <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={calendar.calendarPdfUrl} target="_blank" rel="noopener noreferrer">
+              View/Download Calendar (PDF) (opens in a new tab)
+            </a>
+          </p>
+          <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+            <iframe
+              title="Calendar PDF viewer"
+              src={`${calendar.calendarPdfUrl}#view=FitH`}
+              class="h-[65vh] w-full"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </>
+      ) : (
+        <p class="mt-3 text-sm leading-relaxed text-slate-700">
+          No calendar PDF is configured yet.
+        </p>
+      )}
+    </div>
+  </section>
+</Layout>
+

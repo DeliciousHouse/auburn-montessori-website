@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import resources from '../data/resources.json';
+---
+
+<Layout
+  title="Parent Resources"
+  description="Parent handbook, downloads, and helpful links for Auburn Montessori School - The Children's House."
+>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Parent Resources</h1>
+    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
+      The Parent Handbook is the primary reference for detailed policies and procedures. This page provides
+      quick access to key documents and links.
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Parent Handbook (PDF)</h2>
+      <p class="mt-2 text-sm text-slate-700">
+        <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/documents/parent-handbook.pdf" download>
+          Download Parent Handbook (PDF)
+        </a>
+      </p>
+      <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+        <iframe
+          title="Parent Handbook PDF viewer"
+          src="/documents/parent-handbook.pdf#view=FitH"
+          class="h-[70vh] w-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="mt-3 text-xs text-slate-600">
+        If the PDF viewer does not load on your device, use the download link above.
+      </p>
+    </div>
+
+    <div class="space-y-6">
+      {resources.groups.map((g) => (
+        <section class="card p-6">
+          <h2 class="text-lg font-bold text-slate-900">{g.title}</h2>
+          <ul class="mt-3 space-y-2 text-sm text-slate-700">
+            {g.items.map((i) => (
+              <li>
+                <a
+                  class="font-semibold no-underline text-blue-800 hover:text-blue-900"
+                  href={i.href}
+                  target={i.external ? '_blank' : undefined}
+                  rel={i.external ? 'noopener noreferrer' : undefined}
+                >
+                  {i.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+</Layout>
+

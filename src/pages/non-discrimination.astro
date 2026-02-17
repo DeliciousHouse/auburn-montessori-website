@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+---
+
+<Layout
+  title="Non-Discrimination"
+  description="Non-discrimination statement for Auburn Montessori School - The Children's House."
+>
+  <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Non-Discrimination Statement</h1>
+  <div class="mt-6 space-y-4 text-sm leading-relaxed text-slate-700">
+    <p>
+      {site.shortName} is committed to providing an inclusive educational environment. We do not discriminate
+      on the basis of race, color, national origin, ancestry, religion, sex, sexual orientation, gender identity
+      or expression, age, disability, veteran status, or any other status protected by applicable law in the
+      administration of our educational policies, admissions policies, and other school-administered programs.
+    </p>
+
+    <p>
+      If you have questions about this statement, please contact us at <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </div>
+</Layout>
+

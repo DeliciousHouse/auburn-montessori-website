@@ -1,0 +1,16 @@
+{
+  "name": "Auburn Montessori School - The Children's House",
+  "shortName": "Auburn Montessori School",
+  "tagline": "The Children's House",
+  "description": "Auburn Montessori School - The Children's House is a Montessori community serving families in Auburn, Alabama.",
+  "address": {
+    "street": "231 E. Drake Ave.",
+    "city": "Auburn",
+    "state": "AL",
+    "postalCode": "36830"
+  },
+  "phone": "334-740-6192",
+  "email": "amstchori@gmail.com",
+  "registrationUrl": "https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a8a5a/self-service",
+  "sourceOfTruthUrl": "https://amstch.hubbli.com/"
+}

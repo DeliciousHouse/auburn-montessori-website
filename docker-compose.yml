@@ -1,0 +1,27 @@
+services:
+  # Production container: static build served by nginx.
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SITE_URL: ${SITE_URL:-https://amstch.com}
+    environment:
+      SITE_URL: ${SITE_URL:-https://amstch.com}
+    ports:
+      - "3000:3000"
+
+  # Local development (optional):
+  #   docker compose --profile dev up --build
+  website-dev:
+    image: node:22-alpine
+    working_dir: /app
+    profiles: ["dev"]
+    environment:
+      SITE_URL: ${SITE_URL:-https://amstch.com}
+    volumes:
+      - .:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 4321"
+    ports:
+      - "4321:4321"
+

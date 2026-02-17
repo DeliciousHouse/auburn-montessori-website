@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import admissions from '../data/admissions.json';
+import site from '../data/site.json';
+---
+
+<Layout
+  title="Admissions"
+  description="Admissions and interview process for Auburn Montessori School - The Children's House."
+>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Admissions</h1>
+    <p class="max-w-4xl text-base leading-relaxed text-slate-700">
+      Start here for the admissions and interview process. For the full set of policies and procedures, refer to
+      the <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/parent-resources">Parent Handbook</a>.
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-2">
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">New Parent Registration</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">
+        <a
+          class="btn btn-primary"
+          href={site.registrationUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="New Parent Registration (opens in a new tab)"
+        >
+          New Parent Registration (Brightwheel)
+        </a>
+      </p>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">
+        Registration opens in a new tab and is handled through Brightwheel (a third-party service).
+      </p>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">
+        Related: <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="https://amstch.hubbli.com/student-registration-form-2025-2026/" target="_blank" rel="noopener noreferrer">Student Registration Form (opens in a new tab)</a>
+      </p>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Admissions overview</h2>
+      <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+        {admissions.overview.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+  </section>
+
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Interview process</h2>
+    <div class="mt-5 grid gap-6 lg:grid-cols-3">
+      {admissions.interviewSteps.map((s) => (
+        <section class="rounded-xl border border-slate-200 p-5">
+          <h3 class="text-sm font-extrabold text-slate-900">{s.title}</h3>
+          {s.timeWindow ? <p class="mt-2 text-xs text-slate-600">{s.timeWindow}</p> : null}
+          {s.bullets?.length ? (
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+              {s.bullets.map((b) => <li>{b}</li>)}
+            </ul>
+          ) : null}
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-3">
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Signs of success (handbook notes)</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {admissions.fitNotes.successful.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">May need more time to mature</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {admissions.fitNotes.mayNeedMoreTime.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+
+    <section class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">May not be a good fit</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {admissions.fitNotes.mayNotBeGoodFit.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+  </section>
+
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Admission requirements</h2>
+    <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+      {admissions.admissionRequirements.map((r) => <li>{r}</li>)}
+    </ul>
+    <p class="mt-4 text-sm text-slate-700">
+      See also: <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="/parent-resources">Parent Handbook (PDF)</a>
+    </p>
+  </section>
+</Layout>
+

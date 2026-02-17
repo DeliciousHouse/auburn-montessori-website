@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Placeholder school photo 1">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f172a" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#1d4ed8" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <circle cx="1260" cy="220" r="140" fill="#f59e0b" opacity="0.25"/>
+  <circle cx="320" cy="680" r="220" fill="#22c55e" opacity="0.18"/>
+  <text x="80" y="140" fill="#ffffff" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="56" font-weight="700">
+    Auburn Montessori School
+  </text>
+  <text x="80" y="220" fill="#e2e8f0" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="32">
+    Placeholder image - replace with real school photos
+  </text>
+  <text x="80" y="820" fill="#e2e8f0" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace" font-size="24">
+    slide-1.svg
+  </text>
+</svg>

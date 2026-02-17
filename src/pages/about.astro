@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import home from '../data/home.json';
+import about from '../data/about.json';
+---
+
+<Layout
+  title="About"
+  description="Learn about Auburn Montessori School - The Children's House: philosophy, mission, vision, purpose, and Montessori approach."
+>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">About</h1>
+    <p class="max-w-3xl text-base leading-relaxed text-slate-700">
+      Auburn Montessori School - The Children's House is a Montessori community serving children and families
+      in Auburn, Alabama.
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-3">
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Philosophy</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">{home.philosophy}</p>
+    </div>
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Mission</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {home.missions.map((m) => <li>{m}</li>)}
+      </ul>
+    </div>
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Vision</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-700">{home.vision}</p>
+    </div>
+  </section>
+
+  <section class="mt-10 grid gap-6 lg:grid-cols-2">
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Purpose</h2>
+      <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+        {about.purpose.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-slate-900">Objectives</h2>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+        {about.objectives.map((o) => <li>{o}</li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mt-10 card p-6">
+    <h2 class="text-lg font-bold text-slate-900">Montessori Approach (brief)</h2>
+    <div class="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+      {about.montessoriApproach.map((p) => <p>{p}</p>)}
+    </div>
+    <p class="mt-4 text-sm text-slate-700">
+      More: <a class="font-semibold no-underline text-blue-800 hover:text-blue-900" href="https://amstch.hubbli.com/individual-work-cycle/" target="_blank" rel="noopener noreferrer">Curriculum Work Cycle (opens in a new tab)</a>
+    </p>
+  </section>
+</Layout>
+

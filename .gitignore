@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Windows Zone.Identifier alternate streams (often appear when copying files from Windows)
+*:Zone.Identifier
+
 # jetbrains setting folder
 .idea/
