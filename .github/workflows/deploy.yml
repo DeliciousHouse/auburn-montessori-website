@@ -1,4 +1,4 @@
-# Build image, push to GHCR, then SSH to VPS and run docker compose pull/up.
+# Build image, push to GHCR, then run docker compose pull/up on the same machine (self-hosted runner == VPS).
 name: Build and Deploy
 
 on:
@@ -48,29 +48,29 @@ jobs:
     needs: build-and-push
     runs-on: self-hosted
     steps:
-      - name: Deploy on VPS
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.MOMS_WEBSITE }}
-          port: ${{ secrets.VPS_PORT || '22' }}
-          script: |
-            set -euo pipefail
-            echo "→ Ensuring /opt/moms-website exists..."
-            mkdir -p /opt/moms-website && cd /opt/moms-website
-            if [ -f .env ]; then
-              set -a
-              source .env
-              set +a
-              if [ -n "${GHCR_PAT:-}" ]; then
-                echo "→ Logging in to ghcr.io (private package)..."
-                echo "$GHCR_PAT" | docker login ghcr.io -u "${GHCR_USERNAME:-}" --password-stdin
-              fi
+      - name: Deploy locally (runner == VPS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "→ Ensuring /opt/moms-website exists..."
+          mkdir -p /opt/moms-website
+          cd /opt/moms-website
+
+          if [ -f .env ]; then
+            set -a
+            source .env
+            set +a
+            if [ -n "${GHCR_PAT:-}" ]; then
+              echo "→ Logging in to ghcr.io (private package)..."
+              echo "$GHCR_PAT" | docker login ghcr.io -u "${GHCR_USERNAME:-}" --password-stdin
             fi
-            echo "→ Pulling and starting containers..."
-            docker compose pull
-            docker compose up -d --remove-orphans
-            echo "→ Pruning unused images..."
-            docker image prune -f
-            echo "Deploy done."
+          fi
+
+          echo "→ Pulling and starting containers..."
+          docker compose pull
+          docker compose up -d --remove-orphans
+
+          echo "→ Pruning unused images..."
+          docker image prune -f
+
+          echo "Deploy done."
