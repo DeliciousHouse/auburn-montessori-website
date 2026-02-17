@@ -3,7 +3,8 @@ services:
   website:
     image: ghcr.io/delicioushouse/auburn-montessori-website:latest
     restart: unless-stopped
-    env_file: .env
+    environment:
+      SITE_URL: ${SITE_URL:-https://amstch.com}
     ports:
       - "${APP_PORT:-8080}:80"
 
