@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+
+const schoolSupplies = [
+  '1 1-inch blue binder',
+  '1 1-inch black binder',
+  '2 reams of white copy paper',
+  '1 package of construction paper',
+  '1 sketch pad (11 inches x 8 1/2 inches)',
+  '1 composition notebook',
+  '1 package of sheet protectors',
+];
+
+const indoorBelongings = [
+  '4x6 framed picture of family',
+  'Hair brush or comb',
+  '1 roll paper towels',
+  '1 box paper tissue',
+  'Large bath towel or nap sack and pillow (sent home each week to be washed and returned for the following week)',
+  'T-shirt',
+  'Pants',
+  'Underwear',
+  'Socks',
+  'Soft inside shoes',
+  'Large old shirt for gardening',
+];
+---
+
+<Layout
+  title="Personal Belongings List"
+  description="Personal belongings list for Auburn Montessori School - The Children's House."
+  heroTitle="Personal Belongings List"
+  heroLead="For health, hygiene, and educational reasons, please bring these items and leave them at school."
+>
+  <div class="section-band">
+    <div class="container-page">
+      <div class="callout callout-info">
+        <div class="callout-title">Checklist</div>
+        <div class="callout-body">
+          Use this page as a checklist when preparing supplies. If you have questions, contact the school at
+          <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a>.
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-6 lg:grid-cols-2">
+        <section class="card card-body">
+          <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">School Supplies</h2>
+          <ul class="mt-4 space-y-2 text-sm" style="color: var(--color-neutral-700);">
+            {schoolSupplies.map((item) => (
+              <li class="flex items-start gap-2">
+                <input type="checkbox" class="mt-1 h-4 w-4" aria-label={item} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="card card-body">
+          <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">In-door Belongings</h2>
+          <ul class="mt-4 space-y-2 text-sm" style="color: var(--color-neutral-700);">
+            {indoorBelongings.map((item) => (
+              <li class="flex items-start gap-2">
+                <input type="checkbox" class="mt-1 h-4 w-4" aria-label={item} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p class="mt-5 text-sm font-semibold" style="color: var(--color-neutral-800);">Thank you for your cooperation.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+

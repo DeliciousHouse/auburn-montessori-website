@@ -74,20 +74,32 @@ const docDescriptions: Record<string, string> = {
     <div class="container-page grid gap-8 lg:grid-cols-2">
       <div>
         <h2 id="registration-forms" class="section-heading">Registration &amp; Forms</h2>
-        <p class="section-subheading">External services for enrollment</p>
+        <p class="section-subheading">Enrollment links and required forms</p>
         <div class="mt-5 space-y-3">
-          {resources.externalServices.map((item) => (
-            <ExternalLink
-              href={item.href}
-              opensIn={item.opensIn ?? 'new tab'}
-              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
-            >
-              <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
-              <div>
-                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-              </div>
-            </ExternalLink>
-          ))}
+          {resources.externalServices.map((item) =>
+            item.external ? (
+              <ExternalLink
+                href={item.href}
+                opensIn={item.opensIn ?? 'new tab'}
+                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              >
+                <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
+                <div>
+                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                </div>
+              </ExternalLink>
+            ) : (
+              <a
+                href={item.href}
+                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              >
+                <div class="feature-icon shrink-0"><Icon name="edit" size={22} /></div>
+                <div>
+                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                </div>
+              </a>
+            )
+          )}
         </div>
       </div>
 
@@ -95,18 +107,30 @@ const docDescriptions: Record<string, string> = {
         <h2 id="learning-resources" class="section-heading">Learning Resources</h2>
         <p class="section-subheading">Informational links for parents</p>
         <div class="mt-5 space-y-3">
-          {resources.listsAndLearning.map((item) => (
-            <ExternalLink
-              href={item.href}
-              opensIn={item.opensIn ?? 'new tab'}
-              class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
-            >
-              <div class="feature-icon shrink-0"><Icon name="document" size={22} /></div>
-              <div>
-                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-              </div>
-            </ExternalLink>
-          ))}
+          {resources.listsAndLearning.map((item) =>
+            item.external ? (
+              <ExternalLink
+                href={item.href}
+                opensIn={item.opensIn ?? 'new tab'}
+                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              >
+                <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
+                <div>
+                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                </div>
+              </ExternalLink>
+            ) : (
+              <a
+                href={item.href}
+                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+              >
+                <div class="feature-icon shrink-0"><Icon name="document" size={22} /></div>
+                <div>
+                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
+                </div>
+              </a>
+            )
+          )}
         </div>
       </div>
     </div>

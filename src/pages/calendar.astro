@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import calendar from '../data/calendar.json';
-import ExternalLink from '../components/ExternalLink.astro';
 
 const hasPdf = calendar.pdfPath && calendar.pdfPath.length > 0;
 const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
@@ -79,14 +78,6 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
 
       {/* Online Calendar + Quick actions */}
       <div class="space-y-5">
-        <div class="card card-body">
-          <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Online Calendar</h3>
-          <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">View the live events calendar on the school website.</p>
-          <ExternalLink href={calendar.externalCalendarUrl} opensIn="Hubbli" class="btn btn-outline btn-sm btn-icon mt-3">
-            View Events
-          </ExternalLink>
-        </div>
-
         <div class="card card-body">
           <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">Questions?</h3>
           <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">Confirm dates and closures with the school office.</p>

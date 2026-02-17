@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+---
+
+<Layout
+  title="Montessori Work Cycle"
+  description="Learn about the Montessori work cycle at Auburn Montessori School - The Children's House."
+  heroTitle="The Montessori Work Cycle"
+  heroLead="Uninterrupted time and space for purposeful, self-directed learning in a prepared environment."
+>
+  <div class="section-band">
+    <div class="container-page">
+      <div class="callout callout-accent">
+        <div class="callout-title">The Montessori Way</div>
+        <div class="callout-body">
+          A peaceful learning environment filled with children is a beautiful sight. It is the culmination of the efforts of every
+          individual child, educator, and parent working together for the greater good of the learning community.
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-3">
+        <div class="lg:col-span-2 space-y-4 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          <p>
+            On a daily basis, students are provided with uninterrupted time and space to practice their lessons either individually or
+            in small groups.
+          </p>
+          <p>
+            Students are also exposed to experiential learning through prepared indoor and outdoor learning environments. Montessori
+            educators are trained to direct the child to grow toward inner discipline and peace through purposeful engagement with
+            others and the environment.
+          </p>
+          <p>
+            Besides traditional academic lessons in math, language, and writing, the Montessori curriculum provides opportunities for
+            the child to discover and strengthen skills that educate the senses.
+          </p>
+        </div>
+
+        <aside class="card card-body">
+          <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Typical Work Cycle</h2>
+          <ul class="mt-4 list-disc space-y-2 pl-5 text-sm" style="color: var(--color-neutral-700);">
+            <li>Students choose work that matches their developmental needs.</li>
+            <li>Lessons are introduced by educators (and sometimes student leaders).</li>
+            <li>Instruction can happen in a large group, small group, or one-on-one.</li>
+            <li>Children practice independence while respecting the classroom community.</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-band-alt">
+    <div class="container-page grid gap-8 lg:grid-cols-2">
+      <section class="card card-body">
+        <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Cultural &amp; Experiential Learning</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Cultural lessons along with traditional and non-traditional Montessori lessons are available for students to choose and
+          practice during their 3-hour work cycle. Practicing how to make the best choice for one's own growth and development while
+          respecting the needs of the larger community is a daily active process.
+        </p>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Students may also learn through family and community presentations on food, language, customs, and traditions from around
+          the world.
+        </p>
+      </section>
+
+      <section class="card card-body">
+        <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Examples of Classroom Work</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm" style="color: var(--color-neutral-700);">
+          <li>Animals of Asia</li>
+          <li>Assembling the world map</li>
+          <li>Leaf shapes from the Botany Cabinet</li>
+          <li>Peace education (practicing being peaceful)</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="section-band">
+    <div class="container-page">
+      <section class="card card-body">
+        <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Community Awareness</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Building community awareness is an important part of personal growth. Children may participate in service and outreach such
+          as collecting and delivering food to the Food Bank, and performing for senior citizens in senior homes.
+        </p>
+
+        <hr class="divider" />
+
+        <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">A Scientific Method for the 3-6 Plane</h3>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Montessori education in the 3-6 year old plane of development is a scientific method designed to develop the foundation for
+          learning. Within the prepared environment, the desire to learn is continuously being cultivated by trained Montessori
+          educators. Observation of the child's physical, intellectual, emotional, social, psychological, and spiritual development
+          helps educators respond appropriately to the needs of the child.
+        </p>
+      </section>
+
+      <p class="mt-6 text-sm" style="color: var(--color-neutral-600);">
+        Questions about the Montessori work cycle at our school? Contact us at
+        <a class="font-semibold" href={`mailto:${site.email}`}>{site.email}</a> or
+        <a class="font-semibold" href={`tel:${site.phone}`}>{site.phone}</a>.
+      </p>
+    </div>
+  </div>
+</Layout>
+
