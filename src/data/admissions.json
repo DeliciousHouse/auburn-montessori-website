@@ -1,7 +1,7 @@
 {
   "checklist": [
-    { "step": 1, "label": "Schedule a tour", "detail": "45-minute parent interview and tour (2:30–5:00pm). Overview of philosophy, schedule, fees, and calendar." },
-    { "step": 2, "label": "Child interview", "detail": "30-minute visit (8:30–10:00am). Staff observe readiness and fit with the Montessori environment." },
+    { "step": 1, "label": "Schedule a tour", "detail": "30-minute parent interview and tour (2:30–5:00pm, by appointment). Overview of philosophy, schedule, fees, and calendar." },
+    { "step": 2, "label": "Child interview", "detail": "30-minute visit on Fridays (11:00–11:30am). Staff observe readiness and fit with the Montessori environment." },
     { "step": 3, "label": "Complete registration and pay fee", "detail": "Submit online registration and $50 non-refundable registration fee (Brightwheel)." },
     { "step": 4, "label": "Submit required documents", "detail": "School Readiness Guidelines (signed), Enrollment Contract, Pre-Admission Record, Immunization Certificate. Child must be potty trained prior to entry." }
   ],
@@ -18,15 +18,15 @@
   ],
   "interviewSteps": [
     {
-      "title": "Step 1 - Parent interview and tour (45 minutes)",
-      "timeWindow": "Between 2:30pm - 5:00pm",
+      "title": "Step 1 - Parent interview and tour (30 minutes)",
+      "timeWindow": "2:30pm - 5:00pm (by appointment)",
       "bullets": [
         "Montessori Philosophy and the monthly and annual curriculum",
         "Hours of operation, daily schedule, fees, parent resource material",
         "School calendar (dates/events where families can contribute, become involved, or learn more about the learning community)",
         "School website (school-to-family and parent-to-parent communication)",
         "Center questions for families: cultural beliefs and practices, family values and philosophy, child rearing and discipline practices",
-        "Minimum Standards resource guide for state licensing",
+        "School standards resource guide for families",
         "Parent's Handbook resource guide for school policy including health, conferencing practices",
         "Introduction to staff (curriculum areas of instruction and qualifications)",
         "Preschool Readiness Guidelines (discipline policy)",
@@ -36,13 +36,14 @@
     },
     {
       "title": "Step 2 - Child interview (30 minutes)",
-      "timeWindow": "Between 8:30am - 10:00am",
+      "timeWindow": "Fridays 11:00am - 11:30am",
       "bullets": [
         "Identify evidence of skills outlined in Preschool Readiness Guidelines",
         "Staff and parent allow child space and time to feel comfortable in indoor or outdoor setting",
         "Observation of parent/child communication",
         "Observation of parent/child relationship and child/environment interaction (encouragement, fostering independence, receptivity of instruction, willingness to be guided, boundaries, freedom within limits, method of communication, preferred language)",
-        "Determination made at time of interview"
+        "Determination made at time of interview",
+        "Call me if a different day and time is needed."
       ]
     },
     {

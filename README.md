@@ -108,13 +108,19 @@ In the repo: **Settings → Secrets and variables → Actions**, add:
 
 Most content is in `src/data/`:
 
-- `src/data/site.json` (address/phone/email + required Brightwheel link)
+- `src/data/site.json` (address/phone/email/site metadata)
 - `src/data/home.json` (home page hero + philosophy/mission/vision)
 - `src/data/about.json` (purpose/objectives + Montessori approach bullets)
 - `src/data/educators.json` (educator/staff bios)
 - `src/data/fees-hours.json` (fees, hours, payment policies)
 - `src/data/resources.json` (parent resources link groups)
 - `src/data/calendar.json` (calendar links, optional calendar PDF)
+- `src/data/programs.json` (Preschool + Elementary program content and images)
+- `src/data/hero-slides.json` (homepage slideshow images + alt text)
+
+Brightwheel links and photo source options are centralized in:
+
+- `src/config/siteConfig.ts`
 
 ## PDFs (public/static assets)
 
@@ -130,12 +136,15 @@ Replace these files with the current-year versions as needed (keep filenames the
 ## Images
 
 - **Logo:** `public/images/brand/logo.webp`
-- **Hero / carousel:** `public/images/carousel/` (slide-1.webp, etc.). The homepage hero uses the first slide; the list is in `src/data/carousel.json`. Use real school photography (JPG/PNG/WebP) for best results.
+- **Welcome hero slideshow:** `public/images/hero/` (with README and placeholders)
+- **Programs galleries:** `public/images/programs/preschool/` and `public/images/programs/elementary/`
 
-## Brightwheel registration link (required)
+Use local school-approved photography by default. If a public Brightwheel embed URL is available later, configure `photos.source` and `photos.brightwheelEmbedUrl` in `src/config/siteConfig.ts`.
 
-The "New Parent Registration" link must point to:
+## Brightwheel links (required)
 
-`https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a8a5a/self-service`
+Parent sign-in URL:
 
-It opens in a new tab and is labeled accordingly.
+`https://schools.mybrightwheel.com/sign-in?redirect`
+
+Other Brightwheel links (student registration and documents) are configured in `src/config/siteConfig.ts` and intentionally default to empty placeholders until published.

@@ -2,104 +2,75 @@
 import Layout from '../layouts/Layout.astro';
 import resources from '../data/resources.json';
 import ExternalLink from '../components/ExternalLink.astro';
-import Accordion from '../components/Accordion.astro';
 import PageNav from '../components/PageNav.astro';
 import Icon from '../components/Icon.astro';
+import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
+import { siteConfig } from '../config/siteConfig';
 
 const pageNavLinks = [
   { id: 'documents', label: 'Documents' },
-  { id: 'registration-forms', label: 'Registration & Forms' },
+  { id: 'registration-onboarding', label: 'Registration & Onboarding' },
   { id: 'learning-resources', label: 'Learning Resources' },
 ];
-
-const docDescriptions: Record<string, string> = {
-  'Parent Handbook': 'Complete guide to school policies, procedures, and expectations.',
-  'Fees and Hours of Operation': 'Tuition, hours, meal plan options, and payment policies.',
-  'School Readiness Guidelines': 'Skills and readiness indicators for incoming students.'
-};
 ---
 
 <Layout
   title="Parent Resources"
   description="Parent handbook, downloads, and helpful links for Auburn Montessori School - The Children's House."
   heroTitle="Parent Resources"
-  heroLead="The Parent Handbook is the primary reference for detailed policies and procedures. Below are key documents, registration links, and helpful resources."
+  heroLead="Access school documents, Brightwheel onboarding links, and learning resources."
 >
-  <!-- Documents -->
   <div class="section-band">
     <div class="container-page">
       <PageNav links={pageNavLinks} />
 
       <h2 id="documents" class="section-heading">Documents</h2>
-      <p class="section-subheading">View in the browser or download to your device</p>
-
-      <div class="mt-6 grid gap-5 lg:grid-cols-3">
-        {resources.keyDocuments.map((doc, docIdx) => (
-          <div class="doc-card">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="doc-card-title">{doc.label}</div>
-                <div class="doc-card-desc">{docDescriptions[doc.label] ?? 'PDF document'}</div>
-              </div>
-              <span class="badge" style="white-space: nowrap;">PDF</span>
-            </div>
-            <div class="doc-card-actions">
-              <a class="btn btn-primary btn-sm btn-icon" href={doc.href} download>
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
-                Download
-              </a>
-            </div>
-            <Accordion id={`doc-preview-${docIdx}`} class="mt-3 border-t pt-3" triggerClass="cursor-pointer text-xs font-semibold">
-              <span slot="title">Preview document</span>
-              <div class="media-frame mt-2 border" style="border-color: var(--color-border);">
-                <iframe
-                  title={`${doc.label} PDF viewer`}
-                  src={`${doc.href}#view=FitH`}
-                  class="h-[50vh] w-full"
-                  loading="lazy"
-                ></iframe>
-              </div>
-              <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">
-                If the preview doesn't load, use the download button above.
-              </p>
-            </Accordion>
+      <p class="section-subheading">Use the dedicated Documents page for local PDFs and Brightwheel updates.</p>
+      <div class="mt-5 card card-body">
+        <div class="flex items-center gap-3">
+          <div class="feature-icon"><Icon name="document" size={22} /></div>
+          <div>
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">View documents</h3>
+            <p class="text-xs" style="color: var(--color-text-subtle);">
+              Parent Handbook, calendar updates, and other school documents.
+            </p>
           </div>
-        ))}
+        </div>
+        <div class="mt-4">
+          <a href="/documents" class="btn btn-primary btn-sm">Open Documents Page</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Registration & Forms / Learning Resources -->
   <div class="section-band-alt">
     <div class="container-page grid gap-8 lg:grid-cols-2">
       <div>
-        <h2 id="registration-forms" class="section-heading">Registration &amp; Forms</h2>
-        <p class="section-subheading">Enrollment links and required forms</p>
-        <div class="mt-5 space-y-3">
-          {resources.externalServices.map((item) =>
-            item.external ? (
-              <ExternalLink
-                href={item.href}
-                opensIn={'opensIn' in item && typeof item.opensIn === 'string' && item.opensIn ? item.opensIn : 'new tab'}
-                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
-              >
-                <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
-                <div>
-                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-                </div>
-              </ExternalLink>
-            ) : (
-              <a
-                href={item.href}
-                class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
-              >
-                <div class="feature-icon shrink-0"><Icon name="edit" size={22} /></div>
-                <div>
-                  <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">{item.label}</div>
-                </div>
-              </a>
-            )
-          )}
+        <h2 id="registration-onboarding" class="section-heading">Registration &amp; Onboarding</h2>
+        <p class="section-subheading">Brightwheel links for parent onboarding and student registration</p>
+        <div class="mt-5 space-y-4">
+          <ExternalLink
+            href={siteConfig.brightwheel.parentSignInUrl}
+            opensIn="Brightwheel"
+            class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+            ariaLabel="Parent Sign-In (opens in Brightwheel)"
+          >
+            <div class="feature-icon shrink-0"><Icon name="external" size={22} /></div>
+            <div>
+              <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">Parent Sign-In (Brightwheel)</div>
+            </div>
+          </ExternalLink>
+          <div class="card card-body">
+            <div class="flex items-center gap-3">
+              <div class="feature-icon shrink-0"><Icon name="edit" size={22} /></div>
+              <div>
+                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">Student Registration (Brightwheel)</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <StudentRegistrationButton buttonClass="btn btn-primary btn-sm" helperClass="text-xs" />
+            </div>
+          </div>
         </div>
       </div>
 

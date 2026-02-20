@@ -2,6 +2,8 @@
 import nav from '../data/navigation.json';
 import site from '../data/site.json';
 import ExternalLink from './ExternalLink.astro';
+import StudentRegistrationButton from './StudentRegistrationButton.astro';
+import { siteConfig } from '../config/siteConfig';
 
 type Props = { currentPath: string };
 const { currentPath } = Astro.props as Props;
@@ -50,12 +52,19 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href="/contact#tour-request-form" class="btn btn-ghost btn-sm hidden md:inline-flex no-underline">
-        Schedule a Tour
-      </a>
-      <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary btn-sm hidden md:inline-flex" ariaLabel="Register (opens in Brightwheel)">
-        Register
+      <ExternalLink
+        href={siteConfig.brightwheel.parentSignInUrl}
+        opensIn="Brightwheel"
+        class="btn btn-ghost btn-sm hidden md:inline-flex"
+        ariaLabel="Parent Sign-In (opens in Brightwheel)"
+      >
+        Parent Sign-In
       </ExternalLink>
+      <StudentRegistrationButton
+        wrapperClass="relative hidden md:block"
+        buttonClass="btn btn-primary btn-sm"
+        helperClass="absolute right-0 top-full mt-1 w-56 rounded-md border bg-white px-2 py-1 text-right text-[11px] leading-tight shadow-sm"
+      />
 
       <!-- Mobile menu toggle -->
       <details class="relative lg:hidden" id="mobile-menu" data-mobile-menu>
@@ -96,9 +105,20 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
               </a>
             ))}
             <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
-            <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-primary w-full justify-center" ariaLabel="New Parent Registration (opens in Brightwheel)" data-mobile-nav-link>
-              New Parent Registration
+            <ExternalLink
+              href={siteConfig.brightwheel.parentSignInUrl}
+              opensIn="Brightwheel"
+              class="btn btn-outline w-full justify-center"
+              ariaLabel="Parent Sign-In (opens in Brightwheel)"
+              data-mobile-nav-link
+            >
+              Parent Sign-In (Brightwheel)
             </ExternalLink>
+            <StudentRegistrationButton
+              wrapperClass="w-full"
+              buttonClass="btn btn-primary w-full justify-center"
+              helperClass="mt-1 text-xs"
+            />
           </nav>
         </div>
       </details>

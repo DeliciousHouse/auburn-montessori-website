@@ -4,37 +4,31 @@ import ExternalLink from '../components/ExternalLink.astro';
 import Icon from '../components/Icon.astro';
 import home from '../data/home.json';
 import site from '../data/site.json';
-import carousel from '../data/carousel.json';
-
-const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', alt: 'Auburn Montessori School' };
+import heroSlides from '../data/hero-slides.json';
+import HeroSlideshow from '../components/HeroSlideshow.astro';
+import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
+import { siteConfig } from '../config/siteConfig';
 ---
 
-<Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House. A Montessori community serving children ages 3–6 in Auburn, Alabama.">
-	<!-- Hero: one strong image, headline, supporting line, primary + secondary CTA -->
+<Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House. A Montessori community serving Preschool and Elementary (K–3rd Grade) families in Auburn, Alabama.">
 	<section class="hero-band" aria-label="Welcome">
 		<div class="container-page">
 			<div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
 				<div class="order-2 lg:order-1">
-					<h1>{home.heroTitle}</h1>
+					<h1>Welcome to Auburn Montessori School</h1>
 					<p class="hero-lead">
-						A Montessori community nurturing the love of learning for children ages 3–6 in Auburn, Alabama.
+						We are so glad you are here. From Preschool through Elementary, our classrooms are designed to help children grow with confidence, curiosity, and joy.
 					</p>
 					<div class="mt-6 flex flex-wrap gap-3">
-						<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
-						<ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Register (opens in Brightwheel)">
-							Register
+						<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
+						<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Parent Sign-In (opens in Brightwheel)">
+							Parent Sign-In (Brightwheel)
 						</ExternalLink>
+						<StudentRegistrationButton buttonClass="btn btn-primary btn-lg" helperClass="text-xs text-white/90" />
 					</div>
 				</div>
-				<div class="order-1 lg:order-2 media-frame ratio-3x2 lg:min-h-0">
-					<img
-						src={heroImage.src}
-						alt={heroImage.alt}
-						width="800"
-						height="533"
-						class="h-full w-full object-cover"
-						fetchpriority="high"
-					/>
+				<div class="order-1 lg:order-2">
+					<HeroSlideshow id="welcome-hero-slideshow" label="Welcome photos from Auburn Montessori School" slides={heroSlides.slides} />
 				</div>
 			</div>
 		</div>
@@ -50,7 +44,7 @@ const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', 
 				<Icon name="phone" size={18} class="inline-flex" /> {site.phone}
 			</a>
 			<span class="flex items-center gap-1.5">
-				<Icon name="people" size={18} class="inline-flex" /> Ages 3–6
+				<Icon name="people" size={18} class="inline-flex" /> Preschool 3–6 · Elementary K–3rd Grade
 			</span>
 			<span class="badge badge-brand">Quality STARS 5-STAR</span>
 		</div>
@@ -60,10 +54,10 @@ const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', 
 	<div class="section-band">
 		<div class="container-page">
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-				<a href="/parent-resources" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+				<a href="/documents" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
 					<div class="feature-icon"><Icon name="document" size={22} /></div>
 					<h2 class="text-sm font-bold" style="color: var(--color-text);">Parent Handbook</h2>
-					<p class="text-xs" style="color: var(--color-text-subtle);">View or download the full handbook</p>
+					<p class="text-xs" style="color: var(--color-text-subtle);">View local PDFs and Brightwheel document updates</p>
 				</a>
 				<a href="/calendar" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
 					<div class="feature-icon"><Icon name="calendar" size={22} /></div>
@@ -75,15 +69,15 @@ const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', 
 					<h2 class="text-sm font-bold" style="color: var(--color-text);">Fees &amp; Hours</h2>
 					<p class="text-xs" style="color: var(--color-text-subtle);">Tuition, schedules, and policies</p>
 				</a>
-				<a href="/educators" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
+				<a href="/programs" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md">
 					<div class="feature-icon"><Icon name="people" size={22} /></div>
-					<h2 class="text-sm font-bold" style="color: var(--color-text);">Educators</h2>
-					<p class="text-xs" style="color: var(--color-text-subtle);">Meet our experienced team</p>
+					<h2 class="text-sm font-bold" style="color: var(--color-text);">Programs</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Preschool (3–6) and Elementary (K–3rd Grade)</p>
 				</a>
-				<ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Register (opens in Brightwheel)">
+				<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Parent Sign-In (opens in Brightwheel)">
 					<div class="feature-icon" style="background: var(--color-primary); color: white;"><Icon name="edit" size={22} /></div>
-					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Register</h2>
-					<p class="text-xs" style="color: var(--color-text-subtle);">Opens in Brightwheel</p>
+					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Parent Sign-In</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Parent onboarding in Brightwheel</p>
 				</ExternalLink>
 			</div>
 		</div>
@@ -130,10 +124,10 @@ const heroImage = carousel.slides[0] ?? { src: '/images/carousel/slide-1.webp', 
 			<div class="cta-panel text-center" style="padding: var(--space-10);">
 				<h2 class="text-xl font-bold">Ready to join our community?</h2>
 				<p class="mx-auto mt-2 max-w-md text-sm" style="color: rgba(255,255,255,0.9);">
-					Schedule a tour, learn about our admissions process, or register today.
+					Schedule a tour, explore admissions, and complete student registration in Brightwheel.
 				</p>
 				<div class="mt-6 flex flex-wrap justify-center gap-3">
-					<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
+					<a class="btn btn-primary btn-lg" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
 					<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/admissions">Admissions Process</a>
 				</div>
 			</div>

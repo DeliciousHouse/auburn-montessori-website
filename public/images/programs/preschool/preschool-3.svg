@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Preschool placeholder 3</title>
+  <desc id="desc">Placeholder image for preschool program gallery.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a5f" />
+      <stop offset="100%" stop-color="#2a4f7a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <g fill="#ffffff" fill-opacity="0.12">
+    <rect x="130" y="150" width="420" height="240" rx="18" />
+    <rect x="640" y="150" width="430" height="240" rx="18" />
+    <rect x="130" y="440" width="940" height="220" rx="18" />
+  </g>
+  <text x="600" y="390" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="48" fill="#ffffff">Preschool Image Placeholder</text>
+  <text x="600" y="450" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#dbeafe">Replace with local photo</text>
+</svg>
