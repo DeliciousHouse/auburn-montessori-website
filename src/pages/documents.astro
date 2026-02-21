@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import resources from '../data/resources.json';
+import ExternalLink from '../components/ExternalLink.astro';
+import { hasValue, siteConfig } from '../config/siteConfig';
+
+const brightwheelDocuments = [
+  {
+    label: 'Parent Handbook',
+    href: siteConfig.brightwheel.parentHandbookUrl
+  },
+  {
+    label: 'School Calendar',
+    href: siteConfig.brightwheel.schoolCalendarUrl
+  },
+  {
+    label: 'Consent & Release Form',
+    href: siteConfig.brightwheel.consentReleaseUrl
+  }
+];
+
+const availableBrightwheelDocs = brightwheelDocuments.filter((doc) => hasValue(doc.href));
+---
+
+<Layout
+  title="Documents"
+  description="Download local PDFs or open updated parent documents in Brightwheel."
+  heroTitle="Documents"
+  heroLead="School documents are available here and in Brightwheel."
+>
+  <div class="section-band">
+    <div class="container-page">
+      <h2 class="section-heading">Local PDF downloads</h2>
+      <p class="section-subheading">These files are hosted on this website.</p>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {resources.keyDocuments.map((doc) => (
+          <article class="doc-card">
+            <h3 class="doc-card-title">{doc.label}</h3>
+            <p class="doc-card-desc">Local PDF document</p>
+            <div class="doc-card-actions">
+              <a class="btn btn-primary btn-sm" href={doc.href} download>
+                Download PDF
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="section-band-alt">
+    <div class="container-page">
+      <div class="card card-body">
+        <h2 class="section-heading">Updated documents are provided in Brightwheel</h2>
+        <p class="section-subheading">
+          Parent Handbook, Calendar, and Consent &amp; Release Form updates will be posted in Brightwheel.
+        </p>
+
+        {availableBrightwheelDocs.length > 0 ? (
+          <div class="mt-5 flex flex-wrap gap-3">
+            {availableBrightwheelDocs.map((doc) => (
+              <ExternalLink
+                href={doc.href}
+                opensIn="Brightwheel"
+                class="btn btn-primary btn-sm"
+                ariaLabel={`${doc.label} (opens in Brightwheel)`}
+              >
+                {doc.label}
+              </ExternalLink>
+            ))}
+          </div>
+        ) : (
+          <p class="mt-4 text-sm" style="color: var(--color-text-muted);">
+            Coming soon in Brightwheel.
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+</Layout>

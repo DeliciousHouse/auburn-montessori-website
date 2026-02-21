@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Elementary placeholder 2</title>
+  <desc id="desc">Placeholder image for elementary program gallery.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8" />
+      <stop offset="100%" stop-color="#1e40af" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <path d="M170 625C320 540 420 560 560 470C700 380 790 420 1030 280" stroke="#ffffff" stroke-width="16" fill="none" opacity="0.5" />
+  <text x="600" y="390" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="48" fill="#ffffff">Elementary Image Placeholder</text>
+  <text x="600" y="450" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#dbeafe">Replace with local photo</text>
+</svg>

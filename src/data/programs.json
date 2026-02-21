@@ -1,0 +1,42 @@
+{
+  "programs": [
+    {
+      "title": "Preschool",
+      "agesOrGrades": "Ages 3–6",
+      "description": "Our mixed-age Preschool classrooms build independence, concentration, and social-emotional growth through hands-on Montessori lessons and uninterrupted work cycles.",
+      "images": [
+        {
+          "src": "/images/programs/preschool/preschool-1.svg",
+          "alt": "Preschool Montessori shelf work and practical life materials"
+        },
+        {
+          "src": "/images/programs/preschool/preschool-2.svg",
+          "alt": "Preschool students participating in circle time"
+        },
+        {
+          "src": "/images/programs/preschool/preschool-3.svg",
+          "alt": "Young learners engaged in sensorial Montessori activities"
+        }
+      ]
+    },
+    {
+      "title": "Elementary",
+      "agesOrGrades": "K–3rd Grade",
+      "description": "Our Elementary program (K–3rd Grade) extends Montessori learning with advanced literacy, mathematics, science, and collaborative projects that support leadership and critical thinking.",
+      "images": [
+        {
+          "src": "/images/programs/elementary/elementary-1.svg",
+          "alt": "Elementary students working on language and reading lessons"
+        },
+        {
+          "src": "/images/programs/elementary/elementary-2.svg",
+          "alt": "Elementary learners collaborating on math materials"
+        },
+        {
+          "src": "/images/programs/elementary/elementary-3.svg",
+          "alt": "Elementary classroom project and cultural studies work"
+        }
+      ]
+    }
+  ]
+}

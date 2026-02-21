@@ -1,0 +1,293 @@
+---
+import { hasValue, siteConfig } from '../config/siteConfig';
+
+type Slide = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+type Props = {
+  id: string;
+  label: string;
+  slides: Slide[];
+};
+
+const { id, label, slides } = Astro.props as Props;
+const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && hasValue(siteConfig.photos.brightwheelEmbedUrl);
+---
+
+{useBrightwheelEmbed ? (
+  <div class="media-frame ratio-3x2 border bg-white" style="border-color: var(--color-border);">
+    <iframe
+      src={siteConfig.photos.brightwheelEmbedUrl}
+      title="Brightwheel photo gallery"
+      class="h-full w-full"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+) : (
+  <section id={id} class="hero-slideshow" role="region" aria-roledescription="carousel" aria-label={label}>
+    <div class="hero-slideshow-viewport media-frame ratio-3x2" tabindex="0" data-carousel-viewport>
+      <div class="hero-slideshow-track" data-carousel-track>
+        {slides.map((slide, idx) => (
+          <figure
+            class="hero-slideshow-slide"
+            data-carousel-slide
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Slide ${idx + 1} of ${slides.length}`}
+            aria-hidden={idx === 0 ? 'false' : 'true'}
+          >
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={idx === 0 ? 'high' : undefined}
+            />
+            {slide.caption ? <figcaption class="hero-slideshow-caption">{slide.caption}</figcaption> : null}
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <div class="hero-slideshow-controls" aria-label="Carousel controls">
+      <button type="button" class="btn btn-secondary btn-sm" data-carousel-prev aria-label="Previous slide">
+        Previous
+      </button>
+      <div class="hero-slideshow-dots" role="tablist" aria-label="Choose a slide">
+        {slides.map((_, idx) => (
+          <button
+            type="button"
+            class="hero-slideshow-dot"
+            data-carousel-dot={idx}
+            aria-label={`Go to slide ${idx + 1}`}
+            aria-current={idx === 0 ? 'true' : 'false'}
+          ></button>
+        ))}
+      </div>
+      <button type="button" class="btn btn-secondary btn-sm" data-carousel-next aria-label="Next slide">
+        Next
+      </button>
+    </div>
+
+    <p class="sr-only" aria-live="polite" data-carousel-status>
+      Showing slide 1 of {slides.length}
+    </p>
+  </section>
+)}
+
+<script is:inline define:vars={{ id }}>
+  (() => {
+    const root = document.getElementById(id);
+    if (!root) return;
+
+    const viewport = root.querySelector('[data-carousel-viewport]');
+    const track = root.querySelector('[data-carousel-track]');
+    const slides = Array.from(root.querySelectorAll('[data-carousel-slide]'));
+    const dots = Array.from(root.querySelectorAll('[data-carousel-dot]'));
+    const prevButton = root.querySelector('[data-carousel-prev]');
+    const nextButton = root.querySelector('[data-carousel-next]');
+    const status = root.querySelector('[data-carousel-status]');
+
+    if (!viewport || !track || slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoplayId = 0;
+    let isPaused = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const desktopQuery = window.matchMedia('(min-width: 1024px)');
+
+    const render = () => {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      slides.forEach((slide, index) => {
+        slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
+      });
+      dots.forEach((dot, index) => {
+        dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+      });
+      if (status) {
+        status.textContent = `Showing slide ${currentIndex + 1} of ${slides.length}`;
+      }
+    };
+
+    const goTo = (nextIndex) => {
+      currentIndex = (nextIndex + slides.length) % slides.length;
+      render();
+    };
+
+    const nextSlide = () => goTo(currentIndex + 1);
+    const previousSlide = () => goTo(currentIndex - 1);
+
+    const stopAutoplay = () => {
+      if (autoplayId) {
+        window.clearInterval(autoplayId);
+        autoplayId = 0;
+      }
+    };
+
+    const startAutoplay = () => {
+      if (slides.length < 2 || prefersReducedMotion || !desktopQuery.matches || isPaused || autoplayId) return;
+      autoplayId = window.setInterval(nextSlide, 5000);
+    };
+
+    const setPaused = (paused) => {
+      isPaused = paused;
+      if (paused) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    };
+
+    prevButton?.addEventListener('click', previousSlide);
+    nextButton?.addEventListener('click', nextSlide);
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = Number(dot.getAttribute('data-carousel-dot') || '0');
+        goTo(index);
+      });
+    });
+
+    viewport.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        nextSlide();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        previousSlide();
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        goTo(0);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        goTo(slides.length - 1);
+      }
+    });
+
+    viewport.addEventListener('touchstart', (event) => {
+      if (!event.changedTouches[0]) return;
+      touchStartX = event.changedTouches[0].clientX;
+      touchStartY = event.changedTouches[0].clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (event) => {
+      if (!event.changedTouches[0]) return;
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+      const deltaY = event.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(deltaX) < 44 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (deltaX > 0) {
+        previousSlide();
+      } else {
+        nextSlide();
+      }
+    }, { passive: true });
+
+    root.addEventListener('mouseenter', () => setPaused(true));
+    root.addEventListener('mouseleave', () => setPaused(false));
+    root.addEventListener('focusin', () => setPaused(true));
+    root.addEventListener('focusout', () => {
+      window.setTimeout(() => {
+        if (!root.contains(document.activeElement)) {
+          setPaused(false);
+        }
+      }, 0);
+    });
+
+    const onDesktopChange = () => {
+      stopAutoplay();
+      startAutoplay();
+    };
+
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener('change', onDesktopChange);
+    } else {
+      desktopQuery.addListener(onDesktopChange);
+    }
+
+    render();
+    startAutoplay();
+  })();
+</script>
+
+<style>
+  .hero-slideshow {
+    position: relative;
+  }
+
+  .hero-slideshow-viewport {
+    border: 1px solid var(--color-border);
+  }
+
+  .hero-slideshow-track {
+    display: flex;
+    transform: translateX(0);
+    transition: transform 0.45s ease;
+    height: 100%;
+  }
+
+  .hero-slideshow-slide {
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    position: relative;
+  }
+
+  .hero-slideshow-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0));
+    color: white;
+    font-size: 0.8125rem;
+    padding: 2.25rem 0.75rem 0.75rem;
+  }
+
+  .hero-slideshow-controls {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .hero-slideshow-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .hero-slideshow-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border-strong);
+    background: white;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .hero-slideshow-dot[aria-current="true"] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+  }
+
+  .hero-slideshow-dot:hover {
+    border-color: var(--color-primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slideshow-track {
+      transition: none;
+    }
+  }
+</style>

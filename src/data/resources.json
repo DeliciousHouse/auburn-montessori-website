@@ -4,10 +4,6 @@
     { "label": "Fees and Hours of Operation", "href": "/documents/fees-hours-2026-2027.pdf" },
     { "label": "School Readiness Guidelines", "href": "/documents/school-readiness-guidelines.pdf" }
   ],
-  "externalServices": [
-    { "label": "New Parent Registration", "href": "https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a8a5a/self-service", "opensIn": "Brightwheel", "external": true },
-    { "label": "Student Registration Form", "href": "/student-registration-form", "external": false }
-  ],
   "listsAndLearning": [
     { "label": "Personal Belongings List", "href": "/personal-belongings-list", "external": false },
     { "label": "Curriculum Work Cycle (The Montessori Way)", "href": "/montessori-work-cycle", "external": false }

@@ -1,0 +1,55 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import { hasValue, siteConfig } from '../config/siteConfig';
+
+type Props = {
+  wrapperClass?: string;
+  buttonClass?: string;
+  helperClass?: string;
+  helperId?: string;
+  label?: string;
+  ariaLabel?: string;
+  opensIn?: string;
+};
+
+const {
+  wrapperClass = '',
+  buttonClass = 'btn btn-primary',
+  helperClass = 'mt-2 text-xs',
+  helperId,
+  label = 'Student Registration (Brightwheel)',
+  ariaLabel = 'Student Registration (opens in Brightwheel)',
+  opensIn = 'Brightwheel'
+} = Astro.props as Props;
+
+const registrationUrl = siteConfig.brightwheel.studentRegistrationUrl;
+const isAvailable = hasValue(registrationUrl);
+const effectiveHelperId = helperId ?? `student-registration-helper-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+{isAvailable ? (
+  <div class={wrapperClass}>
+    <ExternalLink
+      href={registrationUrl}
+      opensIn={opensIn}
+      class={buttonClass}
+      ariaLabel={ariaLabel}
+    >
+      {label}
+    </ExternalLink>
+  </div>
+) : (
+  <div class={wrapperClass}>
+    <button
+      type="button"
+      class={buttonClass}
+      disabled
+      aria-describedby={effectiveHelperId}
+    >
+      {label}
+    </button>
+    <p id={effectiveHelperId} class={helperClass} style="color: var(--color-text-subtle);">
+      Link will be added once Brightwheel form is published.
+    </p>
+  </div>
+)}

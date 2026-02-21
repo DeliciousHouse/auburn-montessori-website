@@ -2,6 +2,7 @@
 import site from '../data/site.json';
 import nav from '../data/navigation.json';
 import ExternalLink from './ExternalLink.astro';
+import { siteConfig } from '../config/siteConfig';
 
 const year = new Date().getFullYear();
 
@@ -40,8 +41,9 @@ const legalLinks = [
         {quickLinks.map((l: {href:string; label:string}) => (
           <a class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);" href={l.href}>{l.label}</a>
         ))}
-        <ExternalLink href={site.registrationUrl} opensIn="Brightwheel" class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);">
-          Register (Brightwheel)
+        <a class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
+        <ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="text-sm no-underline hover:underline" style="color: var(--color-text-muted);">
+          Parent Sign-In (Brightwheel)
         </ExternalLink>
       </nav>
     </div>
@@ -64,7 +66,7 @@ const legalLinks = [
         third party's own terms and privacy practices.
       </p>
       <p class="mt-2 text-xs" style="color: var(--color-text-subtle);">
-        Parent registration is handled through Brightwheel.
+        Parent onboarding and registration are handled through Brightwheel.
       </p>
     </div>
   </div>
