@@ -6,16 +6,16 @@
       "description": "Our mixed-age Preschool classrooms build independence, concentration, and social-emotional growth through hands-on Montessori lessons and uninterrupted work cycles.",
       "images": [
         {
-          "src": "/images/programs/preschool/preschool-1.svg",
-          "alt": "Preschool Montessori shelf work and practical life materials"
+          "src": "/images/programs/preschool/preschool-1.webp",
+          "alt": "Children writing and drawing together at outdoor classroom tables"
         },
         {
-          "src": "/images/programs/preschool/preschool-2.svg",
-          "alt": "Preschool students participating in circle time"
+          "src": "/images/programs/preschool/preschool-2.webp",
+          "alt": "Children creating nature-inspired artwork during an outdoor activity"
         },
         {
-          "src": "/images/programs/preschool/preschool-3.svg",
-          "alt": "Young learners engaged in sensorial Montessori activities"
+          "src": "/images/programs/preschool/preschool-3.webp",
+          "alt": "Children with an educator in the school garden learning together"
         }
       ]
     },
@@ -25,16 +25,16 @@
       "description": "Our Elementary program (K–3rd Grade) extends Montessori learning with advanced literacy, mathematics, science, and collaborative projects that support leadership and critical thinking.",
       "images": [
         {
-          "src": "/images/programs/elementary/elementary-1.svg",
-          "alt": "Elementary students working on language and reading lessons"
+          "src": "/images/programs/elementary/elementary-1.webp",
+          "alt": "Child practicing Montessori cursive letter work with movable script materials"
         },
         {
-          "src": "/images/programs/elementary/elementary-2.svg",
-          "alt": "Elementary learners collaborating on math materials"
+          "src": "/images/programs/elementary/elementary-2.webp",
+          "alt": "Student using Montessori red and blue rods for mathematics learning"
         },
         {
-          "src": "/images/programs/elementary/elementary-3.svg",
-          "alt": "Elementary classroom project and cultural studies work"
+          "src": "/images/programs/elementary/elementary-3.webp",
+          "alt": "Elementary students gathered for a reading session in the library"
         }
       ]
     }
