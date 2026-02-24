@@ -28,7 +28,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
               {site.address.street}<br />
               {site.address.city}, {site.address.state} {site.address.postalCode}
             </div>
-            <ExternalLink href={mapUrl} opensIn="Google Maps" class="mt-1 inline-block text-sm font-semibold no-underline hover:underline">Open in maps</ExternalLink>
+            <ExternalLink href={mapUrl} class="mt-1 inline-block text-sm font-semibold no-underline hover:underline">Open in maps</ExternalLink>
           </div>
         </div>
 
@@ -123,8 +123,8 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
             <h2 class="text-lg font-bold">Parent Sign-In</h2>
             <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Parent onboarding is handled through Brightwheel and opens in a new tab.</p>
           </div>
-          <ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="btn btn-primary btn-lg shrink-0" ariaLabel="Parent Sign-In (opens in Brightwheel)">
-            Parent Sign-In (Brightwheel)
+          <ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="btn btn-primary btn-lg shrink-0" ariaLabel="Parent Sign-In">
+            Parent Sign-In
           </ExternalLink>
         </div>
       </div>

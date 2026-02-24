@@ -21,8 +21,8 @@ import { siteConfig } from '../config/siteConfig';
 					</p>
 					<div class="mt-6 flex flex-wrap gap-3">
 						<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
-						<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Parent Sign-In (opens in Brightwheel)">
-							Parent Sign-In (Brightwheel)
+						<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Parent Sign-In">
+							Parent Sign-In
 						</ExternalLink>
 						<StudentRegistrationButton buttonClass="btn btn-primary btn-lg" helperClass="text-xs text-white/90" />
 					</div>
@@ -74,10 +74,10 @@ import { siteConfig } from '../config/siteConfig';
 					<h2 class="text-sm font-bold" style="color: var(--color-text);">Programs</h2>
 					<p class="text-xs" style="color: var(--color-text-subtle);">Preschool (3–6) and Elementary (K–3rd Grade)</p>
 				</a>
-				<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} opensIn="Brightwheel" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Parent Sign-In (opens in Brightwheel)">
+				<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Parent Sign-In">
 					<div class="feature-icon" style="background: var(--color-primary); color: white;"><Icon name="edit" size={22} /></div>
 					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Parent Sign-In</h2>
-					<p class="text-xs" style="color: var(--color-text-subtle);">Parent onboarding in Brightwheel</p>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Parent onboarding</p>
 				</ExternalLink>
 			</div>
 		</div>

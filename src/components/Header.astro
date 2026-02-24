@@ -54,9 +54,8 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
     <div class="flex items-center gap-2">
       <ExternalLink
         href={siteConfig.brightwheel.parentSignInUrl}
-        opensIn="Brightwheel"
         class="btn btn-ghost btn-sm hidden md:inline-flex"
-        ariaLabel="Parent Sign-In (opens in Brightwheel)"
+        ariaLabel="Parent Sign-In"
       >
         Parent Sign-In
       </ExternalLink>
@@ -107,12 +106,11 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
             <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
             <ExternalLink
               href={siteConfig.brightwheel.parentSignInUrl}
-              opensIn="Brightwheel"
               class="btn btn-outline w-full justify-center"
-              ariaLabel="Parent Sign-In (opens in Brightwheel)"
+              ariaLabel="Parent Sign-In"
               data-mobile-nav-link
             >
-              Parent Sign-In (Brightwheel)
+              Parent Sign-In
             </ExternalLink>
             <StudentRegistrationButton
               wrapperClass="w-full"

@@ -61,9 +61,8 @@ const availableBrightwheelDocs = brightwheelDocuments.filter((doc) => hasValue(d
             {availableBrightwheelDocs.map((doc) => (
               <ExternalLink
                 href={doc.href}
-                opensIn="Brightwheel"
                 class="btn btn-primary btn-sm"
-                ariaLabel={`${doc.label} (opens in Brightwheel)`}
+                ariaLabel={doc.label}
               >
                 {doc.label}
               </ExternalLink>

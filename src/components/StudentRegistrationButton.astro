@@ -9,7 +9,6 @@ type Props = {
   helperId?: string;
   label?: string;
   ariaLabel?: string;
-  opensIn?: string;
 };
 
 const {
@@ -17,9 +16,8 @@ const {
   buttonClass = 'btn btn-primary',
   helperClass = 'mt-2 text-xs',
   helperId,
-  label = 'Student Registration (Brightwheel)',
-  ariaLabel = 'Student Registration (opens in Brightwheel)',
-  opensIn = 'Brightwheel'
+  label = 'Register',
+  ariaLabel = 'Register'
 } = Astro.props as Props;
 
 const registrationUrl = siteConfig.brightwheel.studentRegistrationUrl;
@@ -31,7 +29,6 @@ const effectiveHelperId = helperId ?? `student-registration-helper-${Math.random
   <div class={wrapperClass}>
     <ExternalLink
       href={registrationUrl}
-      opensIn={opensIn}
       class={buttonClass}
       ariaLabel={ariaLabel}
     >
