@@ -44,17 +44,17 @@ const hoursSummary = fees.programs.length
         </a>
       </div>
 
-      <!-- Key facts cards -->
+      <!-- Key facts cards: registration first, monthly tuition last -->
       <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="card card-body">
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Registration</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${fees.registrationFee.amount} one-time</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Non-refundable</p>
+        </div>
         <div class="card card-body">
           <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Hours</div>
           <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">{hoursSummary}</p>
           <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Varies by program</p>
-        </div>
-        <div class="card card-body">
-          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Monthly tuition</div>
-          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${minTuition} – ${maxTuition}/mo</p>
-          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">See table by program</p>
         </div>
         <div class="card card-body">
           <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Annual enrollment</div>
@@ -62,9 +62,9 @@ const hoursSummary = fees.programs.length
           <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Per program (non-refundable)</p>
         </div>
         <div class="card card-body">
-          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Registration</div>
-          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${fees.registrationFee.amount} one-time</p>
-          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">Non-refundable</p>
+          <div class="text-xs font-semibold uppercase tracking-wider" style="color: var(--color-text-subtle);">Monthly tuition</div>
+          <p class="mt-1 text-sm font-semibold" style="color: var(--color-text);">${minTuition} – ${maxTuition}/mo</p>
+          <p class="mt-0.5 text-xs" style="color: var(--color-text-muted);">See table by program</p>
         </div>
       </div>
 
@@ -72,6 +72,7 @@ const hoursSummary = fees.programs.length
       <div class="mt-10">
         <h2 class="section-heading">Programs</h2>
         <p class="section-subheading">Hours, tuition, and enrollment fees by program</p>
+        <p class="mt-1 text-xs" style="color: var(--color-text-muted);">The cost of the enrollment fee for each program is non-refundable.</p>
         <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-border);">
           <table class="data-table table-cards w-full min-w-[42rem]">
             <caption class="sr-only">Program hours, tuition, enrollment fee, and late pickup policy by program</caption>

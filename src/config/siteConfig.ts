@@ -1,7 +1,7 @@
 export type PhotoSource = 'LOCAL_ONLY' | 'BRIGHTWHEEL_EMBED';
 
 const BRIGHTWHEEL_PARENT_SIGN_IN_URL = 'https://schools.mybrightwheel.com/sign-in?redirect';
-const BRIGHTWHEEL_STUDENT_REGISTRATION_URL = '';
+const BRIGHTWHEEL_STUDENT_REGISTRATION_URL = 'https://schools.mybrightwheel.com/sign-in?redirect_path=forms/b83bf52b-9307-4e8d-992b-4bc2ad5a8a5a/self-service';
 const BRIGHTWHEEL_PARENT_HANDBOOK_URL = '';
 const BRIGHTWHEEL_SCHOOL_CALENDAR_URL = '';
 const BRIGHTWHEEL_CONSENT_RELEASE_URL = '';
