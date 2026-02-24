@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import site from '../data/site.json';
 import nav from '../data/navigation.json';
 import ExternalLink from './ExternalLink.astro';
 import { siteConfig } from '../config/siteConfig';
+import logo from '../assets/brand/logo.webp';
 
 const year = new Date().getFullYear();
 
@@ -21,7 +23,16 @@ const legalLinks = [
     <!-- Contact -->
     <div class="stack">
       <a class="flex items-center gap-2 no-underline" href="/">
-        <img src="/images/brand/logo.webp" alt="" width="28" height="28" class="h-7 w-7 rounded object-contain" />
+        <Image
+          src={logo}
+          alt=""
+          width={28}
+          height={28}
+          densities={[1, 2]}
+          class="h-7 w-7 rounded object-contain"
+          loading="lazy"
+          decoding="async"
+        />
         <span class="text-sm font-bold" style="color: var(--color-text);">{site.shortName}</span>
       </a>
       <address class="not-italic text-sm" style="color: var(--color-text-muted);">

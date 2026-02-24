@@ -3,6 +3,9 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
+import { getImage } from 'astro:assets';
+import logo from '../assets/brand/logo.webp';
+import heroSlide1 from '../assets/hero/slide-1.webp';
 
 type Props = {
   title?: string;
@@ -25,8 +28,22 @@ const canonicalUrl = Astro.site
   : Astro.url.toString();
 
 const ogImageUrl = Astro.site
-  ? new URL('/images/brand/logo.webp', Astro.site).toString()
-  : 'https://auburnmontessori.org/images/brand/logo.webp';
+  ? new URL(logo.src, Astro.site).toString()
+  : `https://auburnmontessori.org${logo.src}`;
+
+const isHomePage = Astro.url.pathname === '/';
+const heroSizes = '(min-width: 1024px) 900px, 100vw';
+const heroWidths = [480, 640, 768, 960, 1280];
+const heroPreloadEntries = isHomePage
+  ? await Promise.all(heroWidths.map(async (width) => {
+      const image = await getImage({ src: heroSlide1, width, format: 'webp' });
+      return `${image.src} ${width}w`;
+    }))
+  : [];
+const heroPreloadSrcset = heroPreloadEntries.join(', ');
+const heroPreloadHref = heroPreloadEntries.length
+  ? heroPreloadEntries[heroPreloadEntries.length - 1]?.split(' ')[0] ?? ''
+  : '';
 ---
 
 <!doctype html>
@@ -36,9 +53,17 @@ const ogImageUrl = Astro.site
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    {isHomePage && heroPreloadHref ? (
+      <link
+        rel="preload"
+        as="image"
+        href={heroPreloadHref}
+        imagesrcset={heroPreloadSrcset}
+        imagesizes={heroSizes}
+        fetchpriority="high"
+      />
+    ) : null}
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
@@ -52,8 +77,8 @@ const ogImageUrl = Astro.site
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+    <meta property="og:image:width" content={String(logo.width)} />
+    <meta property="og:image:height" content={String(logo.height)} />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content={ogImageUrl} />

@@ -7,16 +7,21 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "perf:lighthouse:mobile": "node scripts/perf/lighthouse-mobile.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "lighthouse": "^13.0.3",
+    "puppeteer": "^24.37.5",
     "typescript": "^5.9.3"
   }
 }
