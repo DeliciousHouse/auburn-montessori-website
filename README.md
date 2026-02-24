@@ -14,7 +14,7 @@ Colors, typography, spacing, buttons, cards, and layout are defined as design to
 
 The canonical site/domain is configured via:
 
-- `SITE_URL` (example: `https://amstch.com`)
+- `SITE_URL` (example: `https://auburnmontessori.org`)
 
 This is wired into `astro.config.mjs` so canonical URLs and the sitemap are correct at build time.
 
@@ -32,7 +32,7 @@ Before committing, run `npm run build` to confirm the site builds. For type chec
 To test sitemap/canonical behavior locally:
 
 ```bash
-SITE_URL=https://amstch.com npm run build
+SITE_URL=https://auburnmontessori.org npm run build
 ```
 
 ## Docker (production container)
@@ -73,7 +73,7 @@ Deploys run on push to `main`: the GitHub Action builds the image, pushes it to 
 4. **Create `.env`** in `/opt/moms-website` (do not commit this file):
    ```bash
    APP_PORT=8080
-   SITE_URL=https://amstch.com
+   SITE_URL=https://auburnmontessori.org
    ```
    `SITE_URL` is also set at build time via GitHub Secrets; the value here is for any runtime use.  
    If the GHCR package is **private**, add so the VPS can pull images:
@@ -100,7 +100,7 @@ In the repo: **Settings → Secrets and variables → Actions**, add:
 | `VPS_USER` | Yes | SSH user for deploy |
 | `MOMS_WEBSITE` | Yes | SSH private key for deploy (full key, including `-----BEGIN ... -----`) |
 | `VPS_PORT` | No | SSH port (default `22`) |
-| `SITE_URL` | No | Canonical site URL for build (sitemap/canonicals); defaults to `https://amstch.com` in the workflow |
+| `SITE_URL` | No | Canonical site URL for build (sitemap/canonicals); defaults to `https://auburnmontessori.org` in the workflow |
 
 **Note:** If the GHCR package is private, the VPS must be able to pull from `ghcr.io`. Set `GHCR_USERNAME` and `GHCR_PAT` in `/opt/moms-website/.env`; the deploy workflow will run `docker login ghcr.io` using that PAT (needs `read:packages`).
 

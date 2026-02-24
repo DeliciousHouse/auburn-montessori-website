@@ -7,8 +7,8 @@ RUN npm ci
 
 COPY . .
 
-# Used by astro.config.mjs for canonical URLs and sitemap. Use public origin only (e.g. https://amstch.com), no port.
-ARG SITE_URL=https://amstch.com
+# Used by astro.config.mjs for canonical URLs and sitemap. Use public origin only (e.g. https://auburnmontessori.org), no port.
+ARG SITE_URL=https://auburnmontessori.org
 ENV SITE_URL=$SITE_URL
 
 RUN npm run build
