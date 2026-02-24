@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { hasValue, siteConfig } from '../config/siteConfig';
 
 type Slide = {
-  src: string;
+  src: ImageMetadata;
   alt: string;
   caption?: string;
 };
@@ -14,7 +16,7 @@ type Props = {
 };
 
 const { id, label, slides } = Astro.props as Props;
-const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && hasValue(siteConfig.photos.brightwheelEmbedUrl);
+const useBrightwheelEmbed = hasValue(siteConfig.photos.brightwheelEmbedUrl);
 ---
 
 {useBrightwheelEmbed ? (
@@ -40,9 +42,15 @@ const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && 
             aria-label={`Slide ${idx + 1} of ${slides.length}`}
             aria-hidden={idx === 0 ? 'false' : 'true'}
           >
-            <img
+            <Image
               src={slide.src}
               alt={slide.alt}
+              class="h-full w-full object-cover"
+              widths={[480, 640, 768, 960, 1280]}
+              sizes="(min-width: 1024px) 900px, 100vw"
+              width={1280}
+              height={853}
+              format="webp"
               loading={idx === 0 ? 'eager' : 'lazy'}
               decoding="async"
               fetchpriority={idx === 0 ? 'high' : undefined}
@@ -57,14 +65,14 @@ const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && 
       <button type="button" class="btn btn-secondary btn-sm" data-carousel-prev aria-label="Previous slide">
         Previous
       </button>
-      <div class="hero-slideshow-dots" role="tablist" aria-label="Choose a slide">
+      <div class="hero-slideshow-dots" aria-label="Choose a slide">
         {slides.map((_, idx) => (
           <button
             type="button"
             class="hero-slideshow-dot"
             data-carousel-dot={idx}
             aria-label={`Go to slide ${idx + 1}`}
-            aria-current={idx === 0 ? 'true' : 'false'}
+            aria-pressed={idx === 0 ? 'true' : 'false'}
           ></button>
         ))}
       </div>
@@ -109,7 +117,7 @@ const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && 
         slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
       });
       dots.forEach((dot, index) => {
-        dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+        dot.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');
       });
       if (status) {
         status.textContent = `Showing slide ${currentIndex + 1} of ${slides.length}`;
@@ -266,8 +274,8 @@ const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && 
   }
 
   .hero-slideshow-dot {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 9999px;
     border: 1px solid var(--color-border-strong);
     background: white;
@@ -275,7 +283,7 @@ const useBrightwheelEmbed = siteConfig.photos.source === 'BRIGHTWHEEL_EMBED' && 
     transition: background-color 0.15s ease, transform 0.15s ease;
   }
 
-  .hero-slideshow-dot[aria-current="true"] {
+  .hero-slideshow-dot[aria-pressed="true"] {
     background: var(--color-primary);
     border-color: var(--color-primary);
     transform: scale(1.05);

@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import nav from '../data/navigation.json';
 import site from '../data/site.json';
 import ExternalLink from './ExternalLink.astro';
 import StudentRegistrationButton from './StudentRegistrationButton.astro';
 import { siteConfig } from '../config/siteConfig';
+import logo from '../assets/brand/logo.webp';
 
 type Props = { currentPath: string };
 const { currentPath } = Astro.props as Props;
@@ -20,12 +22,15 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
   <div class="container-page flex h-16 items-center justify-between gap-6">
     <!-- Logo + Wordmark -->
     <a class="flex shrink-0 items-center gap-2.5 no-underline" href="/" aria-label={`${site.shortName} home`}>
-      <img
-        src="/images/brand/logo.webp"
+      <Image
+        src={logo}
         alt=""
-        width="40"
-        height="40"
+        width={70}
+        height={70}
+        densities={[1, 2]}
         class="h-10 w-10 rounded-lg object-contain"
+        loading="eager"
+        decoding="async"
       />
       <div class="hidden leading-tight sm:block">
         <div class="text-sm font-bold tracking-tight" style="color: var(--color-text);">{site.shortName}</div>
@@ -84,7 +89,6 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
           id="mobile-menu-panel"
           class="absolute right-0 mt-2 w-[min(92vw,22rem)] rounded-xl border bg-white p-2 shadow-xl"
           style="border-color: var(--color-border);"
-          role="region"
           aria-label="Mobile navigation"
         >
           <nav class="flex flex-col gap-0.5" aria-label="Mobile primary">

@@ -4,7 +4,7 @@ import ExternalLink from '../components/ExternalLink.astro';
 import Icon from '../components/Icon.astro';
 import home from '../data/home.json';
 import site from '../data/site.json';
-import heroSlides from '../data/hero-slides.json';
+import { heroSlides } from '../data/hero-slides';
 import HeroSlideshow from '../components/HeroSlideshow.astro';
 import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
 import { siteConfig } from '../config/siteConfig';
@@ -28,7 +28,7 @@ import { siteConfig } from '../config/siteConfig';
 					</div>
 				</div>
 				<div class="order-1 lg:order-2">
-					<HeroSlideshow id="welcome-hero-slideshow" label="Welcome photos from Auburn Montessori School" slides={heroSlides.slides} />
+					<HeroSlideshow id="welcome-hero-slideshow" label="Welcome photos from Auburn Montessori School" slides={heroSlides} />
 				</div>
 			</div>
 		</div>

@@ -116,7 +116,7 @@ Most content is in `src/data/`:
 - `src/data/resources.json` (parent resources link groups)
 - `src/data/calendar.json` (calendar links, optional calendar PDF)
 - `src/data/programs.json` (Preschool + Elementary program content and images)
-- `src/data/hero-slides.json` (homepage slideshow images + alt text)
+- `src/data/hero-slides.ts` (homepage slideshow images + alt text)
 
 Brightwheel links and photo source options are centralized in:
 
