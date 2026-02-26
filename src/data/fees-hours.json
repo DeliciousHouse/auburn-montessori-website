@@ -31,14 +31,14 @@
       "annualEnrollmentFee": 550,
       "annualEnrollmentFeeDue": "2026-03-05",
       "latePickupPolicy": "A late fee of $1/minute will be applied.",
-      "mealPlanOptions": [
+      "paymentPlanOptions": [
         {
           "name": "Full payment option",
           "amountPerYear": 850,
           "notes": "$50 off $900/year for $850/year. Due July 15th 2026."
         },
         {
-          "name": "Part time payment option (non refundable)",
+          "name": "Partial payment option (non refundable)",
           "amountPerYear": 900,
           "notes": "$450 due 7-1-26, and $450 due 1-1-27"
         }
@@ -52,14 +52,14 @@
       "annualEnrollmentFee": 600,
       "annualEnrollmentFeeDue": "2026-03-05",
       "latePickupPolicy": "A late fee of $1/minute will be applied.",
-      "mealPlanOptions": [
+      "paymentPlanOptions": [
         {
           "name": "Full payment option",
           "amountPerYear": 1500,
           "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
         },
         {
-          "name": "Part time payment option (non refundable)",
+          "name": "Partial payment option (non refundable)",
           "amountPerYear": 1600,
           "notes": "$800 due 7-1-26, and $800 due 1-1-27"
         }
@@ -73,14 +73,14 @@
       "annualEnrollmentFee": 700,
       "annualEnrollmentFeeDue": "2026-03-05",
       "latePickupPolicy": "A late fee of $1/minute will be applied.",
-      "mealPlanOptions": [
+      "paymentPlanOptions": [
         {
           "name": "Full payment option",
           "amountPerYear": 1500,
           "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
         },
         {
-          "name": "Part time payment option (non refundable)",
+          "name": "Partial payment option (non refundable)",
           "amountPerYear": 1600,
           "notes": "$800 due 7-1-26, and $800 due 1-1-27"
         }

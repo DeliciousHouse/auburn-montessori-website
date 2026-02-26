@@ -12,8 +12,8 @@ function formatDate(iso: string): string {
   } catch { return iso; }
 }
 
-const mealPlanRows = fees.programs.flatMap((p) =>
-  p.mealPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
+const paymentPlanRows = fees.programs.flatMap((p) =>
+  p.paymentPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
 );
 
 const minTuition = Math.min(...fees.programs.map((p) => p.monthlyTuition));
@@ -122,7 +122,7 @@ const hoursSummary = fees.programs.length
               </tr>
             </thead>
             <tbody>
-              {mealPlanRows.map((row) => (
+              {paymentPlanRows.map((row) => (
                 <tr>
                   <td data-label="Program">{row.program}</td>
                   <td data-label="Hours">{row.hours}</td>
