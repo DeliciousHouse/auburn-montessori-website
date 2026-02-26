@@ -59,6 +59,9 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
         <hr class="divider" />
 
         <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Request a Tour</h2>
+        <p class="mt-1 text-xs" style="color: var(--color-neutral-600);">
+          Tours are available Fridays from 11:00am to 11:30am.
+        </p>
         <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">
           The form below opens your email client with a pre-filled tour request. We do not store tour requests on our servers; your message is sent only when you send the email.
         </p>
@@ -78,10 +81,6 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
           <div>
             <label for="tour-child-age" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child age (optional)</label>
             <input type="text" id="tour-child-age" name="childAge" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="e.g. 4 years" />
-          </div>
-          <div>
-            <label for="tour-times" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Preferred tour times (optional)</label>
-            <input type="text" id="tour-times" name="preferredTimes" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="e.g. weekday afternoons" />
           </div>
           <div>
             <label for="tour-message" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Message (optional)</label>
@@ -144,18 +143,17 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
       const email = (form.querySelector('#tour-email')?.value || '').trim();
       const phone = (form.querySelector('#tour-phone')?.value || '').trim();
       const childAge = (form.querySelector('#tour-child-age')?.value || '').trim();
-      const preferredTimes = (form.querySelector('#tour-times')?.value || '').trim();
       const message = (form.querySelector('#tour-message')?.value || '').trim();
 
       const subject = encodeURIComponent(`Tour request – ${name || 'Auburn Montessori School'}`);
       const lines = [
         'I would like to schedule a tour of Auburn Montessori School - The Children\'s House.',
+        'Preferred tour time: Fridays 11:00am - 11:30am',
         '',
         'Name: ' + name,
         'Email: ' + email,
         phone ? 'Phone: ' + phone : '',
         childAge ? 'Child age: ' + childAge : '',
-        preferredTimes ? 'Preferred tour times: ' + preferredTimes : '',
         message ? '\nMessage:\n' + message : ''
       ];
       const body = encodeURIComponent(lines.filter(Boolean).join('\n'));
