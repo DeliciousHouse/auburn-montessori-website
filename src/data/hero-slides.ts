@@ -11,7 +11,7 @@ export const heroSlides = [
   },
   {
     src: slide2,
-    alt: 'Prepared Montessori classroom with shelves, materials, and natural light',
+    alt: 'Preschool students learning together in a Montessori classroom',
     caption: 'Curiosity, confidence, and joyful learning'
   },
   {

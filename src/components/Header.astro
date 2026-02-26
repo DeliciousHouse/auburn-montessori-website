@@ -43,7 +43,7 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
       {mainNav.map((item: {href:string; label:string}) => (
         <a
           class:list={[
-            'rounded-lg px-4 py-2.5 text-sm font-medium no-underline transition-colors',
+            'rounded-lg px-4 py-2.5 text-sm font-medium no-underline transition-colors whitespace-nowrap',
             isActive(item.href)
               ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
               : 'text-[var(--color-text-muted)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-text)]'
