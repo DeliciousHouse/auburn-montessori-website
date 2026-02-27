@@ -13,6 +13,7 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURICompo
 const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(addressLine)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 const logoUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
 const pageSchema = buildSchoolSchema({ logoUrl });
+
 const faqEntries = [
   {
     question: 'What is the address?',
@@ -39,6 +40,7 @@ const faqEntries = [
     answer: 'Program hours and tuition details are listed on the Fees & Hours page.'
   }
 ];
+
 const faqSchema = buildFaqSchema(faqEntries);
 ---
 
@@ -195,7 +197,7 @@ const faqSchema = buildFaqSchema(faqEntries);
 
       const subject = encodeURIComponent(`Tour request – ${name || 'Auburn Montessori School'}`);
       const lines = [
-        'I would like to schedule a tour of Auburn Montessori School - The Children\'s House.',
+        "I would like to schedule a tour of Auburn Montessori School - The Children's House.",
         'Preferred tour time: Fridays 11:00am - 11:30am',
         '',
         'Name: ' + name,
