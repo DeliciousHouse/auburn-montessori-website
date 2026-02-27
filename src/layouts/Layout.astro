@@ -25,7 +25,11 @@ const pageTitle = title
 
 const pageDescription = description ?? site.description;
 
-const siteBase = Astro.site?.toString() ?? siteInfo.canonicalBaseUrl;
+const siteBase =
+  (Astro.site ? Astro.site.toString() : undefined) ??
+  (Astro.site && 'origin' in Astro.site ? (Astro.site as unknown as URL).origin : undefined) ??
+  siteInfo.canonicalBaseUrl;
+
 const canonicalUrl = new URL(Astro.url.pathname, siteBase).toString();
 
 const ogImageUrl = new URL(logo.src, siteBase).toString();
