@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import admissions from '../data/admissions.json';
+import fees from '../data/fees-hours.json';
 import ExternalLink from '../components/ExternalLink.astro';
 import Accordion from '../components/Accordion.astro';
 import PageNav from '../components/PageNav.astro';
@@ -42,7 +43,7 @@ const faqEntries = [
   },
   {
     question: 'Is there a registration fee?',
-    answer: 'Yes. The registration fee is $50 and is non-refundable.'
+    answer: `Yes. The registration fee is $${fees.registrationFee.amount} and is non-refundable.`
   }
 ];
 const faqSchema = buildFaqSchema(faqEntries);

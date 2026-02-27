@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
 import { getImage } from 'astro:assets';
 import logo from '../assets/brand/logo.webp';
-import { getCanonicalUrl, siteInfo } from '../config/site';
+import { siteInfo } from '../config/site';
 import heroSlide1 from '../assets/hero/slide-1.webp';
 
 type Props = {
@@ -25,9 +25,10 @@ const pageTitle = title
 
 const pageDescription = description ?? site.description;
 
-const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
+const siteBase = Astro.site?.toString() ?? siteInfo.canonicalBaseUrl;
+const canonicalUrl = new URL(Astro.url.pathname, siteBase).toString();
 
-const ogImageUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
+const ogImageUrl = new URL(logo.src, siteBase).toString();
 
 const isHomePage = Astro.url.pathname === '/';
 const structuredDataList = Array.isArray(structuredData)
@@ -90,7 +91,7 @@ const heroPreloadHref = heroPreloadEntries.length
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:image" content={ogImageUrl} />
     {structuredDataList.map((entry) => (
-      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+      <script type="application/ld+json" set:html={JSON.stringify(entry)}></script>
     ))}
   </head>
   <body class="flex min-h-screen flex-col">

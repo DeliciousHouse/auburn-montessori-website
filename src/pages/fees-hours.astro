@@ -28,11 +28,11 @@ const hoursSummary = fees.programs.length
 const faqEntries = [
   {
     question: 'What are your hours?',
-    answer: 'Hours vary by program: part-time is 7:30am-12:00pm, full-time is 7:15am-5:15pm, and K-3rd Grade is 8:00am-5:30pm.'
+    answer: `Hours vary by program (${hoursSummary}). Please see the Fees & Hours table on this page for the current schedule for each option.`
   },
   {
     question: 'What are tuition and fees?',
-    answer: 'Monthly tuition currently ranges from $650 to $975, with a one-time $50 registration fee and annual enrollment fees by program.'
+    answer: `Monthly tuition currently ranges from $${minTuition} to $${maxTuition}, with a one-time $${fees.registrationFee.amount} registration fee and annual enrollment fees by program (currently $${enrollmentRange}).`
   },
   {
     question: 'Are meals included?',
