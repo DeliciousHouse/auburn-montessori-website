@@ -769,6 +769,10 @@
     font-size: 1.125rem;
   }
 
+  .secondary-bar {
+    font-size: 0.75rem;
+  }
+
   .sticky-header {
     position: sticky;
     top: 0;

@@ -15,9 +15,46 @@ const isActive = (href: string) => {
   return currentPath === href || currentPath.startsWith(`${href}/`);
 };
 
-const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
+const primaryHrefs = ['/about', '/programs', '/educators', '/fees-hours', '/admissions', '/contact'];
+const primaryNav = nav.filter((item: {href:string}) => primaryHrefs.includes(item.href));
+const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(item.href) && item.href !== '/');
 ---
 
+<!-- Secondary utility bar -->
+<div class="secondary-bar hidden border-b lg:block" style="background: var(--color-surface-alt); border-color: var(--color-border);">
+  <div class="container-page flex h-9 items-center justify-end gap-1">
+    {secondaryNav.map((item: {href:string; label:string}) => (
+      <a
+        class:list={[
+          'rounded-md px-3 py-1 text-xs font-medium no-underline transition-colors whitespace-nowrap',
+          isActive(item.href)
+            ? 'text-[var(--color-primary)] bg-[var(--color-primary-light)]'
+            : 'text-[var(--color-text-subtle)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]'
+        ]}
+        href={item.href}
+        aria-current={isActive(item.href) ? 'page' : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+    <span class="mx-1 h-4 w-px" style="background: var(--color-border);" aria-hidden="true"></span>
+    <ExternalLink
+      href={siteConfig.brightwheel.parentSignInUrl}
+      class="rounded-md px-3 py-1 text-xs font-medium no-underline text-[var(--color-text-subtle)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)] transition-colors whitespace-nowrap"
+      ariaLabel="Parent Sign-In"
+    >
+      Parent Sign-In
+    </ExternalLink>
+    <StudentRegistrationButton
+      wrapperClass="relative"
+      buttonClass="btn btn-primary btn-sm"
+      helperClass="absolute right-0 top-full mt-1 w-56 rounded-md border bg-white px-2 py-1 text-right text-[11px] leading-tight shadow-sm"
+      label="Register"
+    />
+  </div>
+</div>
+
+<!-- Primary header -->
 <header class="sticky-header border-b bg-white/95 backdrop-blur-sm" style="border-color: var(--color-border);">
   <div class="container-page flex h-16 items-center justify-between gap-6">
     <!-- Logo + Wordmark -->
@@ -38,9 +75,9 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
       </div>
     </a>
 
-    <!-- Desktop nav -->
+    <!-- Desktop primary nav -->
     <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
-      {mainNav.map((item: {href:string; label:string}) => (
+      {primaryNav.map((item: {href:string; label:string}) => (
         <a
           class:list={[
             'rounded-lg px-4 py-2.5 text-sm font-medium no-underline transition-colors whitespace-nowrap',
@@ -56,75 +93,76 @@ const mainNav = nav.filter((item: {href:string}) => item.href !== '/');
       ))}
     </nav>
 
-    <div class="flex items-center gap-2">
+    <!-- Desktop CTA (hidden on lg since it's in secondary bar) -->
+    <div class="hidden items-center gap-2 md:flex lg:hidden">
       <ExternalLink
         href={siteConfig.brightwheel.parentSignInUrl}
-        class="btn btn-ghost btn-sm hidden md:inline-flex"
+        class="btn btn-ghost btn-sm"
         ariaLabel="Parent Sign-In"
       >
         Parent Sign-In
       </ExternalLink>
       <StudentRegistrationButton
-        wrapperClass="relative hidden md:block"
+        wrapperClass="relative"
         buttonClass="btn btn-primary btn-sm"
         helperClass="absolute right-0 top-full mt-1 w-56 rounded-md border bg-white px-2 py-1 text-right text-[11px] leading-tight shadow-sm"
       />
+    </div>
 
-      <!-- Mobile menu toggle -->
-      <details class="relative lg:hidden" id="mobile-menu" data-mobile-menu>
-        <summary
-          id="mobile-menu-toggle"
-          class="btn btn-outline btn-sm cursor-pointer select-none list-none"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu-panel"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M3 5h14M3 10h14M3 15h14" />
-          </svg>
-          <span class="ml-1.5">Menu</span>
-        </summary>
+    <!-- Mobile menu toggle -->
+    <details class="relative lg:hidden" id="mobile-menu" data-mobile-menu>
+      <summary
+        id="mobile-menu-toggle"
+        class="btn btn-outline btn-sm cursor-pointer select-none list-none"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-panel"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 5h14M3 10h14M3 15h14" />
+        </svg>
+        <span class="ml-1.5">Menu</span>
+      </summary>
 
-        <div
-          id="mobile-menu-panel"
-          class="absolute right-0 mt-2 w-[min(92vw,22rem)] rounded-xl border bg-white p-2 shadow-xl"
-          style="border-color: var(--color-border);"
-          aria-label="Mobile navigation"
-        >
-          <nav class="flex flex-col gap-0.5" aria-label="Mobile primary">
-            {nav.map((item: {href:string; label:string}) => (
-              <a
-                class:list={[
-                  'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors',
-                  isActive(item.href)
-                    ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
-                    : 'text-[var(--color-text-muted)] hover:bg-[var(--color-surface-alt)]'
-                ]}
-                href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-                data-mobile-nav-link
-              >
-                {item.label}
-              </a>
-            ))}
-            <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
-            <ExternalLink
-              href={siteConfig.brightwheel.parentSignInUrl}
-              class="btn btn-outline w-full justify-center"
-              ariaLabel="Parent Sign-In"
+      <div
+        id="mobile-menu-panel"
+        class="absolute right-0 mt-2 w-[min(92vw,22rem)] rounded-xl border bg-white p-2 shadow-xl"
+        style="border-color: var(--color-border);"
+        aria-label="Mobile navigation"
+      >
+        <nav class="flex flex-col gap-0.5" aria-label="Mobile primary">
+          {nav.map((item: {href:string; label:string}) => (
+            <a
+              class:list={[
+                'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors',
+                isActive(item.href)
+                  ? 'bg-[var(--color-primary-light)] text-[var(--color-primary)]'
+                  : 'text-[var(--color-text-muted)] hover:bg-[var(--color-surface-alt)]'
+              ]}
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
               data-mobile-nav-link
             >
-              Parent Sign-In
-            </ExternalLink>
-            <StudentRegistrationButton
-              wrapperClass="w-full"
-              buttonClass="btn btn-primary w-full justify-center"
-              helperClass="mt-1 text-xs"
-            />
-          </nav>
-        </div>
-      </details>
-    </div>
+              {item.label}
+            </a>
+          ))}
+          <hr class="my-1 border-[var(--color-neutral-200)]" aria-hidden="true" />
+          <ExternalLink
+            href={siteConfig.brightwheel.parentSignInUrl}
+            class="btn btn-outline w-full justify-center"
+            ariaLabel="Parent Sign-In"
+            data-mobile-nav-link
+          >
+            Parent Sign-In
+          </ExternalLink>
+          <StudentRegistrationButton
+            wrapperClass="w-full"
+            buttonClass="btn btn-primary w-full justify-center"
+            helperClass="mt-1 text-xs"
+          />
+        </nav>
+      </div>
+    </details>
   </div>
 </header>
 
