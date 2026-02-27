@@ -13,8 +13,8 @@ function formatDate(iso: string): string {
   } catch { return iso; }
 }
 
-const mealPlanRows = fees.programs.flatMap((p) =>
-  p.mealPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
+const paymentPlanRows = fees.programs.flatMap((p) =>
+  p.paymentPlanOptions.map((m) => ({ program: p.name, hours: p.hours, option: m.name, amount: m.amountPerYear, notes: m.notes }))
 );
 
 const minTuition = Math.min(...fees.programs.map((p) => p.monthlyTuition));
@@ -136,11 +136,11 @@ const faqSchema = buildFaqSchema(faqEntries);
 
       <!-- Meal Plan table -->
       <div class="mt-10">
-        <h2 class="section-heading">Meal Plan</h2>
+        <h2 class="section-heading">Payment Plan</h2>
         <p class="section-subheading">{fees.mealProvider}</p>
         <div class="mt-5 overflow-x-auto rounded-xl border bg-white" style="border-color: var(--color-border);">
             <table class="data-table table-cards w-full min-w-[32rem]">
-            <caption class="sr-only">Meal plan options and amounts by program</caption>
+            <caption class="sr-only">Payment plan options and amounts by program</caption>
             <thead>
               <tr>
                 <th scope="col">Program</th>
@@ -151,7 +151,7 @@ const faqSchema = buildFaqSchema(faqEntries);
               </tr>
             </thead>
             <tbody>
-              {mealPlanRows.map((row) => (
+              {paymentPlanRows.map((row) => (
                 <tr>
                   <td data-label="Program">{row.program}</td>
                   <td data-label="Hours">{row.hours}</td>
