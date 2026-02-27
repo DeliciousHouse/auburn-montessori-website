@@ -38,7 +38,7 @@
           "notes": "$50 off $900/year for $850/year. Due July 15th 2026."
         },
         {
-          "name": "Partial payment option (non refundable)",
+          "name": "Partial payment option (non-refundable)",
           "amountPerYear": 900,
           "notes": "$450 due 7-1-26, and $450 due 1-1-27"
         }
@@ -59,7 +59,7 @@
           "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
         },
         {
-          "name": "Partial payment option (non refundable)",
+          "name": "Partial payment option (non-refundable)",
           "amountPerYear": 1600,
           "notes": "$800 due 7-1-26, and $800 due 1-1-27"
         }
@@ -80,7 +80,7 @@
           "notes": "$100 off $1,600/year for $1,500/year. Due July 15th 2026."
         },
         {
-          "name": "Partial payment option (non refundable)",
+          "name": "Partial payment option (non-refundable)",
           "amountPerYear": 1600,
           "notes": "$800 due 7-1-26, and $800 due 1-1-27"
         }
