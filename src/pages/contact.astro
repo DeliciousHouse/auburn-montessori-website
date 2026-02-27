@@ -4,10 +4,42 @@ import site from '../data/site.json';
 import ExternalLink from '../components/ExternalLink.astro';
 import Icon from '../components/Icon.astro';
 import { siteConfig } from '../config/siteConfig';
+import { siteInfo } from '../config/site';
+import { buildFaqSchema, buildSchoolSchema } from '../lib/schema';
+import logo from '../assets/brand/logo.webp';
 
 const addressLine = `${site.address.street} ${site.address.city}, ${site.address.state} ${site.address.postalCode}`;
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressLine)}`;
 const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(addressLine)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+const logoUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
+const pageSchema = buildSchoolSchema({ logoUrl });
+const faqEntries = [
+  {
+    question: 'What is the address?',
+    answer: 'Auburn Montessori School is located at 231 E. Drake Ave., Auburn, AL 36830.'
+  },
+  {
+    question: 'How do I get directions/parking?',
+    answer: 'Use the map link on this page for directions. Parking is available on-site for family drop-off, pickup, and school visits.'
+  },
+  {
+    question: 'What is the best way to contact the school?',
+    answer: 'Call (334) 740-6192 for immediate help or email amstchori@gmail.com for general questions and tour requests.'
+  },
+  {
+    question: 'When can I schedule a tour?',
+    answer: 'Tours are available on Fridays from 11:00am to 11:30am.'
+  },
+  {
+    question: 'Do you have online contact forms?',
+    answer: 'Tour requests on this page open your email client so you can send details directly to the school.'
+  },
+  {
+    question: 'Where can I find program hours?',
+    answer: 'Program hours and tuition details are listed on the Fees & Hours page.'
+  }
+];
+const faqSchema = buildFaqSchema(faqEntries);
 ---
 
 <Layout
@@ -15,6 +47,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
   description="Contact Auburn Montessori School - The Children's House (address, phone, email)."
   heroTitle="Contact Us"
   heroLead="Get in touch with Auburn Montessori School - The Children's House."
+  structuredData={[pageSchema, faqSchema]}
 >
   <div class="section-band">
     <div class="container-page grid gap-8 lg:grid-cols-5">
@@ -109,6 +142,21 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address
             style="border:0;"
           ></iframe>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-band">
+    <div class="container-page mx-auto max-w-3xl">
+      <h2 class="section-heading">Contact FAQ</h2>
+      <p class="section-subheading">Answers to common contact and location questions</p>
+      <div class="mt-6 space-y-4">
+        {faqEntries.map((entry) => (
+          <div class="card card-body">
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">{entry.question}</h3>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-700);">{entry.answer}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>

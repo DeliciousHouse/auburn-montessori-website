@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import fees from '../data/fees-hours.json';
 import Accordion from '../components/Accordion.astro';
 import Icon from '../components/Icon.astro';
+import { buildFaqSchema } from '../lib/schema';
 
 function formatDate(iso: string): string {
   if (!iso) return iso;
@@ -24,6 +25,33 @@ const enrollmentRange = fees.programs.length
 const hoursSummary = fees.programs.length
   ? fees.programs.map((p) => p.hours).filter((h, i, a) => a.indexOf(h) === i).join(' · ')
   : '—';
+const faqEntries = [
+  {
+    question: 'What are your hours?',
+    answer: 'Hours vary by program: part-time is 7:30am-12:00pm, full-time is 7:15am-5:15pm, and K-3rd Grade is 8:00am-5:30pm.'
+  },
+  {
+    question: 'What are tuition and fees?',
+    answer: 'Monthly tuition currently ranges from $650 to $975, with a one-time $50 registration fee and annual enrollment fees by program.'
+  },
+  {
+    question: 'Are meals included?',
+    answer: 'Meal plans are offered through Greens and Beans with annual options that are listed on this page.'
+  },
+  {
+    question: 'When is tuition due?',
+    answer: 'Tuition is due on the 1st of each month and becomes delinquent on the 15th, when a late fee is applied.'
+  },
+  {
+    question: 'Do you charge late pickup fees?',
+    answer: 'Yes. A late pickup fee of $1 per minute applies after designated pickup times.'
+  },
+  {
+    question: 'Can I download the official fee schedule?',
+    answer: 'Yes. You can download the official Fees and Hours PDF from this page.'
+  }
+];
+const faqSchema = buildFaqSchema(faqEntries);
 ---
 
 <Layout
@@ -31,6 +59,7 @@ const hoursSummary = fees.programs.length
   description="Hours of operation, tuition, fees, and policies for Auburn Montessori School - The Children's House."
   heroTitle="Fees & Hours"
   heroLead="Fee and schedule information for Auburn Montessori School. For the full details, download the official PDF."
+  structuredData={faqSchema}
 >
   <!-- Term badge + PDF download -->
   <div class="section-band">
@@ -218,6 +247,21 @@ const hoursSummary = fees.programs.length
         </div>
         <p class="mt-2 text-xs" style="color: var(--color-neutral-500);">If the viewer doesn't load, use the download button above.</p>
       </Accordion>
+    </div>
+  </div>
+
+  <div class="section-band-alt">
+    <div class="container-page mx-auto max-w-3xl">
+      <h2 class="section-heading">Fees &amp; Hours FAQ</h2>
+      <p class="section-subheading">Common questions from current and prospective families</p>
+      <div class="mt-6 space-y-4">
+        {faqEntries.map((entry) => (
+          <div class="card card-body">
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">{entry.question}</h3>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-700);">{entry.answer}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </Layout>

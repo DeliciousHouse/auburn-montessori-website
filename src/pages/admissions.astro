@@ -6,6 +6,9 @@ import Accordion from '../components/Accordion.astro';
 import PageNav from '../components/PageNav.astro';
 import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
 import { siteConfig } from '../config/siteConfig';
+import { siteInfo } from '../config/site';
+import { buildFaqSchema, buildSchoolSchema } from '../lib/schema';
+import logo from '../assets/brand/logo.webp';
 
 const pageNavLinks = [
   { id: 'how-to-enroll', label: 'How to Enroll' },
@@ -14,6 +17,35 @@ const pageNavLinks = [
   { id: 'admission-requirements', label: 'Admission Requirements' },
   { id: 'admissions-philosophy', label: 'Admissions Philosophy' },
 ];
+const logoUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
+const pageSchema = buildSchoolSchema({ logoUrl });
+const faqEntries = [
+  {
+    question: 'What ages do you accept?',
+    answer: 'Auburn Montessori School serves Preschool ages 3-6 and Elementary students in Kindergarten through 3rd Grade.'
+  },
+  {
+    question: 'How do tours work?',
+    answer: 'Tours are scheduled on Fridays from 11:00am to 11:30am so families can see the environment and ask questions.'
+  },
+  {
+    question: 'How do I apply?',
+    answer: 'Start with a tour, then complete student registration in Brightwheel and submit required enrollment documents.'
+  },
+  {
+    question: 'Is there an admissions interview?',
+    answer: 'Yes. The admissions process includes an interview and observation to help determine classroom readiness and fit.'
+  },
+  {
+    question: 'What documents are required for enrollment?',
+    answer: 'Families submit the School Readiness Guidelines, Enrollment Contract, Pre-Admission Record, and Immunization Certificate.'
+  },
+  {
+    question: 'Is there a registration fee?',
+    answer: 'Yes. The registration fee is $50 and is non-refundable.'
+  }
+];
+const faqSchema = buildFaqSchema(faqEntries);
 ---
 
 <Layout
@@ -21,6 +53,7 @@ const pageNavLinks = [
   description="Admissions and interview process for Auburn Montessori School - The Children's House."
   heroTitle="Admissions"
   heroLead="Start here for the admissions and interview process. For full policies, see the Parent Handbook."
+  structuredData={[pageSchema, faqSchema]}
 >
   <!-- Stepper -->
   <div class="section-band">
@@ -178,6 +211,21 @@ const pageNavLinks = [
       <h2 id="admissions-philosophy" class="section-heading">About Our Admissions Philosophy</h2>
       <div class="mt-4 space-y-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
         {admissions.overview.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+
+  <div class="section-band-alt">
+    <div class="container-page mx-auto max-w-3xl">
+      <h2 class="section-heading">Admissions FAQ</h2>
+      <p class="section-subheading">Quick answers for families considering enrollment</p>
+      <div class="mt-6 space-y-4">
+        {faqEntries.map((entry) => (
+          <div class="card card-body">
+            <h3 class="text-sm font-bold" style="color: var(--color-text);">{entry.question}</h3>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-700);">{entry.answer}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>

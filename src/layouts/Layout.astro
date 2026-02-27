@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
 import { getImage } from 'astro:assets';
 import logo from '../assets/brand/logo.webp';
+import { getCanonicalUrl, siteInfo } from '../config/site';
 import heroSlide1 from '../assets/hero/slide-1.webp';
 
 type Props = {
@@ -13,9 +14,10 @@ type Props = {
   noindex?: boolean;
   heroTitle?: string;
   heroLead?: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 };
 
-const { title, description, noindex, heroTitle, heroLead } = Astro.props as Props;
+const { title, description, noindex, heroTitle, heroLead, structuredData } = Astro.props as Props;
 
 const pageTitle = title
   ? `${title} | ${site.shortName}`
@@ -23,15 +25,16 @@ const pageTitle = title
 
 const pageDescription = description ?? site.description;
 
-const canonicalUrl = Astro.site
-  ? new URL(Astro.url.pathname, Astro.site).toString()
-  : Astro.url.toString();
+const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
 
-const ogImageUrl = Astro.site
-  ? new URL(logo.src, Astro.site).toString()
-  : `https://auburnmontessori.org${logo.src}`;
+const ogImageUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
 
 const isHomePage = Astro.url.pathname === '/';
+const structuredDataList = Array.isArray(structuredData)
+  ? structuredData
+  : structuredData
+    ? [structuredData]
+    : [];
 const heroSizes = '(min-width: 1024px) 900px, 100vw';
 const heroWidths = [480, 640, 768, 960, 1280];
 const heroPreloadEntries = isHomePage
@@ -53,6 +56,7 @@ const heroPreloadHref = heroPreloadEntries.length
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     {isHomePage && heroPreloadHref ? (
       <link
@@ -81,7 +85,13 @@ const heroPreloadHref = heroPreloadEntries.length
     <meta property="og:image:height" content={String(logo.height)} />
 
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:image" content={ogImageUrl} />
+    {structuredDataList.map((entry) => (
+      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
   </head>
   <body class="flex min-h-screen flex-col">
     <a class="skip-link" href="#main">Skip to content</a>

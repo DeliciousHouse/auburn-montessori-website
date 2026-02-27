@@ -4,16 +4,48 @@ import programsData from '../data/programs.json';
 import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
 
 const programs = programsData.programs ?? [];
+const programDetails: Record<string, { typicalDay: string; learningAreas: string; outcomes: string }> = {
+  Preschool: {
+    typicalDay:
+      'A typical preschool day includes a long Montessori work cycle, guided group time, outdoor play, and opportunities for practical life routines that build confidence and independence.',
+    learningAreas:
+      'Children work across practical life, sensorial materials, early language, beginning mathematics, cultural studies, art, and grace and courtesy in a calm mixed-age environment.',
+    outcomes:
+      'By the end of the preschool cycle, children are prepared for elementary-level work with stronger concentration, social responsibility, self-direction, and readiness for continued academic growth.'
+  },
+  Elementary: {
+    typicalDay:
+      'Elementary students begin with independent and small-group work plans, followed by deeper project blocks, reading and writing workshops, and collaborative exploration across subject areas.',
+    learningAreas:
+      'Learning areas include advanced literacy, mathematics, science, geography, history, and problem-solving projects that connect classroom learning to real-world questions.',
+    outcomes:
+      'Students build strong academic foundations and leadership habits, with increased ownership of their work, clear communication skills, and confidence in critical thinking.'
+  }
+};
 ---
 
 <Layout
   title="Programs"
-  description="Explore our Preschool (ages 3–6) and Elementary (K–3rd Grade) Montessori programs."
+  description="Explore our Montessori preschool in Auburn, Alabama (ages 3-6) and Elementary program (K-3rd Grade)."
   heroTitle="Programs"
   heroLead="A Montessori journey from Preschool through Elementary (K–3rd Grade)."
 >
   <div class="section-band">
     <div class="container-page space-y-8">
+      <section class="card card-body">
+        <h2 class="section-heading">Program Overview</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Auburn Montessori School offers a Montessori preschool in Auburn, Alabama for ages 3-6 and an Elementary program for Kindergarten through 3rd Grade.
+          Families can follow one continuous Montessori pathway that supports each child from early independence through deeper elementary academics.
+        </p>
+        <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+          Each classroom combines hands-on materials, uninterrupted work periods, and guidance from trained educators so students can build focus, responsibility, and joyful learning habits.
+        </p>
+        <p class="mt-4 text-sm" style="color: var(--color-neutral-700);">
+          Next steps: <a class="font-semibold" href="/admissions">Admissions</a>, <a class="font-semibold" href="/fees-hours">Fees &amp; Hours</a>, and <a class="font-semibold" href="/contact">Contact</a>.
+        </p>
+      </section>
+
       {programs.map((program) => (
         <section class="card card-body">
           <div class="flex flex-wrap items-start justify-between gap-3">
@@ -26,6 +58,18 @@ const programs = programsData.programs ?? [];
 
           <p class="mt-4 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
             {program.description}
+          </p>
+          <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+            {programDetails[program.title]?.typicalDay}
+          </p>
+          <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+            {programDetails[program.title]?.learningAreas}
+          </p>
+          <p class="mt-3 text-sm leading-relaxed" style="color: var(--color-neutral-700);">
+            {programDetails[program.title]?.outcomes}
+          </p>
+          <p class="mt-4 text-sm" style="color: var(--color-neutral-700);">
+            Learn more about <a class="font-semibold" href="/admissions">admissions</a>, <a class="font-semibold" href="/fees-hours">tuition and hours</a>, or <a class="font-semibold" href="/contact">contacting the school</a>.
           </p>
 
           <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
