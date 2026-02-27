@@ -16,7 +16,7 @@ const pageSchema = buildSchoolSchema({ logoUrl });
 const faqEntries = [
   {
     question: 'What is the address?',
-    answer: 'Auburn Montessori School is located at 231 E. Drake Ave., Auburn, AL 36830.'
+    answer: `Auburn Montessori School is located at ${siteInfo.address.street}, ${siteInfo.address.city}, ${siteInfo.address.region} ${siteInfo.address.postalCode}.`
   },
   {
     question: 'How do I get directions/parking?',
@@ -24,7 +24,7 @@ const faqEntries = [
   },
   {
     question: 'What is the best way to contact the school?',
-    answer: 'Call (334) 740-6192 for immediate help or email amstchori@gmail.com for general questions and tour requests.'
+    answer: `Call ${siteInfo.phone} for immediate help or email ${siteInfo.email} for general questions and tour requests.`
   },
   {
     question: 'When can I schedule a tour?',

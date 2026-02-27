@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import admissions from '../data/admissions.json';
+import feesData from '../data/fees-hours.json';
+import programsData from '../data/programs.json';
 import ExternalLink from '../components/ExternalLink.astro';
 import Accordion from '../components/Accordion.astro';
 import PageNav from '../components/PageNav.astro';
@@ -19,14 +21,20 @@ const pageNavLinks = [
 ];
 const logoUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
 const pageSchema = buildSchoolSchema({ logoUrl });
+const programAges = programsData.programs.map((p) => `${p.title} (${p.agesOrGrades})`).join(' and ');
+const tourTimeWindow = admissions.interviewSteps[0]?.timeWindow ?? 'Fridays 11:00am–11:30am (by appointment)';
+const regFeeAmount = feesData.registrationFee.amount;
+const docNames = admissions.admissionRequirements
+  .slice(0, 4)
+  .map((r) => r.replace(/^(Signed|Completed)\s+/i, '').split(/\s+(on file|completed by)\b/i)[0].trim());
 const faqEntries = [
   {
     question: 'What ages do you accept?',
-    answer: 'Auburn Montessori School serves Preschool ages 3-6 and Elementary students in Kindergarten through 3rd Grade.'
+    answer: `Auburn Montessori School serves ${programAges}.`
   },
   {
     question: 'How do tours work?',
-    answer: 'Tours are scheduled on Fridays from 11:00am to 11:30am so families can see the environment and ask questions.'
+    answer: `Tours are scheduled on ${tourTimeWindow} so families can see the environment and ask questions.`
   },
   {
     question: 'How do I apply?',
@@ -38,11 +46,11 @@ const faqEntries = [
   },
   {
     question: 'What documents are required for enrollment?',
-    answer: 'Families submit the School Readiness Guidelines, Enrollment Contract, Pre-Admission Record, and Immunization Certificate.'
+    answer: `Families submit the ${docNames.join(', ')}, and any additional forms required by the school.`
   },
   {
     question: 'Is there a registration fee?',
-    answer: 'Yes. The registration fee is $50 and is non-refundable.'
+    answer: `Yes. The registration fee is $${regFeeAmount} and is non-refundable.`
   }
 ];
 const faqSchema = buildFaqSchema(faqEntries);
