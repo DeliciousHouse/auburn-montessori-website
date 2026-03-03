@@ -8,16 +8,26 @@ import { heroSlides } from '../data/hero-slides';
 import HeroSlideshow from '../components/HeroSlideshow.astro';
 import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
 import { siteConfig } from '../config/siteConfig';
+import { siteInfo } from '../config/site';
+import { buildSchoolSchema, buildWebsiteSchema } from '../lib/schema';
+import logo from '../assets/brand/logo.webp';
+
+const logoUrl = new URL(logo.src, siteInfo.canonicalBaseUrl).toString();
+const pageSchema = [buildSchoolSchema({ logoUrl }), buildWebsiteSchema()];
 ---
 
-<Layout title="Home" description="Welcome to Auburn Montessori School - The Children's House. A Montessori community serving Preschool and Elementary (K–3rd Grade) families in Auburn, Alabama.">
+<Layout
+	title="Home"
+	description="Welcome to Auburn Montessori School - The Children's House. A Montessori community serving Preschool and Elementary (K–3rd Grade) families in Auburn, Alabama."
+	structuredData={pageSchema}
+>
 	<section class="hero-band" aria-label="Welcome">
 		<div class="container-page">
 			<div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
 				<div class="order-2 lg:order-1">
-					<h1>Welcome to Auburn Montessori School</h1>
+					<h1>Auburn Montessori School - The Children's House</h1>
 					<p class="hero-lead">
-						We are so glad you are here. From Preschool through Elementary, our classrooms are designed to help children grow with confidence, curiosity, and joy.
+						Serving families in Auburn, AL, our Montessori preschool and elementary classrooms are designed to help children grow with confidence, curiosity, and joy.
 					</p>
 					<div class="mt-6 flex flex-wrap gap-3">
 						<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>

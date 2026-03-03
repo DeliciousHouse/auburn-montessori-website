@@ -1,0 +1,16 @@
+canonical: https://auburnmontessori.org
+
+key_pages:
+- https://auburnmontessori.org/
+- https://auburnmontessori.org/admissions
+- https://auburnmontessori.org/fees-hours
+- https://auburnmontessori.org/contact
+- https://auburnmontessori.org/programs
+- https://auburnmontessori.org/educators
+- https://auburnmontessori.org/calendar
+
+nap:
+name: Auburn Montessori School - The Children's House
+address: 231 E. Drake Ave., Auburn, AL 36830, US
+phone: (334) 740-6192
+email: amstchori@gmail.com

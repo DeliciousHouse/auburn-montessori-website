@@ -1,5 +1,3 @@
 User-agent: *
-Allow: /
-
-# The sitemap is generated at build time by @astrojs/sitemap.
+Disallow:
 Sitemap: https://auburnmontessori.org/sitemap-index.xml

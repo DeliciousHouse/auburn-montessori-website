@@ -1,5 +1,26 @@
 {
   "pdfPath": "/documents/calendar.pdf",
   "lastUpdated": "",
-  "keyDates": []
+  "keyDates": [
+    {
+      "date": "Aug 2026",
+      "label": "First Day of School",
+      "notes": "Confirm official date with the school office."
+    },
+    {
+      "date": "Sep 2026",
+      "label": "Labor Day Closure",
+      "notes": "School closed for holiday."
+    },
+    {
+      "date": "Nov 2026",
+      "label": "Thanksgiving Break",
+      "notes": "Holiday closure dates are listed in the full PDF."
+    },
+    {
+      "date": "Dec 2026",
+      "label": "Winter Break",
+      "notes": "School reopens after winter holiday period."
+    }
+  ]
 }
