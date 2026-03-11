@@ -7,6 +7,6 @@
   { "label": "Calendar", "href": "/calendar" },
   { "label": "Fees & Hours", "href": "/fees-hours" },
   { "label": "Admissions", "href": "/admissions" },
-  { "label": "Schedule a Tour & Register", "href": "/schedule-a-tour" },
+  { "label": "Schedule a Tour", "href": "/schedule-a-tour" },
   { "label": "Contact", "href": "/contact" }
 ]
