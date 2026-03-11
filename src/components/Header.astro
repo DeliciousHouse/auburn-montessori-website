@@ -17,7 +17,7 @@ const isActive = (href: string) => {
 
 const primaryHrefs = ['/', '/about', '/programs', '/educators', '/fees-hours', '/admissions', '/contact'];
 const primaryNav = nav.filter((item: {href:string}) => primaryHrefs.includes(item.href));
-const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(item.href) && item.href !== '/');
+const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(item.href) && item.href !== '/' && item.href !== '/schedule-a-tour');
 ---
 
 <!-- Secondary utility bar -->
@@ -141,7 +141,7 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
         aria-label="Mobile navigation"
       >
         <nav class="flex flex-col gap-0.5" aria-label="Mobile primary">
-          {nav.map((item: {href:string; label:string}) => (
+          {nav.filter((item: {href:string}) => item.href !== '/schedule-a-tour').map((item: {href:string; label:string}) => (
             <a
               class:list={[
                 'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors',
