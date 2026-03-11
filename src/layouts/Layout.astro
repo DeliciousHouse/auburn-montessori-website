@@ -21,7 +21,7 @@ const { title, description, noindex, heroTitle, heroLead, structuredData } = Ast
 
 const pageTitle = title
   ? `${title} | ${site.shortName}`
-  : `${site.shortName} - ${site.tagline}`;
+  : `${site.tagline} - ${site.shortName}`;
 
 const pageDescription = description ?? site.description;
 
