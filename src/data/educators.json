@@ -38,7 +38,7 @@
       "name": "Rahma Ziyad",
       "role": "Educator",
       "since": "Joined March 2020",
-      "photo": { "src": "/images/educators/rahma-ziyad.png", "alt": "Rahma Ziyad" },
+      "photo": { "src": "/images/educators/rahma-ziyad.webp", "alt": "Rahma Ziyad" },
       "education": [
         "B.S. Psychology (2020)",
         "Early Childhood Education degree (2024)"
@@ -57,7 +57,7 @@
       "name": "Asma Javed",
       "role": "Support Staff",
       "since": "Joined March 2020",
-      "photo": { "src": "/images/educators/asma-javed.png", "alt": "Asma Javed" },
+      "photo": { "src": "/images/educators/asma-javed.webp", "alt": "Asma Javed" },
       "credentialsAndTraining": [
         "CDA",
         "Alabama Early Learning Guidelines (AELG)",
@@ -72,7 +72,7 @@
       "name": "Sam Price",
       "role": "Support Staff",
       "since": "Joined March 2015",
-      "photo": { "src": "/images/educators/sam-price.png", "alt": "Sam Price" },
+      "photo": { "src": "/images/educators/sam-price.webp", "alt": "Sam Price" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -90,7 +90,7 @@
       "name": "Patrick Tousley",
       "role": "Support Staff",
       "since": "Joined August 2024",
-      "photo": { "src": "/images/educators/patrick-tousley.png", "alt": "Patrick Tousley" },
+      "photo": { "src": "/images/educators/patrick-tousley.webp", "alt": "Patrick Tousley" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -106,7 +106,7 @@
       "name": "Emma Stevenson",
       "role": "Assistant Director",
       "since": "Joined March 2024",
-      "photo": { "src": "/images/educators/emma-stevenson.png", "alt": "Emma Stevenson" },
+      "photo": { "src": "/images/educators/emma-stevenson.webp", "alt": "Emma Stevenson" },
       "credentialsAndTraining": [
         "Pursuing an Associate’s Degree in Education Administration."
       ]
@@ -114,14 +114,14 @@
     {
       "name": "Maci DeMoras",
       "role": "Support Staff",
-      "photo": { "src": "/images/educators/maci-demoras.png", "alt": "Maci DeMoras" },
+      "photo": { "src": "/images/educators/maci-demoras.webp", "alt": "Maci DeMoras" },
       "bio": [ "Support staff at Auburn Montessori School." ]
     },
     {
       "name": "Janice Szgar",
       "role": "Support Staff",
       "since": "Joined November 2025",
-      "photo": { "src": "/images/educators/janice-segar.png", "alt": "Janice Szgar" },
+      "photo": { "src": "/images/educators/janice-segar.webp", "alt": "Janice Szgar" },
       "education": [
         "Master of Public Administration (MPA)",
         "Pursuing a PhD in EFLT (Educational Foundations, Leadership, and Technology) at Auburn University"
