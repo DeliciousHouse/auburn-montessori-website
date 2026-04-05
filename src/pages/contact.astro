@@ -29,7 +29,7 @@ const faqEntries = [
   },
   {
     question: 'When can I schedule a tour?',
-    answer: 'Tours are available on Fridays from 11:00am to 11:30am.'
+    answer: 'Tours are available on weekdays at 11:00am, 1:30pm, or 2:30pm.'
   },
   {
     question: 'Do you have online contact forms?',
@@ -95,31 +95,44 @@ const faqSchema = buildFaqSchema(faqEntries);
 
         <h2 class="text-sm font-bold" style="color: var(--color-neutral-900);">Request a Tour</h2>
         <p class="mt-1 text-xs" style="color: var(--color-neutral-600);">
-          Tours are available Fridays 11:00am–11:30am.
+          Tours are available weekdays at 11:00am, 1:30pm, or 2:30pm.
         </p>
         <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">
           The form below opens your email client with a pre-filled tour request. We do not store tour requests on our servers; your message is sent only when you send the email.
         </p>
         <form id="tour-request-form" class="mt-4 space-y-3">
           <div>
-            <label for="tour-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Name <span aria-hidden="true">*</span></label>
-            <input type="text" id="tour-name" name="name" required autocomplete="name" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+            <label for="tour-parent-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Parent/Guardian Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="tour-parent-name" name="parentName" required autocomplete="name" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+          </div>
+          <div>
+            <label for="tour-child-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="tour-child-name" name="childName" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
           <div>
             <label for="tour-email" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Email <span aria-hidden="true">*</span></label>
             <input type="email" id="tour-email" name="email" required autocomplete="email" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
           <div>
-            <label for="tour-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Phone (optional)</label>
-            <input type="tel" id="tour-phone" name="phone" autocomplete="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+            <label for="tour-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Phone <span aria-hidden="true">*</span></label>
+            <input type="tel" id="tour-phone" name="phone" required autocomplete="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
           <div>
-            <label for="tour-child-age" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child age (optional)</label>
-            <input type="text" id="tour-child-age" name="childAge" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="e.g. 4 years" />
+            <fieldset>
+              <legend class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Date of Birth</legend>
+              <div class="mt-1 grid gap-3 sm:grid-cols-3">
+                <input type="text" id="tour-child-dob-month" name="childDobMonth" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Month" autocomplete="bday-month" />
+                <input type="text" id="tour-child-dob-day" name="childDobDay" inputmode="numeric" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Day" autocomplete="bday-day" />
+                <input type="text" id="tour-child-dob-year" name="childDobYear" inputmode="numeric" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Year" autocomplete="bday-year" />
+              </div>
+            </fieldset>
           </div>
           <div>
             <label for="tour-message" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Message (optional)</label>
-            <textarea id="tour-message" name="message" rows={3} class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Any questions or notes for the school"></textarea>
+            <p class="mt-1 text-xs" style="color: var(--color-neutral-500);">
+              If these times do not work for you, please add an alternate time in the message and we will do our best to accommodate.
+            </p>
+            <textarea id="tour-message" name="message" rows={3} class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Any questions, notes, or alternate requested time"></textarea>
           </div>
           <div class="honeypot-field" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
             <label for="tour-website">Leave blank</label>
@@ -169,10 +182,11 @@ const faqSchema = buildFaqSchema(faqEntries);
       <div class="cta-panel">
         <div class="flex flex-col items-center gap-4 text-center md:flex-row md:text-left">
           <div class="flex-1">
-            <h2 class="text-lg font-bold">Parent Sign-In</h2>
-            <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Parent onboarding is handled through Brightwheel and opens in a new tab.</p>
+            <h2 class="text-lg font-bold">Schedule a Tour</h2>
+            <p class="mt-1 text-sm" style="color: rgba(255,255,255,0.8);">Start with a classroom visit. Existing families can still sign in to Brightwheel in a new tab.</p>
           </div>
-          <ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="btn btn-primary btn-lg shrink-0" ariaLabel="Parent Sign-In">
+          <a href="/contact#tour-request-form" class="btn btn-primary btn-lg shrink-0">Schedule a Tour</a>
+          <ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="btn btn-outline btn-lg shrink-0" ariaLabel="Parent Sign-In">
             Parent Sign-In
           </ExternalLink>
         </div>
@@ -189,21 +203,27 @@ const faqSchema = buildFaqSchema(faqEntries);
       const honeypot = form.querySelector('input[name="website"]');
       if (honeypot && (honeypot.value || '').trim() !== '') return;
 
-      const name = (form.querySelector('#tour-name')?.value || '').trim();
+      const parentName = (form.querySelector('#tour-parent-name')?.value || '').trim();
+      const childName = (form.querySelector('#tour-child-name')?.value || '').trim();
       const email = (form.querySelector('#tour-email')?.value || '').trim();
       const phone = (form.querySelector('#tour-phone')?.value || '').trim();
-      const childAge = (form.querySelector('#tour-child-age')?.value || '').trim();
+      const childDobMonth = (form.querySelector('#tour-child-dob-month')?.value || '').trim();
+      const childDobDay = (form.querySelector('#tour-child-dob-day')?.value || '').trim();
+      const childDobYear = (form.querySelector('#tour-child-dob-year')?.value || '').trim();
       const message = (form.querySelector('#tour-message')?.value || '').trim();
+      const childDob = [childDobMonth, childDobDay, childDobYear].filter(Boolean).join(' / ');
 
-      const subject = encodeURIComponent(`Tour request – ${name || 'Auburn Montessori School'}`);
+      const subject = encodeURIComponent(`Tour request – ${parentName || 'Auburn Montessori School'}`);
       const lines = [
         "I would like to schedule a tour of Auburn Montessori School - The Children's House.",
-        'Preferred tour time: Fridays 11:00am - 11:30am',
+        'Available tour times: Weekdays at 11:00am, 1:30pm, or 2:30pm',
+        'If these times do not work for us, we will include an alternate time in the message.',
         '',
-        'Name: ' + name,
+        'Parent/Guardian Name: ' + parentName,
+        'Child\'s Name: ' + childName,
         'Email: ' + email,
-        phone ? 'Phone: ' + phone : '',
-        childAge ? 'Child age: ' + childAge : '',
+        'Phone: ' + phone,
+        childDob ? 'Child\'s Date of Birth: ' + childDob : '',
         message ? '\nMessage:\n' + message : ''
       ];
       const body = encodeURIComponent(lines.filter(Boolean).join('\n'));
