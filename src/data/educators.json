@@ -10,7 +10,7 @@
       "education": [
         "B.A. Chemistry (minor in Biology and Secondary Education), University of Miami (1993)",
         "MBA (1996)",
-        "M.A. Montessori Education, St. Catherine University (2022)"
+        "MA Ed Specialization in Montessori, St. Catherine University (2022)"
       ],
       "credentialsAndTraining": [
         "Alabama Early Learning Guidelines (AELG) certificate (2019)",
@@ -38,7 +38,7 @@
       "name": "Rahma Ziyad",
       "role": "Educator",
       "since": "Joined March 2020",
-      "photo": { "src": "/images/educators/rahma-ziyad.webp", "alt": "Rahma Ziyad" },
+      "photo": { "src": "/images/educators/rahma-ziyad.png", "alt": "Rahma Ziyad" },
       "education": [
         "B.S. Psychology (2020)",
         "Early Childhood Education degree (2024)"
@@ -55,9 +55,9 @@
     },
     {
       "name": "Asma Javed",
-      "role": "Educator",
+      "role": "Support Staff",
       "since": "Joined March 2020",
-      "photo": { "src": "/images/educators/asma-javed.webp", "alt": "Asma Javed" },
+      "photo": { "src": "/images/educators/asma-javed.png", "alt": "Asma Javed" },
       "credentialsAndTraining": [
         "CDA",
         "Alabama Early Learning Guidelines (AELG)",
@@ -70,9 +70,9 @@
     },
     {
       "name": "Sam Price",
-      "role": "Educator",
+      "role": "Support Staff",
       "since": "Joined March 2015",
-      "photo": { "src": "/images/educators/sam-price.webp", "alt": "Sam Price" },
+      "photo": { "src": "/images/educators/sam-price.png", "alt": "Sam Price" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -88,9 +88,9 @@
     },
     {
       "name": "Patrick Tousley",
-      "role": "Educator",
+      "role": "Support Staff",
       "since": "Joined August 2024",
-      "photo": { "src": "/images/educators/patrick-tousley.webp", "alt": "Patrick Tousley" },
+      "photo": { "src": "/images/educators/patrick-tousley.png", "alt": "Patrick Tousley" },
       "education": [
         "B.S. Interdisciplinary Studies"
       ],
@@ -105,7 +105,8 @@
     {
       "name": "Emma Stevenson",
       "role": "Assistant Director",
-      "photo": { "src": "/images/educators/emma-stevenson.webp", "alt": "Emma Stevenson" },
+      "since": "Joined March 2024",
+      "photo": { "src": "/images/educators/emma-stevenson.png", "alt": "Emma Stevenson" },
       "credentialsAndTraining": [
         "Pursuing an Associate’s Degree in Education Administration."
       ]
@@ -113,7 +114,22 @@
     {
       "name": "Maci DeMoras",
       "role": "Support Staff",
+      "photo": { "src": "/images/educators/maci-demoras.png", "alt": "Maci DeMoras" },
       "bio": [ "Support staff at Auburn Montessori School." ]
+    },
+    {
+      "name": "Janice Szgar",
+      "role": "Support Staff",
+      "since": "Joined November 2025",
+      "photo": { "src": "/images/educators/janice-segar.png", "alt": "Janice Szgar" },
+      "education": [
+        "Master of Public Administration (MPA)",
+        "Pursuing a PhD in EFLT (Educational Foundations, Leadership, and Technology) at Auburn University"
+      ],
+      "bio": [
+        "An educator with a strong interest in child-centered learning and environmental education, Janice is currently supporting students in a Montessori environment that fosters curiosity and independence through inquiry-based learning.",
+        "Her experience also includes serving as the Lead Teacher for Grade 3 at Auburn Classical Academy, where she supported students' academic growth through engaging, inquiry-based instruction."
+      ]
     }
   ]
 }
