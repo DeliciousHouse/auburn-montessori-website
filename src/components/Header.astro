@@ -11,8 +11,9 @@ type Props = { currentPath: string };
 const { currentPath } = Astro.props as Props;
 
 const isActive = (href: string) => {
-  if (href === '/') return currentPath === '/';
-  return currentPath === href || currentPath.startsWith(`${href}/`);
+  const normalizedHref = href.split('#')[0] || href;
+  if (normalizedHref === '/') return currentPath === '/';
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
 };
 
 const primaryHrefs = ['/', '/about', '/programs', '/educators', '/fees-hours', '/admissions', '/contact'];
@@ -46,7 +47,7 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
       Parent Sign-In
     </ExternalLink>
     <a
-      href="/schedule-a-tour"
+      href="/contact#tour-request-form"
       class="btn btn-primary btn-sm rounded-md whitespace-nowrap"
       aria-label="Schedule a Tour"
     >
@@ -56,7 +57,7 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
       wrapperClass="relative"
       buttonClass="btn btn-outline btn-sm"
       helperClass="absolute right-0 top-full mt-1 w-56 rounded-md border bg-white px-2 py-1 text-right text-[11px] leading-tight shadow-sm"
-      label="Register"
+      label="Register in Brightwheel"
     />
   </div>
 </div>
@@ -109,13 +110,14 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
       >
         Parent Sign-In
       </ExternalLink>
-      <a href="/schedule-a-tour" class="btn btn-primary btn-sm" aria-label="Schedule a Tour">
+      <a href="/contact#tour-request-form" class="btn btn-primary btn-sm" aria-label="Schedule a Tour">
         Schedule a Tour
       </a>
       <StudentRegistrationButton
         wrapperClass="relative"
         buttonClass="btn btn-outline btn-sm"
         helperClass="absolute right-0 top-full mt-1 w-56 rounded-md border bg-white px-2 py-1 text-right text-[11px] leading-tight shadow-sm"
+        label="Register in Brightwheel"
       />
     </div>
 
@@ -166,7 +168,7 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
             Parent Sign-In
           </ExternalLink>
           <a
-            href="/schedule-a-tour"
+            href="/contact#tour-request-form"
             class="btn btn-primary w-full justify-center"
             aria-label="Schedule a Tour"
             data-mobile-nav-link
@@ -177,6 +179,7 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
             wrapperClass="w-full"
             buttonClass="btn btn-outline w-full justify-center"
             helperClass="mt-1 text-xs"
+            label="Register in Brightwheel"
           />
         </nav>
       </div>

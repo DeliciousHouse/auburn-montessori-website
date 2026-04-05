@@ -30,11 +30,11 @@ const pageSchema = [buildSchoolSchema({ logoUrl }), buildWebsiteSchema()];
 						Serving families in Auburn, AL, our Montessori preschool and elementary classrooms are designed to help children grow with confidence, curiosity, and joy.
 					</p>
 					<div class="mt-6 flex flex-wrap gap-3">
-						<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
+						<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
 						<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" ariaLabel="Parent Sign-In">
 							Parent Sign-In
 						</ExternalLink>
-						<StudentRegistrationButton buttonClass="btn btn-primary btn-lg" helperClass="text-xs text-white/90" />
+						<StudentRegistrationButton buttonClass="btn btn-outline btn-lg" helperClass="text-xs text-white/90" />
 					</div>
 				</div>
 				<div class="order-1 lg:order-2">
@@ -84,11 +84,11 @@ const pageSchema = [buildSchoolSchema({ logoUrl }), buildWebsiteSchema()];
 					<h2 class="text-sm font-bold" style="color: var(--color-text);">Programs</h2>
 					<p class="text-xs" style="color: var(--color-text-subtle);">Preschool (3–6) and Elementary (K–3rd Grade)</p>
 				</a>
-				<ExternalLink href={siteConfig.brightwheel.parentSignInUrl} class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);" ariaLabel="Parent Sign-In">
-					<div class="feature-icon" style="background: var(--color-primary); color: white;"><Icon name="edit" size={22} /></div>
-					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Parent Sign-In</h2>
-					<p class="text-xs" style="color: var(--color-text-subtle);">Parent onboarding</p>
-				</ExternalLink>
+				<a href="/contact#tour-request-form" class="card card-body flex flex-col items-start gap-2 no-underline transition-shadow hover:shadow-md" style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);">
+					<div class="feature-icon" style="background: var(--color-primary); color: white;"><Icon name="calendar" size={22} /></div>
+					<h2 class="text-sm font-bold" style="color: var(--color-primary);">Schedule a Tour</h2>
+					<p class="text-xs" style="color: var(--color-text-subtle);">Start with a classroom visit</p>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -137,7 +137,8 @@ const pageSchema = [buildSchoolSchema({ logoUrl }), buildWebsiteSchema()];
 					Schedule a tour, explore admissions, and complete student registration in Brightwheel.
 				</p>
 				<div class="mt-6 flex flex-wrap justify-center gap-3">
-					<a class="btn btn-primary btn-lg" href="/schedule-a-tour">Schedule a Tour &amp; Register</a>
+					<a class="btn btn-primary btn-lg" href="/contact#tour-request-form">Schedule a Tour</a>
+					<StudentRegistrationButton buttonClass="btn btn-outline btn-lg" helperClass="text-xs text-white/90" />
 					<a class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white; background: transparent;" href="/admissions">Admissions Process</a>
 				</div>
 			</div>

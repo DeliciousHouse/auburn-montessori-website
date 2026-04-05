@@ -47,8 +47,18 @@ const pageNavLinks = [
     <div class="container-page grid gap-8 lg:grid-cols-2">
       <div>
         <h2 id="registration-onboarding" class="section-heading">Registration &amp; Onboarding</h2>
-        <p class="section-subheading">Brightwheel links for parent onboarding and student registration</p>
+        <p class="section-subheading">Start with a tour, then use Brightwheel for parent onboarding and registration</p>
         <div class="mt-5 space-y-4">
+          <a
+            href="/contact#tour-request-form"
+            class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
+            style="background: var(--color-primary-light); border-color: rgba(30,58,95,0.15);"
+          >
+            <div class="feature-icon shrink-0" style="background: var(--color-primary); color: white;"><Icon name="calendar" size={22} /></div>
+            <div>
+              <div class="text-sm font-semibold" style="color: var(--color-primary);">Schedule a Tour</div>
+            </div>
+          </a>
           <ExternalLink
             href={siteConfig.brightwheel.parentSignInUrl}
             class="card card-body flex items-center gap-3 no-underline hover:shadow-md transition-shadow"
@@ -63,11 +73,11 @@ const pageNavLinks = [
             <div class="flex items-center gap-3">
               <div class="feature-icon shrink-0"><Icon name="edit" size={22} /></div>
               <div>
-                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">Register</div>
+                <div class="text-sm font-semibold" style="color: var(--color-neutral-900);">Register in Brightwheel</div>
               </div>
             </div>
             <div class="mt-4">
-              <StudentRegistrationButton buttonClass="btn btn-primary btn-sm" helperClass="text-xs" />
+              <StudentRegistrationButton buttonClass="btn btn-outline btn-sm" helperClass="text-xs" />
             </div>
           </div>
         </div>
