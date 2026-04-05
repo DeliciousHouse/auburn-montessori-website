@@ -106,10 +106,6 @@ const faqSchema = buildFaqSchema(faqEntries);
             <input type="text" id="tour-parent-name" name="parentName" required autocomplete="name" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
           <div>
-            <label for="tour-child-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Name <span aria-hidden="true">*</span></label>
-            <input type="text" id="tour-child-name" name="childName" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
-          </div>
-          <div>
             <label for="tour-email" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Email <span aria-hidden="true">*</span></label>
             <input type="email" id="tour-email" name="email" required autocomplete="email" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
@@ -117,15 +113,27 @@ const faqSchema = buildFaqSchema(faqEntries);
             <label for="tour-phone" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Phone <span aria-hidden="true">*</span></label>
             <input type="tel" id="tour-phone" name="phone" required autocomplete="tel" class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
           </div>
-          <div>
-            <fieldset>
-              <legend class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Date of Birth</legend>
-              <div class="mt-1 grid gap-3 sm:grid-cols-3">
-                <input type="text" id="tour-child-dob-month" name="childDobMonth" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Month" autocomplete="bday-month" />
-                <input type="text" id="tour-child-dob-day" name="childDobDay" inputmode="numeric" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Day" autocomplete="bday-day" />
-                <input type="text" id="tour-child-dob-year" name="childDobYear" inputmode="numeric" class="w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" placeholder="Year" autocomplete="bday-year" />
-              </div>
-            </fieldset>
+          <div class="space-y-3">
+            <div>
+              <label for="tour-child-name" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Name <span aria-hidden="true">*</span></label>
+              <input type="text" id="tour-child-name" name="childName" required class="mt-1 w-full rounded-lg border px-3 py-2 text-sm" style="border-color: var(--color-neutral-200);" />
+            </div>
+            <div>
+              <label for="tour-child-dob" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Child&apos;s Date of Birth</label>
+              <input
+                type="text"
+                id="tour-child-dob"
+                name="childDob"
+                class="mt-1 w-full rounded-lg border px-3 py-2 text-sm"
+                style="border-color: var(--color-neutral-200);"
+                placeholder="XX/XX/XXXX"
+                inputmode="numeric"
+                autocomplete="bday"
+                maxlength="10"
+                pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
+                title="Use XX/XX/XXXX format"
+              />
+            </div>
           </div>
           <div>
             <label for="tour-message" class="block text-xs font-semibold" style="color: var(--color-neutral-700);">Message (optional)</label>
@@ -198,6 +206,18 @@ const faqSchema = buildFaqSchema(faqEntries);
 <script define:vars={{ siteEmail: site.email }}>
   const form = document.getElementById('tour-request-form');
   if (form) {
+    const childDobInput = form.querySelector('#tour-child-dob');
+    if (childDobInput instanceof HTMLInputElement) {
+      childDobInput.addEventListener('input', () => {
+        const digits = childDobInput.value.replace(/\D/g, '').slice(0, 8);
+        const parts = [];
+        if (digits.length > 0) parts.push(digits.slice(0, 2));
+        if (digits.length > 2) parts.push(digits.slice(2, 4));
+        if (digits.length > 4) parts.push(digits.slice(4, 8));
+        childDobInput.value = parts.join('/');
+      });
+    }
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const honeypot = form.querySelector('input[name="website"]');
@@ -207,11 +227,8 @@ const faqSchema = buildFaqSchema(faqEntries);
       const childName = (form.querySelector('#tour-child-name')?.value || '').trim();
       const email = (form.querySelector('#tour-email')?.value || '').trim();
       const phone = (form.querySelector('#tour-phone')?.value || '').trim();
-      const childDobMonth = (form.querySelector('#tour-child-dob-month')?.value || '').trim();
-      const childDobDay = (form.querySelector('#tour-child-dob-day')?.value || '').trim();
-      const childDobYear = (form.querySelector('#tour-child-dob-year')?.value || '').trim();
+      const childDob = (form.querySelector('#tour-child-dob')?.value || '').trim();
       const message = (form.querySelector('#tour-message')?.value || '').trim();
-      const childDob = [childDobMonth, childDobDay, childDobYear].filter(Boolean).join(' / ');
 
       const subject = encodeURIComponent(`Tour request – ${parentName || 'Auburn Montessori School'}`);
       const lines = [
