@@ -5,7 +5,6 @@
       "name": "Charlene Kam",
       "role": "Founder / Director / Lead Educator",
       "since": "Joined August 1997",
-      "preferredName": "Charlene",
       "photo": { "src": "/images/educators/charlene-kam.webp", "alt": "Charlene Kam" },
       "education": [
         "B.A. Chemistry (minor in Biology and Secondary Education), University of Miami (1993)",
@@ -70,7 +69,7 @@
     },
     {
       "name": "Sam Price",
-      "role": "Support Staff",
+      "role": "Assistant",
       "since": "Joined March 2015",
       "photo": { "src": "/images/educators/sam-price.webp", "alt": "Sam Price" },
       "education": [
@@ -88,7 +87,7 @@
     },
     {
       "name": "Patrick Tousley",
-      "role": "Support Staff",
+      "role": "Assistant",
       "since": "Joined August 2024",
       "photo": { "src": "/images/educators/patrick-tousley.webp", "alt": "Patrick Tousley" },
       "education": [
@@ -118,10 +117,10 @@
       "bio": [ "Support staff at Auburn Montessori School." ]
     },
     {
-      "name": "Janice Szgar",
-      "role": "Support Staff",
+      "name": "Janice Sagar",
+      "role": "Assistant",
       "since": "Joined November 2025",
-      "photo": { "src": "/images/educators/janice-segar.webp", "alt": "Janice Szgar" },
+      "photo": { "src": "/images/educators/janice-sagar.webp", "alt": "Janice Sagar" },
       "education": [
         "Master of Public Administration (MPA)",
         "Pursuing a PhD in EFLT (Educational Foundations, Leadership, and Technology) at Auburn University"

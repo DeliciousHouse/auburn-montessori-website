@@ -16,8 +16,8 @@ const assistantDirectors = educators.filter((e) =>
 const guides = educators.filter((e) =>
   e.role === 'Educator'
 );
-const support = educators.filter((e) =>
-  e.role === 'Support Staff'
+const assistantsAndSupport = educators.filter((e) =>
+  e.role === 'Assistant' || e.role === 'Support Staff'
 );
 
 const getInitials = (name: string) =>
@@ -162,7 +162,8 @@ const getInitials = (name: string) =>
 
                   <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-3">
-                      <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <span class="badge badge-brand">{e.role}</span>
                       {e.since ? <span class="badge">{e.since}</span> : null}
                     </div>
 
@@ -224,8 +225,9 @@ const getInitials = (name: string) =>
 
                   <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-3">
-                      <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
-                      <span class="badge">{e.role}</span>
+                      <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <span class="badge badge-brand">{e.role}</span>
+                      {e.since ? <span class="badge">{e.since}</span> : null}
                     </div>
                     {e.bio?.length ? (
                       <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
@@ -243,11 +245,11 @@ const getInitials = (name: string) =>
         </div>
       )}
 
-      {support.length > 0 && (
+      {assistantsAndSupport.length > 0 && (
         <div class="mt-10">
           <h2 id="assistants-support" class="section-heading">Assistants &amp; Support</h2>
           <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {support.map((e) => (
+            {assistantsAndSupport.map((e) => (
               <article class="card card-body">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div class="shrink-0">
@@ -275,8 +277,9 @@ const getInitials = (name: string) =>
 
                   <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-3">
-                      <h3 class="text-sm font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
-                      <span class="badge">{e.role}</span>
+                      <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
+                      <span class="badge badge-brand">{e.role}</span>
+                      {e.since ? <span class="badge">{e.since}</span> : null}
                     </div>
                     {e.bio?.length ? (
                       <p class="mt-2 text-sm leading-relaxed" style="color: var(--color-neutral-700);">{e.bio.join(' ')}</p>
