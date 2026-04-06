@@ -74,7 +74,7 @@ const getInitials = (name: string) =>
                   </div>
 
                   <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2 lg:flex-nowrap">
                       <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
                       <span class="badge badge-brand">{e.role}</span>
                       {e.since ? <span class="badge">{e.since}</span> : null}
@@ -161,7 +161,7 @@ const getInitials = (name: string) =>
                   </div>
 
                   <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2 lg:flex-nowrap">
                       <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
                       <span class="badge badge-brand">{e.role}</span>
                       {e.since ? <span class="badge">{e.since}</span> : null}
@@ -196,25 +196,25 @@ const getInitials = (name: string) =>
       {assistantDirectors.length > 0 && (
         <div class="mt-10">
           <h2 id="assistant-director" class="section-heading">Assistant Director</h2>
-          <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div class="mt-5 grid gap-5 md:grid-cols-2">
             {assistantDirectors.map((e) => (
               <article class="card card-body">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div class="shrink-0">
                     {e.photo?.src ? (
-                      <div class="media-frame h-16 w-16 rounded-full border" style="border-color: var(--color-border);">
+                      <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
                         <img
                           src={e.photo.src}
                           alt={e.photo.alt ?? `Photo of ${e.name}`}
-                          width="64"
-                          height="64"
+                          width="80"
+                          height="80"
                           loading="lazy"
                           decoding="async"
                         />
                       </div>
                     ) : (
                       <div
-                        class="flex h-16 w-16 items-center justify-center rounded-full border text-sm font-bold"
+                        class="flex h-20 w-20 items-center justify-center rounded-full border text-base font-bold"
                         style="border-color: var(--color-border); background: var(--color-surface-alt); color: var(--color-primary);"
                         aria-hidden="true"
                       >
@@ -224,7 +224,7 @@ const getInitials = (name: string) =>
                   </div>
 
                   <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2 lg:flex-nowrap">
                       <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
                       <span class="badge badge-brand">{e.role}</span>
                       {e.since ? <span class="badge">{e.since}</span> : null}
@@ -248,25 +248,25 @@ const getInitials = (name: string) =>
       {assistantsAndSupport.length > 0 && (
         <div class="mt-10">
           <h2 id="assistants-support" class="section-heading">Assistants &amp; Support</h2>
-          <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div class="mt-5 grid gap-5 md:grid-cols-2">
             {assistantsAndSupport.map((e) => (
               <article class="card card-body">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div class="shrink-0">
                     {e.photo?.src ? (
-                      <div class="media-frame h-16 w-16 rounded-full border" style="border-color: var(--color-border);">
+                      <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
                         <img
                           src={e.photo.src}
                           alt={e.photo.alt ?? `Photo of ${e.name}`}
-                          width="64"
-                          height="64"
+                          width="80"
+                          height="80"
                           loading="lazy"
                           decoding="async"
                         />
                       </div>
                     ) : (
                       <div
-                        class="flex h-16 w-16 items-center justify-center rounded-full border text-sm font-bold"
+                        class="flex h-20 w-20 items-center justify-center rounded-full border text-base font-bold"
                         style="border-color: var(--color-border); background: var(--color-surface-alt); color: var(--color-primary);"
                         aria-hidden="true"
                       >
@@ -276,7 +276,7 @@ const getInitials = (name: string) =>
                   </div>
 
                   <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2 lg:flex-nowrap">
                       <h3 class="text-base font-bold" style="color: var(--color-neutral-900);">{e.name}</h3>
                       <span class="badge badge-brand">{e.role}</span>
                       {e.since ? <span class="badge">{e.since}</span> : null}
