@@ -2,10 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import educatorsData from '../data/educators.json';
 import site from '../data/site.json';
-
-type Educator = (typeof educatorsData.educators)[number] & { preferredName?: string; pronouns?: string; hours?: string };
-const educators = educatorsData.educators as Educator[];
+import { Picture } from 'astro:assets';
+import { getRasterImage } from '../lib/rasterImages';
 import ExternalLink from '../components/ExternalLink.astro';
+
+const optimizedEducators = educatorsData.educators.map((educator) => ({
+  ...educator,
+  photo: educator.photo ? { ...educator.photo, src: getRasterImage(educator.photo.src) } : undefined
+}));
+type Educator = (typeof optimizedEducators)[number] & {
+  preferredName?: string;
+  pronouns?: string;
+  hours?: string;
+  links?: Array<{ label: string; href: string; external?: boolean }>;
+};
+const educators = optimizedEducators as Educator[];
 
 const leadership = educators.filter((e) =>
   e.role?.toLowerCase().includes('founder')
@@ -54,11 +65,16 @@ const getInitials = (name: string) =>
                   <div class="shrink-0">
                     {e.photo?.src ? (
                       <div class="media-frame h-24 w-24 rounded-full border" style="border-color: var(--color-border);">
-                        <img
+                        <Picture
                           src={e.photo.src}
                           alt=""
-                          width="96"
-                          height="96"
+                          width={96}
+                          height={96}
+                          densities={[1, 2]}
+                          formats={['webp']}
+                          fallbackFormat="jpeg"
+                          quality={80}
+                          pictureAttributes={{ class: 'block h-full w-full' }}
                           loading="lazy"
                           decoding="async"
                         />
@@ -141,11 +157,16 @@ const getInitials = (name: string) =>
                   <div class="shrink-0">
                     {e.photo?.src ? (
                       <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
-                        <img
+                        <Picture
                           src={e.photo.src}
                           alt=""
-                          width="80"
-                          height="80"
+                          width={80}
+                          height={80}
+                          densities={[1, 2]}
+                          formats={['webp']}
+                          fallbackFormat="jpeg"
+                          quality={80}
+                          pictureAttributes={{ class: 'block h-full w-full' }}
                           loading="lazy"
                           decoding="async"
                         />
@@ -204,11 +225,16 @@ const getInitials = (name: string) =>
                   <div class="shrink-0">
                     {e.photo?.src ? (
                       <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
-                        <img
+                        <Picture
                           src={e.photo.src}
                           alt=""
-                          width="80"
-                          height="80"
+                          width={80}
+                          height={80}
+                          densities={[1, 2]}
+                          formats={['webp']}
+                          fallbackFormat="jpeg"
+                          quality={80}
+                          pictureAttributes={{ class: 'block h-full w-full' }}
                           loading="lazy"
                           decoding="async"
                         />
@@ -256,11 +282,16 @@ const getInitials = (name: string) =>
                   <div class="shrink-0">
                     {e.photo?.src ? (
                       <div class="media-frame h-20 w-20 rounded-full border" style="border-color: var(--color-border);">
-                        <img
+                        <Picture
                           src={e.photo.src}
                           alt=""
-                          width="80"
-                          height="80"
+                          width={80}
+                          height={80}
+                          densities={[1, 2]}
+                          formats={['webp']}
+                          fallbackFormat="jpeg"
+                          quality={80}
+                          pictureAttributes={{ class: 'block h-full w-full' }}
                           loading="lazy"
                           decoding="async"
                         />

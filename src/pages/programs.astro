@@ -2,8 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import programsData from '../data/programs.json';
 import StudentRegistrationButton from '../components/StudentRegistrationButton.astro';
+import { Picture } from 'astro:assets';
+import { getRasterImage } from '../lib/rasterImages';
 
-const programs = programsData.programs ?? [];
+const programs = (programsData.programs ?? []).map((program) => ({
+  ...program,
+  images: program.images.map((image) => ({ ...image, src: getRasterImage(image.src) }))
+}));
 const programDetails: Record<string, { typicalDay: string; learningAreas: string; outcomes: string }> = {
   Preschool: {
     typicalDay:
@@ -86,7 +91,20 @@ const displayProgramDescription = (title: string, description: string) => (
           <div class:list={['mt-5 grid gap-4 sm:grid-cols-2', program.title === 'Elementary' ? 'lg:grid-cols-2' : 'lg:grid-cols-3']}>
             {program.images.map((image) => (
               <figure class:list={['media-frame border', program.title === 'Elementary' ? 'ratio-4x3' : 'media-frame--contain ratio-3x4']} style="border-color: var(--color-border);">
-                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                <Picture
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.src.width}
+                  height={image.src.height}
+                  widths={image.src.width >= 640 ? [320, 480, 640] : [240, 320, 480]}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  formats={['webp']}
+                  fallbackFormat="jpeg"
+                  quality={80}
+                  pictureAttributes={{ class: 'block h-full w-full' }}
+                  loading="lazy"
+                  decoding="async"
+                />
               </figure>
             ))}
           </div>
