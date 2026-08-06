@@ -6,6 +6,7 @@ import { Picture } from 'astro:assets';
 import { getRasterImage } from '../lib/rasterImages';
 import ExternalLink from '../components/ExternalLink.astro';
 
+type EducatorLink = { href: string; label: string; external?: boolean };
 const optimizedEducators = educatorsData.educators.map((educator) => ({
   ...educator,
   photo: educator.photo ? { ...educator.photo, src: getRasterImage(educator.photo.src) } : undefined
@@ -14,7 +15,7 @@ type Educator = (typeof optimizedEducators)[number] & {
   preferredName?: string;
   pronouns?: string;
   hours?: string;
-  links?: Array<{ label: string; href: string; external?: boolean }>;
+  links?: EducatorLink[];
 };
 const educators = optimizedEducators as Educator[];
 
