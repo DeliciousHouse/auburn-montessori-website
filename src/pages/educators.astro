@@ -3,7 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import educatorsData from '../data/educators.json';
 import site from '../data/site.json';
 
-type Educator = (typeof educatorsData.educators)[number] & { preferredName?: string; pronouns?: string; hours?: string };
+type EducatorLink = { href: string; label: string; external?: boolean };
+type Educator = (typeof educatorsData.educators)[number] & {
+  preferredName?: string;
+  pronouns?: string;
+  hours?: string;
+  links?: EducatorLink[];
+};
 const educators = educatorsData.educators as Educator[];
 import ExternalLink from '../components/ExternalLink.astro';
 
