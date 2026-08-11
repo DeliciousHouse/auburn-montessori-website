@@ -27,6 +27,13 @@ jobs:
           echo 'Docker usage before cleanup:' || true
           docker system df || true
 
+      - name: Snapshot protected Docker state
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker ps --no-trunc --format '{{.ID}}' | sort > "${RUNNER_TEMP}/running-containers.before"
+          docker volume ls --format '{{.Name}}' | sort > "${RUNNER_TEMP}/docker-volumes.before"
+
       - name: Reclaim stale Docker artifacts
         continue-on-error: true
         shell: bash
@@ -64,3 +71,52 @@ jobs:
           df -h || true
           echo 'Docker usage after cleanup:' || true
           docker system df || true
+
+      - name: Checkout activation scripts
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Activate private node exporter
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          TAILSCALE_IP: 100.110.92.60
+        run: bash scripts/install-node-exporter.sh
+
+      - name: Verify exporter activation
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          TAILSCALE_IP: 100.110.92.60
+        run: |
+          set -euo pipefail
+          systemctl is-enabled node_exporter.service
+          systemctl is-active node_exporter.service
+          systemctl is-enabled github-actions-runner-directory-metrics.timer
+          systemctl is-active github-actions-runner-directory-metrics.timer
+
+          listeners="$(sudo ss -H -ltnp 'sport = :9100')"
+          printf '%s\n' "${listeners}"
+          local_addresses="$(printf '%s\n' "${listeners}" | awk '{ print $4 }' | sort -u)"
+          if [[ "${local_addresses}" != "${TAILSCALE_IP}:9100" ]]; then
+            printf 'port 9100 must listen only on %s; found: %s\n' \
+              "${TAILSCALE_IP}" "${local_addresses:-none}" >&2
+            exit 1
+          fi
+
+          metrics="$(curl --fail --silent "http://${TAILSCALE_IP}:9100/metrics")"
+          runner_metrics="$(printf '%s\n' "${metrics}" |
+            grep -E '^github_actions_runner_directory_bytes\{path="(_diag|_work)"\} [0-9]+$')"
+          printf '%s\n' "${runner_metrics}"
+          [[ "$(printf '%s\n' "${runner_metrics}" | wc -l)" -eq 2 ]]
+
+      - name: Verify protected Docker state
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker ps --no-trunc --format '{{.ID}}' | sort > "${RUNNER_TEMP}/running-containers.after"
+          docker volume ls --format '{{.Name}}' | sort > "${RUNNER_TEMP}/docker-volumes.after"
+          cmp "${RUNNER_TEMP}/running-containers.before" "${RUNNER_TEMP}/running-containers.after"
+          cmp "${RUNNER_TEMP}/docker-volumes.before" "${RUNNER_TEMP}/docker-volumes.after"
+          echo 'Running containers and Docker volumes are unchanged.'
