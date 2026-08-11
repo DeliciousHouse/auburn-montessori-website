@@ -1,0 +1,66 @@
+name: Runner Maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: runner-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: self-hosted
+    timeout-minutes: 20
+
+    steps:
+      - name: Before cleanup
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo 'Disk usage before cleanup:' || true
+          df -h || true
+          echo 'Docker usage before cleanup:' || true
+          docker system df || true
+
+      - name: Reclaim stale Docker artifacts
+        continue-on-error: true
+        shell: bash
+        run: |
+          docker image prune -af --filter "until=168h" || true
+          docker builder prune -af --filter "until=168h" || true
+          docker container prune -f || true
+
+      - name: Purge stale runner files
+        continue-on-error: true
+        shell: bash
+        run: |
+          runner_root="$(cd "${RUNNER_TEMP}/../.." 2>/dev/null && pwd)" || true
+          work_root="$(dirname "${RUNNER_WORKSPACE}")" || true
+
+          if [[ -n "${runner_root}" && -d "${runner_root}/_diag" ]]; then
+            find "${runner_root}/_diag" -type f -mtime +7 -delete || true
+          else
+            echo 'Runner _diag directory not found; skipping log cleanup.' || true
+          fi
+
+          if [[ -n "${work_root}" && -d "${work_root}" ]]; then
+            find "${work_root}" -mindepth 1 -maxdepth 1 -type d -mtime +7 \
+              ! -path "${RUNNER_WORKSPACE}" ! -name '_*' \
+              -exec rm -rf -- {} + || true
+          else
+            echo 'Runner _work directory not found; skipping workspace cleanup.' || true
+          fi
+
+      - name: After cleanup
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo 'Disk usage after cleanup:' || true
+          df -h || true
+          echo 'Docker usage after cleanup:' || true
+          docker system df || true
