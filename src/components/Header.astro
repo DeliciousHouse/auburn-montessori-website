@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import nav from '../data/navigation.json';
 import site from '../data/site.json';
 import ExternalLink from './ExternalLink.astro';
@@ -67,12 +67,16 @@ const secondaryNav = nav.filter((item: {href:string}) => !primaryHrefs.includes(
   <div class="container-page flex h-16 items-center justify-between gap-6">
     <!-- Logo + Wordmark -->
     <a class="flex shrink-0 items-center gap-2.5 no-underline" href="/" aria-label={`${site.shortName} home`}>
-      <Image
+      <Picture
         src={logo}
         alt=""
         width={70}
         height={70}
         densities={[1, 2]}
+        formats={['webp']}
+        fallbackFormat="jpeg"
+        quality={80}
+        pictureAttributes={{ class: 'block h-10 w-10 shrink-0' }}
         class="h-10 w-10 rounded-lg object-contain"
         loading="eager"
         decoding="async"

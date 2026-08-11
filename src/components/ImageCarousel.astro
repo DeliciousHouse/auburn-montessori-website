@@ -1,4 +1,7 @@
 ---
+import { Picture } from 'astro:assets';
+import { getRasterImage } from '../lib/rasterImages';
+
 type CarouselImage = {
   src: string;
   alt: string;
@@ -12,6 +15,7 @@ type Props = {
 };
 
 const { id, label, images } = Astro.props as Props;
+const optimizedImages = images.map((image) => ({ ...image, src: getRasterImage(image.src) }));
 ---
 
 <section class="card overflow-hidden" aria-label={label}>
@@ -24,11 +28,19 @@ const { id, label, images } = Astro.props as Props;
       aria-roledescription="carousel"
       aria-label={label}
     >
-      {images.map((img) => (
+      {optimizedImages.map((img) => (
         <figure class="media-frame ratio-3x2 relative w-[min(90vw,56rem)] shrink-0 snap-center">
-          <img
+          <Picture
             src={img.src}
             alt={img.alt}
+            width={img.src.width}
+            height={img.src.height}
+            widths={img.src.width >= 960 ? [480, 640, 960] : [320, 480, 640]}
+            sizes="min(90vw, 56rem)"
+            formats={['webp']}
+            fallbackFormat="jpeg"
+            quality={80}
+            pictureAttributes={{ class: 'block h-full w-full' }}
             class="h-full w-full object-cover"
             loading="lazy"
             decoding="async"

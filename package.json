@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "npm run check:image-fallbacks",
+    "check:image-fallbacks": "node scripts/check-image-fallbacks.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs",

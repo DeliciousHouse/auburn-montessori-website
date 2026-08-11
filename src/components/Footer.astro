@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import site from '../data/site.json';
 import nav from '../data/navigation.json';
 import ExternalLink from './ExternalLink.astro';
@@ -23,12 +23,16 @@ const legalLinks = [
     <!-- Contact -->
     <div class="stack">
       <a class="flex items-center gap-2 no-underline" href="/">
-        <Image
+        <Picture
           src={logo}
           alt=""
           width={28}
           height={28}
           densities={[1, 2]}
+          formats={['webp']}
+          fallbackFormat="jpeg"
+          quality={80}
+          pictureAttributes={{ class: 'block h-7 w-7 shrink-0' }}
           class="h-7 w-7 rounded object-contain"
           loading="lazy"
           decoding="async"
