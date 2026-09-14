@@ -28,10 +28,10 @@ output="${TEXTFILE_COLLECTOR_DIR}/github-actions-runner.prom"
 temporary="$(mktemp "${output}.tmp.XXXXXX")"
 trap 'rm -f -- "${temporary}"' EXIT
 
-printf 'github_actions_runner_directory_bytes{path="_diag"} %s\n' \
-  "$(directory_bytes "${RUNNER_ROOT}/_diag")" > "${temporary}"
-printf 'github_actions_runner_directory_bytes{path="_work"} %s\n' \
-  "$(directory_bytes "${RUNNER_ROOT}/_work")" >> "${temporary}"
+for name in _diag _work; do
+  bytes="$(directory_bytes "${RUNNER_ROOT}/${name}")"
+  printf 'github_actions_runner_directory_bytes{path="%s"} %s\n' "${name}" "${bytes}" >> "${temporary}"
+done
 chmod 0644 "${temporary}"
 mv -f -- "${temporary}" "${output}"
 trap - EXIT
