@@ -37,7 +37,7 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     <div class="container-page grid gap-8 lg:grid-cols-3">
       <div class="lg:col-span-2">
         {hasPdf ? (
-          <div>
+          <div id="calendar-preview" class="scroll-mt-40">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="section-heading">2026–2027 General School Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
@@ -52,10 +52,11 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
                 View Calendar
               </a>
             </div>
-            <div id="calendar-preview" class="mt-4 scroll-mt-40">
+            <div class="mt-4">
               <label class="flex min-h-11 items-center gap-2 text-sm">
                 <input type="checkbox" /> Enlarge calendar text (scroll to read)
               </label>
+              <p class="mb-2 text-sm" style="color: var(--color-neutral-600);">Scroll inside the preview for all five pages. When enlarged, scroll sideways too.</p>
               <div class="max-h-[75vh] overflow-auto rounded-xl border bg-white" style="border-color: var(--color-border);" tabindex="0" role="region" aria-label="All five calendar pages. Scroll to read; download the PDF for selectable text.">
                 <img src="/documents/calendar-preview.svg" alt="2026–2027 General School Calendar, pages 1–5. The original PDF is available above." width="612" height="4056" class="block h-auto w-full max-w-none" loading="lazy" />
               </div>
