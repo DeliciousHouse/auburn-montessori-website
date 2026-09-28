@@ -39,7 +39,7 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
         {hasPdf ? (
           <div>
             <div class="flex flex-wrap items-center justify-between gap-3">
-              <h2 class="section-heading">Full Calendar (PDF)</h2>
+              <h2 class="section-heading">2026–2027 General School Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
             </div>
             <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">Download the school-year calendar or open it in a new tab to view.</p>
@@ -49,7 +49,7 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
                 Download Calendar PDF
               </a>
               <a class="btn btn-outline btn-icon" href={calendar.pdfPath} target="_blank" rel="noopener noreferrer">
-                Open PDF in new tab
+                View Calendar PDF (new tab)
               </a>
             </div>
           </div>
