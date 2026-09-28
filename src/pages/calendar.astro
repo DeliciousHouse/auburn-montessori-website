@@ -42,15 +42,23 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
               <h2 class="section-heading">2026–2027 General School Calendar (PDF)</h2>
               {calendar.lastUpdated ? <span class="badge">Updated {calendar.lastUpdated}</span> : null}
             </div>
-            <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">Download the school-year calendar or open it in a new tab to view.</p>
+            <p class="mt-2 text-sm" style="color: var(--color-neutral-600);">View all five pages below, or download the original PDF.</p>
             <div class="mt-4 flex flex-wrap gap-3">
               <a class="btn btn-primary btn-icon" href={calendar.pdfPath} download>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m0 0l-5-5m5 5l5-5M5 19h14"/></svg>
                 Download Calendar PDF
               </a>
-              <a class="btn btn-outline btn-icon" href={calendar.pdfPath} target="_blank" rel="noopener noreferrer">
-                View Calendar PDF (new tab)
+              <a class="btn btn-outline btn-icon" href="#calendar-preview">
+                View Calendar
               </a>
+            </div>
+            <div id="calendar-preview" class="mt-4 scroll-mt-40">
+              <label class="flex min-h-11 items-center gap-2 text-sm">
+                <input type="checkbox" /> Enlarge calendar text (scroll to read)
+              </label>
+              <div class="max-h-[75vh] overflow-auto rounded-xl border bg-white" style="border-color: var(--color-border);" tabindex="0" role="region" aria-label="All five calendar pages. Scroll to read; download the PDF for selectable text.">
+                <img src="/documents/calendar-preview.svg" alt="2026–2027 General School Calendar, pages 1–5. The original PDF is available above." width="612" height="4056" class="block h-auto w-full max-w-none" loading="lazy" />
+              </div>
             </div>
           </div>
         ) : (
@@ -71,3 +79,7 @@ const hasKeyDates = calendar.keyDates && calendar.keyDates.length > 0;
     </div>
   </div>
 </Layout>
+
+<style>
+  #calendar-preview:has(input:checked) img { min-width: 64rem; }
+</style>
