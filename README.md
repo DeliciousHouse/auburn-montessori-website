@@ -126,12 +126,39 @@ Brightwheel links and photo source options are centralized in:
 
 PDFs live in `public/documents/` and are linked consistently throughout the site:
 
-- `public/documents/calendar.pdf` — **required for Calendar page**: place the current school-year calendar PDF here so the embed and download work.
+- `public/documents/calendar.pdf` — original downloadable calendar. Keep `calendar-preview.svg` in sync when replacing it; the preview contains all five pages, not a rewritten calendar.
 - `public/documents/parent-handbook.pdf` (embedded + downloadable)
 - `public/documents/fees-hours-2026-2027.pdf` (embedded + downloadable)
 - `public/documents/school-readiness-guidelines.pdf`
 
 Replace these files with the current-year versions as needed (keep filenames the same to avoid changing links).
+
+To regenerate the calendar preview from the original PDF (one-time asset tooling, not a site dependency), run this Python with PyMuPDF:
+
+```python
+from pathlib import Path
+from hashlib import sha256
+import re
+import pymupdf
+
+pdf = Path('public/documents/calendar.pdf')
+doc = pymupdf.open(pdf)
+height = sum(p.rect.height for p in doc) + 24 * (len(doc) - 1)
+svg = [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="612" height="{height:g}" viewBox="0 0 612 {height:g}">',
+       f'<!-- Source: calendar.pdf SHA-256 {sha256(pdf.read_bytes()).hexdigest()} -->',
+       f'<rect width="612" height="{height:g}" fill="white"/>']
+y = 0
+for i, page in enumerate(doc):
+    content = page.get_svg_image()
+    content = re.sub(r'id="([^"]+)"', rf'id="p{i}-\1"', content)
+    content = re.sub(r'(?:xlink:)?href="#([^"]+)"', rf'xlink:href="#p{i}-\1"', content)
+    content = re.sub(r'url\(#([^)]+)\)', rf'url(#p{i}-\1)', content)
+    svg.append(f'<g transform="translate(0 {y:g})">{content}</g>')
+    y += page.rect.height + 24
+Path('public/documents/calendar-preview.svg').write_text('\n'.join(svg + ['</svg>']), encoding='utf-8')
+```
+
+If the page count or dimensions change, update the preview's `width`/`height`, page-count copy, and `tests/calendar.test.mjs`. Review every page at desktop and mobile sizes before publishing.
 
 ## Images
 
