@@ -105,10 +105,7 @@ jobs:
           fi
 
           metrics="$(curl --fail --silent "http://${TAILSCALE_IP}:9100/metrics")"
-          runner_metrics="$(printf '%s\n' "${metrics}" |
-            grep -E '^github_actions_runner_directory_bytes\{path="(_diag|_work)"\} [0-9]+$')"
-          printf '%s\n' "${runner_metrics}"
-          [[ "$(printf '%s\n' "${runner_metrics}" | wc -l)" -eq 2 ]]
+          printf '%s\n' "${metrics}" | python3 scripts/verify-runner-metrics.py
 
       - name: Verify protected Docker state
         if: always()
