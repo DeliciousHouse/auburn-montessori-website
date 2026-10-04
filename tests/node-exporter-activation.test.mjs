@@ -115,7 +115,7 @@ test('activation stays pinned, private, hardened, idempotent, and observable', a
   assert.match(workflow, /systemctl is-active node_exporter/);
   assert.match(workflow, /ss -H -ltnp/);
   assert.match(workflow, /curl --fail --silent "http:\/\/\$\{TAILSCALE_IP\}:9100\/metrics"/);
-  assert.match(workflow, /github_actions_runner_directory_bytes/);
+  assert.match(workflow, /python3 scripts\/verify-runner-metrics\.py/);
   assert.doesNotMatch(
     workflow,
     /docker (?:volume|system|network) prune|docker compose (?:down|rm)|docker (?:stop|kill|rm)\b/,
