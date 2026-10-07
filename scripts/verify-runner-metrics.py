@@ -1,6 +1,6 @@
 """Validate the two runner byte gauges from a Prometheus text scrape."""
 
-import math
+from decimal import Decimal
 import re
 import sys
 
@@ -17,8 +17,8 @@ for line in sys.stdin:
     match = sample.fullmatch(line)
     if not match or match[1] in seen:
         sys.exit("Invalid or duplicate runner directory metric")
-    value = float(match[2])
-    if not math.isfinite(value) or value < 0:
+    value = Decimal(match[2])
+    if not value.is_finite() or value < 0:
         sys.exit("Runner directory bytes must be finite and nonnegative")
     seen.add(match[1])
     lines.append(line)
