@@ -14,7 +14,7 @@ const verify = (input) => spawnSync(process.platform === 'win32' ? 'python' : 'p
 test('runner metric verification accepts finite nonnegative Prometheus numbers', async () => {
   const workflow = await readFile(new URL('../.github/workflows/runner-maintenance.yml', import.meta.url), 'utf8');
   assert.match(workflow, /python3 scripts\/verify-runner-metrics\.py/);
-  for (const [diag, work] of [['2.313946e+06', '6.96764555e+08'], ['0', '11'], ['+1.5E3', '.25']]) {
+  for (const [diag, work] of [['2.313946e+06', '6.96764555e+08'], ['2.759694e+06', '6.94827299e+08'], ['0', '11'], ['+1.5E3', '.25'], ['1e-999', '1e-999'], ['-0', '-0e-999'], ['1e999', '11']]) {
     const samples = metric('_diag', diag) + metric('_work', work);
     const result = verify('# HELP unrelated comment\nnode_other 7\n' + samples);
     assert.equal(result.status, 0, result.stderr);
@@ -33,7 +33,7 @@ test('runner metric verification rejects missing, duplicate, malformed and inval
     valid.replace('path="_work"', 'path="_work'),
     valid.replace('} 11', '} 11 123'),
   ];
-  for (const value of ['-1', 'NaN', '+Inf', '-Inf', '1e999', 'abc', '1e', '0x10', '']) {
+  for (const value of ['-1', '-1e-999', 'NaN', '+Inf', '-Inf', 'abc', '1e', '0x10', '']) {
     for (const path of ['_diag', '_work']) {
       invalid.push(metric(path, value) + metric(path === '_diag' ? '_work' : '_diag', '11'));
     }
