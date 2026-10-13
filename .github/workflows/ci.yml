@@ -34,3 +34,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Build shipping image
+        run: docker build --pull --platform linux/amd64 -t ams-website:ci .
