@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
-    "lighthouse": "^13.0.3",
+    "lighthouse": "^13.5.0",
     "puppeteer": "^24.37.5",
     "typescript": "^5.9.3"
   }
