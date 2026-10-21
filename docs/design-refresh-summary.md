@@ -6,7 +6,7 @@ This document summarizes the visual and structural changes made in the AMS websi
 
 ## Global
 
-- **Typography:** Inter (body) and Fraunces (headings) loaded from Google Fonts. Heading scale and body line-height standardized.
+- **Typography:** Inter (body) and Fraunces (headings) self-hosted (WOFF2 in `public/fonts`). Heading scale and body line-height standardized.
 - **Colors:** New token set (primary, accent, surface, text, border) with legacy aliases kept. Consistent use across header, footer, buttons, cards.
 - **Spacing:** 8px rhythm (--space-*), section padding via --section-padding-y and .section / .section-alt.
 - **Buttons:** Primary, secondary, outline, ghost with hover/focus/disabled states. Clear focus ring (--color-focus).
