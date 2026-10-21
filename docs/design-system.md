@@ -29,7 +29,28 @@ Use these in `style` or in CSS. Legacy aliases (`--color-brand-primary`, `--colo
 - **Scale:** H1 clamp(1.75rem–2.5rem), H2 1.5rem, H3 1.125rem, H4 1rem.
 - **Readable width:** `--content-max` (42rem) for long-form text.
 
-Fonts are loaded from Google Fonts in `Layout.astro` (Inter + Fraunces).
+Fonts are self-hosted, not loaded from Google Fonts. The WOFF2 files live in `public/fonts/` (from the `@fontsource/inter` and `@fontsource/fraunces` packages) and are declared with `@font-face` (`font-display: swap`) at the top of `src/styles/global.css`:
+
+- Inter: 400, 500, 600, 700.
+- Fraunces: 400, 400 italic, 600, 700.
+
+`Layout.astro` preloads only `inter-latin-400-normal.woff2`. See `PERF_NOTES.md` section 4.
+
+## Logo colors (sampled)
+
+The logo's own blue and yellow are not site tokens. They were sampled from `src/assets/brand/logo.webp` (512 x 512, lossy WebP) with Pillow: the median of every pixel that is clearly blue (about 32,200 px) or clearly yellow (about 7,200 px). Because the file is lossy, treat these as approximations of the school's print colors.
+
+| Logo color | Sampled hex | Most frequent exact pixel value |
+|------------|-------------|---------------------------------|
+| Blue (emblem, lettering) | `#046DF7` | `#006DF9` |
+| Yellow (magnifying-glass ring and handle) | `#FCD607` | `#FFD703` |
+
+These are not used by the site UI (the UI uses the navy and clay tokens above); record them here so any future logo-matched artwork uses the same values.
+
+## Brand images
+
+- `src/assets/brand/logo.webp` (and the identical `public/images/brand/logo.webp`): header and footer logo. It is a 512 x 512 crop of a wider lockup, and the right edge of the wording is cut off. The uncropped original is not in this repo or the older `ams-webpage`, `ams-website` or `ams-web-v2` repos.
+- `public/images/brand/og-card.png`: 1200 x 630 social-share card used for `og:image` and `twitter:image`. It places the existing `logo.webp` unscaled on the white page background, with the school name set in Fraunces (700 and italic) in the `--color-primary`, `--color-text-muted` and `--color-accent` token colors. Nothing in it is redrawn; replace it when the full logo is supplied.
 
 ## Spacing
 

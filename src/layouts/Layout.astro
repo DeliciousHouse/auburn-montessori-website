@@ -4,7 +4,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
 import { getImage } from 'astro:assets';
-import logo from '../assets/brand/logo.webp';
 import { siteInfo } from '../config/site';
 import heroSlide1 from '../assets/hero/slide-1.webp';
 
@@ -32,7 +31,7 @@ const siteBase =
 
 const canonicalUrl = new URL(Astro.url.pathname, siteBase).toString();
 
-const ogImageUrl = new URL(logo.src, siteBase).toString();
+const ogImageUrl = new URL('/images/brand/og-card.png', siteBase).toString();
 
 const isHomePage = Astro.url.pathname === '/';
 const structuredDataList = Array.isArray(structuredData)
@@ -87,10 +86,11 @@ const heroPreloadHref = heroPreloadEntries.length
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content={String(logo.width)} />
-    <meta property="og:image:height" content={String(logo.height)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.name} />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:url" content={canonicalUrl} />
