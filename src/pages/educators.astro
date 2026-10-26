@@ -31,7 +31,7 @@ const guides = educators.filter((e) =>
 const assistantsAndSupport = educators.filter((e) =>
   e.role === 'Assistant' || e.role === 'Support Staff'
 );
-const headerRowClass = 'flex items-center gap-2 overflow-x-auto whitespace-nowrap';
+const headerRowClass = 'flex flex-wrap items-center gap-2 sm:flex-nowrap sm:overflow-x-auto sm:whitespace-nowrap';
 
 const getInitials = (name: string) =>
   (name || '')
