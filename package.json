@@ -15,7 +15,7 @@
     "perf:lighthouse:mobile": "node scripts/perf/lighthouse-mobile.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource/fraunces": "^5.2.9",
     "@fontsource/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "lighthouse": "^13.5.0",
-    "puppeteer": "^24.37.5",
+    "puppeteer": "^25.17.0",
     "typescript": "^5.9.3"
   }
 }
